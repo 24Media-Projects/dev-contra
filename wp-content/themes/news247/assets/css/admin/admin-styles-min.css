@@ -1,0 +1,56 @@
+.acf-field.custom_tablet_image_message > .acf-input::before{
+    content: "Αυτό το πεδίο χρησιμοποιείται μόνο στα Αφιερωματικά Groups.";
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* In Best of Network, hide Feeds for all roles except administrators */
+body:not(.role-administrator) .acf-field-repeater.acf-field-64008b1fcc9d5{
+    display: none;
+}
+
+
+.wp-admin.taxonomy-category #acf-term-fields,
+.wp-admin.taxonomy-category .form-field.term-description-wrap{
+    display: none;
+}
+.wp-admin.taxonomy-post_tag #acf-term-fields{
+    display: none;
+}
+
+/***** Επικαιρότητα - Πρώτο Θέμα Πάντα 2:1 *****/
+#acf-group_63fde389ceee9 [data-name="btw__group_fields__hp__template__latest_stories__featured_post_selection"] .acf-field-true-false.acf-field-63f77af1a7da1{
+    pointer-events: none;
+}
+#acf-group_63fde389ceee9 [data-name="btw__group_fields__hp__template__latest_stories__featured_post_selection"] .acf-field-true-false.acf-field-63f77af1a7da1 .acf-switch + span.message{
+    display: none;
+}
+#acf-group_63fde389ceee9 [data-name="btw__group_fields__hp__template__latest_stories__featured_post_selection"] .acf-field-true-false.acf-field-63f77af1a7da1 .acf-switch {
+    background: unset;
+    border: none;
+}
+#acf-group_63fde389ceee9 [data-name="btw__group_fields__hp__template__latest_stories__featured_post_selection"] .acf-field-true-false.acf-field-63f77af1a7da1 .acf-switch > .acf-switch-on,
+#acf-group_63fde389ceee9 [data-name="btw__group_fields__hp__template__latest_stories__featured_post_selection"] .acf-field-true-false.acf-field-63f77af1a7da1 .acf-switch > .acf-switch-slider {
+    display: none;
+}
+
+.grey_wapper {
+    background-color: #E7E1E2;
+    padding: 20px;
+}
+
+.read_also_item__thumbnail a {
+    position: relative;
+}
+
+.read_also_item__thumbnail .bg {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-size: cover;
+}
+
+
+

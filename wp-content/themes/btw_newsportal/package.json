@@ -1,0 +1,73 @@
+{
+  "name": "btw_newsportal",
+  "version": "1.0.0",
+  "scripts": {
+    "build-oembed-js": "browserify assets/js/front-end/oembed-videos/oembed-videos.bundle.js -t | uglifyjs -m reserved=['window','onYouTubeIframeAPIReady','AbstactOembedVideos','providerController','OembedVideos','oembedVideos'] > assets/js/front-end/oembed-videos/oembed-videos.min.js",
+    "build-live-search-js": "browserify assets/js/front-end/live-search/live-search.bundle.js -t | uglifyjs -m reserved=['window'] > assets/js/front-end/live-search/live-search.min.js",
+    "build-lazyloadEmbed-scripts-js": "browserify assets/js/front-end/lazy-images/lazyloadEmbed.js -t | uglifyjs -m reserved=['window'] > assets/js/front-end/lazy-images/lazyloadEmbed.min.js",
+    "build-main-scripts-js": "browserify assets/js/front-end/main-scripts/main-scripts.bundle.js -t | uglifyjs -m reserved=['window','UAParser'] > assets/js/front-end/main-scripts/main-scripts.min.js",
+    "build-keen-slider-navigation-js": "browserify assets/js/front-end/keen-slider-navigation.js -t | uglifyjs -m reserved=['window','UAParser'] > assets/js/front-end/keen-slider-navigation.min.js"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-classes": "^7.12.1",
+    "whatwg-fetch": "^3.5.0"
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "dependencies": {
+    "@babel/cli": "^7.12.7",
+    "@babel/core": "^7.12.7",
+    "@babel/preset-env": "^7.12.7",
+    "@babel/runtime": "^7.12.5",
+    "autoprefixer": "^10.2.6",
+    "babel-loader": "^9.1.3",
+    "babelify": "^10.0.0",
+    "browserify": "^17.0.0",
+    "core-js": "^3.8.0",
+    "grunt": "^1.3.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-uglify": "^5.0.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-newer": "^1.3.0",
+    "grunt-postcss": "^0.9.0",
+    "grunt-sass": "^3.1.0",
+    "keen-slider": "^6.8.5",
+    "lodash.debounce": "^4.0.8",
+    "node-sass": "^9.0.0",
+    "svgo": "^2.3.1",
+    "ua-parser-js": "^0.7.28",
+    "uglify-js": "^3.12.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "babel": {
+    "presets": [
+      [
+        "@babel/preset-env",
+        {
+          "targets": [
+            "since 2012"
+          ],
+          "debug": false,
+          "useBuiltIns": "usage",
+          "corejs": 3
+        }
+      ]
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-proposal-class-properties"
+      ],
+      [
+        "@babel/plugin-transform-classes"
+      ]
+    ]
+  }
+}

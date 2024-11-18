@@ -1,0 +1,172 @@
+.above_the_fold_section {
+    margin-bottom: 50px;
+    .magazine_above_the_fold {
+        .article {
+            margin-bottom: 0;
+        }
+        .single_article__main_image {
+            margin-left: 0;
+            margin-right: 0;
+        }
+        .article_captions {
+            > a {
+                margin-right: $mobile_gutter;
+            }   
+        }
+        .post__title {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .header_info {
+            padding-right: 20px;
+            padding-left: 20px;
+        }
+
+        &.play_article {
+            .post__title a::before {
+                display: none;
+            }
+            .bg {
+                &::after {
+                    position: absolute;
+                    content: "";
+                    background: url(../img/icons/video_play-icon.svg) no-repeat scroll center center transparent;
+                    background-size: 100% auto;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    width: 50px;
+                    height: 60px;
+                    display: block;
+                }
+
+                // &::before {
+                //     position: absolute;
+                //     content: "";
+                //     background-color: $black;
+                //     opacity: 0.05;
+                //     width: 100%;
+                //     height: 100%;
+                //     top: 0;
+                //     left: 0;
+                // }
+            }
+        }
+    }
+
+    &.half_img_article {
+        .article {
+            .header_info {
+                color: $black;
+            }
+
+            &.article_darkmode {
+                .header_info {
+                    color: $white;
+                }
+            }
+
+            &.play_article {
+                .post__title a::before {
+                    display: none;
+                }
+                .bg {
+                    &::before {
+                        position: absolute;
+                        content: "";
+                        background-color: $black;
+                        opacity: 0.05;
+                        width: 100%;
+                        height: 100%;
+                        top: 0;
+                        left: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    &:not(.half_img_article) {
+        .article_darkmode {
+            .header_info {
+                color: $black;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $min-xs) {
+    .above_the_fold_section {
+        margin-bottom: 60px;
+        .magazine_above_the_fold {
+            .header_info {
+                padding-right: 30px;
+                padding-left: 30px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $min-x) {
+    .above_the_fold_section {
+        .magazine_above_the_fold {
+            .header_info {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .post__title {
+                &:hover, 
+                a:hover * {
+                    text-decoration-color: $white;
+                }
+            }
+        }
+
+        &:not(.half_img_article) {
+            .article_darkmode {
+                .header_info {
+                    color: $white;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $min-n) {
+    .above_the_fold_section {
+        margin-bottom: 70px;
+        .magazine_above_the_fold {
+            .header_info {
+                padding-left: 30px;
+                padding-right: 10px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $min-m) {
+    .above_the_fold_section {
+        .magazine_above_the_fold {
+            .header_info {
+                padding-left: 30px;
+                padding-right: 80px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $min-xl) {
+    .above_the_fold_section {
+        margin-bottom: 100px;
+        .magazine_above_the_fold {
+            .header_info {
+                padding-left: 40px;
+                padding-right: 40px;
+            }
+        }
+    }
+}

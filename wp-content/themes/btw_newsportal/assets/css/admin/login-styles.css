@@ -1,0 +1,196 @@
+body.login {
+  height: 100vh;
+  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body #login {
+  width: 920px;
+  max-width: 100%;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  max-height: 100%;
+  overflow-y: auto;
+  left: 30px;
+  right: 30px;
+  margin: auto;
+  text-align: center;
+  padding: 0;
+}
+
+body.login div#login h1 a {
+  background-image: url('<brand_logo_url>');
+  background-size: 100% auto;
+  width: 200px;
+  max-width: 100%;
+  padding-top: 8%;
+  height: 0;
+  background-color: transparent;
+  }
+
+  body.login {
+    background-color: #ffffff;
+    border: 5px solid #000000;
+  /*  background: -moz-linear-gradient(top, #E5E1D1 0%,  #F1EFE1 100%);
+    background: -webkit-linear-gradient(top, #E5E1D1 0%,  #F1EFE1 100%);
+    background: linear-gradient(to bottom, #E5E1D1 0%,  #F1EFE1 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#E5E1D1', endColorstr='#F1EFE1',GradientType=0 );*/
+}
+
+body.login #backtoblog,
+body.login #nav,
+body.login .privacy-policy-page-link {
+  text-align: center;
+  display: inline-block;
+  max-width: 33%;
+  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0 -2px;
+  padding: 0 10px;
+  font-size: 12px;
+  width: auto;
+}
+
+body.login .privacy-policy-page-link {
+  margin: 0;
+}
+
+body.login label {
+  color: black;
+}
+
+
+body.login #backtoblog a,
+body.login #nav a,
+body.login .privacy-policy-page-link a {
+  color: #000;
+  display: inline-block;
+  border-bottom: 1px solid #000;
+  text-decoration: none;
+}
+
+body.login #backtoblog a:hover,
+body.login #nav a:hover,
+body.login .privacy-policy-page-link a:hover {
+  border-bottom-color: transparent;
+  color: #000;
+}
+
+body.login form {
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  padding: 26px 0 30px;
+  width: 320px;
+  margin: auto;
+  text-align: left;
+}
+
+body.login form .input,
+body.login form input[type="checkbox"],
+body.login input[type="text"] {
+  background-color: white;
+  color: #000;
+  /*border: none;*/
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  filter: none;
+}
+
+body.login #login_error,
+body.login .message,
+body.login .success {
+  text-align: center;
+  border: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+body.login form .forgetmenot {
+  float: none;
+}
+
+body.wp-core-ui .button.button-large {
+  background: #000;
+/*    background: -moz-linear-gradient(left, #C237EC 0%, #5A8AF4 100%);
+  background: -webkit-linear-gradient(left, #C237EC 0%, #5A8AF4 100%);
+  background: linear-gradient(to right, #C237EC 0%, #5A8AF4 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C237EC', endColorstr='#5A8AF4',GradientType=1 );*/
+  border: none;
+  padding: 5px 50px;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+  float: none;
+  display: block;
+  margin: 30px auto 0;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 767px) {
+  body.login {
+    border-width: 4px;
+  }
+
+  body #login {
+    width: 300px;
+  }
+
+  body.login div#login h1 a {
+    padding-top: 35%;
+  }
+
+  body.login form {
+    width: 100%;
+  }
+
+  body.login #backtoblog,
+  body.login #nav {
+    max-width: 50%;
+    font-size: 8px;
+  }
+
+  body.login .privacy-policy-page-link {
+    max-width: 100%;
+    width: 100%;
+    display: block;
+    margin: 30px auto 0;
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 767px) and (orientation:landscape) {
+  body #login {
+   padding: 30px 0;
+   position: static;
+   -moz-transform: none;
+   -webkit-transform: none;
+   -ms-transform: none;
+   transform: none;
+   -moz-box-sizing: border-box;
+   -webkit-box-sizing: border-box;
+   -ms-box-sizing: border-box;
+   box-sizing: border-box;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  body #login {
+    left: 20px;
+    right: 20px;
+    width: 280px;
+  }
+}

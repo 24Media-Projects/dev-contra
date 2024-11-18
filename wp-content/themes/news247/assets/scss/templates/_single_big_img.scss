@@ -1,0 +1,132 @@
+/* SINGLE ARTICLE BIG IMAGE
+----------------------------------------------------------------------*/
+
+@media screen and (min-width: $min-xs) {
+    .big_img_article {
+        .single_article__header {
+            .article_captions {
+                margin-bottom: 17px;
+            }
+
+            .article__title {
+                font-size: em(56);
+                line-height: em(60, 56);
+                letter-spacing: -0.01em;
+                margin-bottom: 9px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $min-x) {
+    .big_img_article {
+        .single_article__header {
+            max-width: 980px;
+
+            .single_article__main_image--inner {
+                img {
+                    width: 100%;
+                }
+            } 
+
+            .article__title {
+                width: 912px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .article_captions {
+                width: 912px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .reading_time {
+                right: 35px;
+            }
+        }
+
+        .glomex_featured_video {
+            .glomex-iframe-player-wrapper {
+              padding-bottom: 69% !important;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $min-n) {
+    .big_img_article {
+        .single_article__header {
+            max-width: 980px;
+
+            .article__title {
+                width: 980px;
+            }
+
+            .article_captions {
+                width: 980px;
+            }
+
+            .reading_time {
+                right: 0;
+            }
+        }
+
+        .single_article__main {
+            max-width: 600px;
+        }
+    }
+}
+
+@media screen and (min-width: $min-m) {
+    .big_img_article {
+        .single_article__header {
+            max-width: 1320px;
+
+            .article__title {
+                margin-left: 0;
+                padding-left: 33px;
+            }
+
+            .article_captions {
+                margin-left: 0;
+                padding-left: 33px;
+                margin-bottom: 19px;
+            }
+
+            .reading_time {
+                right: 35px;
+            }
+        }
+
+        .single_article__main {
+            max-width: 640px;
+        }
+
+    }
+}
+
+@media screen and (min-width: $min-m) {
+    .big_img_article {
+        .single_article__header {
+            .article__title {
+                padding-left: 0;
+            }
+
+            .article_captions {
+                padding-left: 0;
+                margin-bottom: 19px;
+            }
+
+            .reading_time {
+                right: 0;
+            }
+        }
+
+        .glomex_featured_video {
+            .glomex-iframe-player-wrapper {
+              padding-bottom: 68.25% !important;
+            }
+        }
+    }
+}

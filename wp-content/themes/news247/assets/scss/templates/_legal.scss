@@ -1,0 +1,71 @@
+.legal__wrapper {
+    padding: 0 20px;
+    padding-top: 43px;
+    padding-bottom: 100px;
+}
+
+.legal_main {
+    .section__title {
+        width: 100%;
+        text-align: center;
+        border-bottom: 4px solid $black;
+        padding-bottom: 16px;
+        margin-bottom: 35px;
+    }
+
+    .additional_info {
+        border-top: 4px solid $black;
+        padding-top: 39px;
+        margin-top: 34px;
+        line-height: em(22, 14);
+        p {
+            margin-top: 0;
+            margin-bottom: 21px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            a {
+                text-decoration: underline;
+                text-decoration-color: $red;
+                transition: text-decoration-color 300ms;
+                text-underline-offset: 3px;
+            }
+        }
+    }
+}
+
+.company_id_main {
+    .paragraph {
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: $min-xs) {
+    .legal__wrapper {
+        padding: 0;
+        padding-top: 107px;
+        padding-bottom: 150px;
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .legal_main {
+        .section__title {
+            padding-bottom: 12px;
+            margin-bottom: 45px;
+        }
+    }
+
+    .additional_info {
+        border-top: 4px solid $black;
+        padding-top: 28px;
+        margin-top: 31px;
+        line-height: em(26, 16);
+        p {
+            margin-bottom: 31px;
+        }
+    }
+}

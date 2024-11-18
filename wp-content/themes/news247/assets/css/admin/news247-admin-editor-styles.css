@@ -1,0 +1,20 @@
+.big_info{
+    padding: 20px;
+    background-color: #f5f5f5;
+    border: 2px solid black;
+    max-width: 80%;
+}
+
+.embed_code__container .embed_code_item{
+    width: 70%;
+}
+
+.wpview,
+.mce-content-body img {
+    max-width: 80%;
+}
+
+.mce-content-body .alignleft {
+    clear: both;
+    float: none;
+}

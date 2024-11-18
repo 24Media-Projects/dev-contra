@@ -1,0 +1,674 @@
+//general
+
+$base_font: $asty_book;
+
+strong {
+  font-weight: normal;
+}
+
+.xs-font,
+.s-font-bold {
+  font-size: em(13);
+  line-height: em(15, 13);
+}
+
+.xs-font {
+  font-family: $asty_book;
+}
+
+.xs-font-bold {
+  font-family: $asty_bold;
+}
+
+.s-font,
+.s-font-bold,
+.caption {
+  font-size: em(14);
+  line-height: em(16, 14);
+}
+
+.l-caption {
+  font-size: em(14);
+  line-height: em(16, 14);
+  font-family: $asty_bold;
+
+  @media screen and (min-width: $min-x) {
+    font-size: em(20);
+    line-height: em(22, 20);
+  }
+}
+
+.s-font {
+  font-family: $asty_book;
+}
+
+.s-font-bold {
+  font-family: $asty_bold;
+}
+
+//sections
+.section_description {
+  font-size: em(14);
+  line-height: em(20, 14);
+  font-family: $asty_book;
+
+  @media screen and (min-width: $min-xs) {
+    font-size: em(16);
+    line-height: em(22, 16);
+  }
+}
+
+.section_extended_description {
+  font-size: em(14);
+  line-height: em(22, 14);
+  font-family: $asty_book;
+
+  @media screen and (min-width: $min-x) {
+    font-size: em(16);
+    line-height: em(26, 16);
+  }
+}
+
+.section__title {
+  font-size: em(36);
+  line-height: em(32, 36);
+  font-family: $asty_black;
+
+  @media screen and (min-width: $min-xs) {
+    font-size: em(56);
+    line-height: em(50, 56);
+  }
+}
+
+.section-s-title {
+  font-size: em(18);
+  line-height: em(24, 18);
+  letter-spacing: -0.02em;
+  font-family: $asty_bold;
+
+  @media screen and (min-width: $min-xs) {
+    font-size: em(22);
+    line-height: em(24, 22);
+  }
+}
+
+.section_subtitle {
+  font-size: em(22);
+  line-height: em(24, 22);
+  font-family: $asty_bold;
+  letter-spacing: -0.02em;
+}
+
+//articles
+.article_main_font {
+  font-size: em(20);
+  line-height: em(22, 20);
+  font-family: $din_normal;
+}
+
+.article_s_main_font {
+  font-size: em(17);
+  line-height: em(19, 17);
+  font-family: $din_normal;
+  @media screen and (min-width: $min-xs) {
+    font-size: em(20);
+    line-height: em(22, 20);
+  }
+}
+
+.article_m_main_font {
+  font-size: em(20);
+  line-height: em(22, 20);
+  @media screen and (min-width: $min-xs) {
+    font-size: em(26);
+    line-height: em(28, 28);
+  }
+
+  @media screen and (min-width: $min-x) {
+    font-size: em(20);
+    line-height: em(22, 20);
+  }
+}
+
+.article_large_font {
+  font-size: em(43);
+  line-height: em(45, 43);
+  letter-spacing: -0.01em;
+  font-family: $din_black;
+}
+
+.article_small_title {
+  font-size: em(17);
+  line-height: em(19, 17);
+  font-family: $din_normal;
+}
+
+.article-xs-font {
+  font-size: em(13);
+  line-height: em(15, 13);
+  font-family: $asty_book;
+  color: #727272;
+}
+
+.article-s-font {
+  font-size: em(17);
+  line-height: em(19, 17);
+  font-family: $din_normal;
+}
+
+.article-s-main-title {
+  font-size: em(17);
+  line-height: em(19, 17);
+  font-family: $din_normal;
+  @media screen and (min-width: $min-xs) {
+    font-size: em(20);
+    line-height: em(22, 20);
+  }
+}
+
+.category__posts .article-s-main-title {
+  font-family: $din_black;
+}
+
+.category__widget:not(.has_featured_group) {
+  .article-s-main-title {
+    font-family: $din_black;
+  }
+}
+
+// .article-opinion-font
+.opinion_article .post__title {
+  font-size: em(26);
+  line-height: em(28, 26);
+  font-family: $din_normal;
+}
+
+.article-m-font {
+  font-size: em(26);
+  line-height: em(28, 26);
+  font-family: $din_black;
+}
+
+.l-article-s-font {
+  font-size: em(26);
+  line-height: em(28, 26);
+  font-family: $din_black;
+
+  @media screen and (min-width: $min-x) {
+    font-size: em(40);
+    line-height: em(42, 40);
+  }
+}
+
+.l-article-xl-font {
+  font-size: em(26);
+  line-height: em(28, 26);
+  font-family: $din_normal;
+  @media screen and (min-width: $min-x) {
+    font-size: em(43);
+    line-height: em(45, 43);
+    letter-spacing: -0.043em;
+  }
+}
+
+.l-article-l-font {
+  font-size: em(20);
+  line-height: em(22, 20);
+  font-family: $din_normal;
+
+  @media screen and (min-width: $min-xs) {
+    font-size: em(43);
+    line-height: em(45, 43);
+    letter-spacing: -0.01em;
+  }
+}
+
+.aricle_lead_font {
+  font-size: em(16);
+  line-height: em(20, 16);
+  font-family: $asty_book;
+}
+
+.l-article-m-font {
+  font-size: em(20);
+  line-height: em(22, 20);
+  font-family: $din_normal;
+
+  @media screen and (min-width: $min-xs) {
+    font-size: em(43);
+    line-height: em(45, 43);
+    letter-spacing: -0.01em;
+  }
+
+  @media screen and (min-width: $min-x) {
+    font-size: em(30);
+    line-height: em(34, 30);
+  }
+
+  @media screen and (min-width: $min-m) {
+    font-size: em(43);
+    line-height: em(45, 43);
+  }
+}
+
+// other
+
+.big_story_title {
+  font-size: em(34);
+  line-height: em(32, 34);
+  font-family: $din_black;
+
+  @media screen and (min-width: $min-xs) {
+    font-size: em(62);
+    line-height: em(52, 62);
+  }
+}
+
+.form_submit .btn_more_font {
+  font-size: em(14);
+  line-height: em(18, 14);
+  letter-spacing: 0.07em;
+  font-family: $asty_bold;
+}
+
+// single articles
+
+.article_lead {
+  font-size: em(24);
+  line-height: em(30, 24);
+  font-family: $din_normal;
+
+  @media screen and (min-width: $min-x) {
+    font-size: em(32);
+    line-height: em(42, 32);
+  }
+}
+
+.article__title {
+  font-family: $din_black;
+}
+
+.article__small_title {
+  font-size: em(32);
+  line-height: em(36, 32);
+  font-family: $din_black;
+
+  @media screen and (min-width: $min-xs) {
+    font-size: em(46);
+    line-height: em(50, 46);
+    letter-spacing: -0.01em;
+  }
+}
+
+.image_caption {
+  font-size: em(13);
+  line-height: em(18, 13);
+  font-family: $asty_book;
+}
+
+//paragraph
+
+.paragraph {
+  font-size: em(18);
+  line-height: em(26, 18);
+  font-family: $asty_book;
+
+  blockquote {
+    font-size: em(24, 18);
+    line-height: em(30, 24);
+    font-family: $din_normal;
+    font-weight: normal;
+
+    strong {
+      font-family: $din_black;
+    }
+  }
+
+  strong {
+    font-family: $asty_bold;
+  }
+
+  h2 {
+    font-size: em(24, 18);
+    line-height: em(28, 24);
+  }
+
+  h2 {
+    font-family: $din_black;
+    font-weight: normal;
+    strong {
+      font-family: $din_black;
+    }
+  }
+
+  h3,
+  .heading_font {
+    font-size: em(18, 18);
+    font-family: $asty_bold;
+    letter-spacing: 0.01em;
+    font-weight: normal;
+    line-height: em(22, 18);
+  }
+
+  h3 {
+    font-size: em(20, 18);
+    letter-spacing: 0;
+  }
+
+  @media screen and (min-width: $min-xs) {
+    font-size: em(20);
+    line-height: em(30, 20);
+
+    blockquote {
+      font-size: em(32, 20);
+      line-height: em(42, 32);
+    }
+
+    h2 {
+      font-size: em(32, 20);
+      line-height: em(36, 32);
+    }
+
+    .heading_font {
+      letter-spacing: 0.01em;
+    }
+  }
+}
+
+.article__lead {
+  font-family: $din_normal;
+  font-size: em(24);
+  line-height: em(30, 24);
+
+  strong {
+    font-family: $din_black;
+  }
+
+  @media screen and (min-width: $min-xs) {
+    font-size: em(32);
+    line-height: em(42, 32);
+  }
+}
+
+.seo_promo_font {
+  font-size: em(14);
+  line-height: em(22, 14);
+  font-family: $asty_book;
+
+  @media screen and (min-width: $min-x) {
+    font-size: em(16);
+    line-height: em(26, 16);
+  }
+}
+
+.suggested-article-title {
+  font-size: em(18);
+  line-height: em(22, 18);
+  letter-spacing: 0.02em;
+  font-family: $din_normal;
+
+  @media screen and (min-width: $min-x) {
+    font-size: em(20);
+    line-height: em(22, 20);
+    letter-spacing: 0.02em;
+  }
+}
+
+//magazine
+.magazine_caption {
+  font-size: em(11);
+  line-height: em(13, 11);
+  letter-spacing: 0.04em;
+  font-family: $asty_book;
+}
+
+.magazine_article_title {
+  font-size: em(34);
+  line-height: em(36, 34);
+}
+
+.font-extra-bold {
+  font-weight: $extra_bold;
+}
+
+.font-extra-light {
+  font-weight: $extra_light;
+}
+
+.font-weight-bold {
+  font-weight: $bold;
+}
+
+.mag-basic-title {
+  font-weight: $extra_light;
+}
+
+.mag-basic-title-bold {
+  font-weight: $bold;
+}
+
+.article {
+  .mag-basic-title,
+  .mag-xl-article-title,
+  .mag-l-article-title,
+  .mag-m-article-title,
+  .magazine_article_font {
+    strong {
+      font-family: $jetBrains;
+      font-weight: $extra_bold;
+    }
+  }
+}
+
+.magazine_article_font {
+  font-family: $jetBrains;
+  font-size: em(20);
+  line-height: em(22, 20);
+
+  @media screen and (min-width: $min-xs) {
+    font-size: em(22);
+    line-height: em(24, 22);
+  }
+
+  @media screen and (min-width: $min-x) {
+    font-size: em(20);
+    line-height: em(22, 20);
+  }
+
+  @media screen and (min-width: $min-m) {
+    font-size: em(22);
+    line-height: em(24, 22);
+  }
+}
+
+.mag-basic-title,
+.mag-basic-title-bold {
+  font-family: $jetBrains;
+  font-size: em(20);
+  line-height: em(22, 20);
+
+  @media screen and (min-width: $min-xs) {
+    font-size: em(24);
+    line-height: em(26, 24);
+  }
+
+  @media screen and (min-width: $min-x) {
+    font-size: em(20);
+    line-height: em(22, 20);
+  }
+
+  @media screen and (min-width: $min-n) {
+    font-size: em(22);
+    line-height: em(24, 22);
+  }
+
+  @media screen and (min-width: $min-m) {
+    font-size: em(24);
+    line-height: em(26, 24);
+  }
+
+  @media screen and (min-width: $min-xl) {
+    font-size: em(34);
+    line-height: em(36, 34);
+  }
+}
+
+.mag-xl-article-title {
+  font-family: $jetBrains;
+  font-size: em(34);
+  line-height: em(36, 34);
+  font-weight: $extra_light;
+
+  @media screen and (min-width: $min-xs) {
+    font-size: em(64);
+    line-height: em(66, 64);
+  }
+
+  @media screen and (min-width: $min-xl) {
+    font-size: em(90);
+    line-height: em(92, 90);
+  }
+}
+
+.mag-l-article-title {
+  font-family: $jetBrains;
+  font-size: em(30);
+  line-height: em(32, 30);
+  font-weight: $extra_light;
+
+  @media screen and (min-width: $min-xs) {
+    font-size: em(58);
+    line-height: em(60, 58);
+  }
+
+  @media screen and (min-width: $min-x) {
+    font-size: em(46);
+    line-height: em(48, 46);
+  }
+
+  @media screen and (min-width: $min-n) {
+    font-size: em(54);
+    line-height: em(56, 54);
+  }
+
+  @media screen and (min-width: $min-m) {
+    font-size: em(58);
+    line-height: em(60, 58);
+  }
+
+  @media screen and (min-width: $min-xl) {
+    font-size: em(78);
+    line-height: em(80, 78);
+  }
+}
+
+.mag-m-article-title {
+  font-family: $jetBrains;
+  font-size: em(30);
+  line-height: em(32, 30);
+  font-weight: $extra_light;
+
+  @media screen and (min-width: $min-xs) {
+    font-size: em(58);
+    line-height: em(60, 58);
+  }
+
+  @media screen and (min-width: $min-x) {
+    font-size: em(36);
+    line-height: em(38, 36);
+  }
+
+  @media screen and (min-width: $min-n) {
+    font-size: em(44);
+    line-height: em(46, 44);
+  }
+
+  @media screen and (min-width: $min-m) {
+    font-size: em(48);
+    line-height: em(50, 48);
+  }
+
+  @media screen and (min-width: $min-xl) {
+    font-size: em(68);
+    line-height: em(70, 68);
+  }
+}
+
+//magazine captions
+
+.mag-xs-caption {
+  font-size: em(11);
+  line-height: em(13, 11);
+  letter-spacing: 0.06em;
+}
+
+.mag-s-caption {
+  font-size: em(11);
+  line-height: em(13, 11);
+  letter-spacing: 0.06em;
+
+  @media screen and (min-width: $min-xl) {
+    font-size: em(14);
+    line-height: em(16, 14);
+  }
+}
+
+.mag-m-caption {
+  font-size: em(11);
+  line-height: em(13, 11);
+  letter-spacing: 0.06em;
+
+  @media screen and (min-width: $min-xs) {
+    font-size: em(16);
+    line-height: em(18, 16);
+  }
+
+  @media screen and (min-width: $min-x) {
+    font-size: em(14);
+    line-height: em(16, 14);
+  }
+
+  @media screen and (min-width: $min-n) {
+    font-size: em(16);
+    line-height: em(18, 16);
+  }
+
+  @media screen and (min-width: $min-xl) {
+    font-size: em(18);
+    line-height: em(20, 18);
+  }
+}
+
+.mag-l-caption {
+  font-size: em(11);
+  line-height: em(13, 11);
+  letter-spacing: 0.06em;
+
+  @media screen and (min-width: $min-xs) {
+    font-size: em(14);
+    line-height: em(16, 14);
+  }
+
+  @media screen and (min-width: $min-n) {
+    font-size: em(16);
+    line-height: em(18, 16);
+  }
+
+  @media screen and (min-width: $min-xl) {
+    font-size: em(18);
+    line-height: em(20, 18);
+  }
+}
+
+// single-video
+
+.video_article_title {
+  font-size: em(32);
+  line-height: em(36, 32);
+  font-family: $din_black;
+  @media screen and (min-width: $min-xs) {
+    font-size: em(56);
+    line-height: em(60, 56);
+    letter-spacing: em(-0.56, 56);
+  }
+}

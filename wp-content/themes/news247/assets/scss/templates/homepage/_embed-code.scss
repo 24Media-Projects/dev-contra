@@ -1,0 +1,155 @@
+.embed_codes_section {
+  position: relative;
+  .group_header {
+    margin-bottom: $mobile_gutter;
+  }
+  .dropdown_container {
+    position: relative;
+    border: 1px solid $black;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    .selected-option_container {
+      padding: 13px 14px 13px $mobile_gutter;
+      display: flex;
+      justify-content: space-between;
+      svg {
+        width: 14px;
+        height: 14px;
+        transform: rotate(90deg);
+      }
+    }
+    .dropdown-options {
+      position: absolute;
+      display: none;
+      list-style-type: none;
+      top: 100%;
+      left: -1px;
+      right: -1px;
+      border: 1px solid $black;
+      border-top: 0;
+      background-color: $white;
+      z-index: 1;
+      li {
+        border-top: 1px solid $black;
+        padding: 13px 0 13px $mobile_gutter;
+        &:hover {
+          cursor: pointer;
+          background-color: #f4f4f4;
+        }
+      }
+    }
+  }
+  .container {
+    > div {
+      display: none;
+      &.active {
+        display: block;
+      }
+    }
+  }
+  &.open_dropdown {
+    .dropdown_container {
+      svg {
+        transform: rotate(270deg);
+      }
+    }
+    .dropdown-options {
+      display: block;
+    }
+  }
+
+  @media screen and (min-width: $min-x) {
+    .group_header {
+      .section__title {
+        text-align: left;
+      }
+    }
+    .dropdown_container {
+      width: 300px;
+      margin-bottom: 6px;
+    }
+  }
+}
+
+.embed_code__full_width__wrapper {
+  > section {
+    margin-bottom: 56px;
+  }
+
+  > .pollitics_grid {
+    padding: 0 $mobile_gutter;
+  }
+
+  @media screen and (min-width: $min-xs) {
+    > section {
+      margin-bottom: 90px;
+    }
+
+    > .pollitics_grid {
+      padding: 0;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  @media screen and (min-width: $min-x) {
+    > .pollitics_grid {
+      max-width: 980px;
+    }
+  }
+
+  @media screen and (min-width: $min-m) {
+    > .pollitics_grid {
+      max-width: 1320px;
+    }
+  }
+}
+
+.embed_code__wrapper {
+
+  section.embed_code {
+    margin-bottom: 56px;
+    &.with_bg_color {
+      padding-top: 44px;
+      padding-bottom: 40px;
+    }
+  }
+
+  @media screen and (min-width: $min-xs) {
+    section.embed_code {
+      margin-bottom: 90px;
+      &.with_bg_color {
+        padding-top: 57px;
+      }
+    }
+  }
+
+}
+
+
+
+//Styles for embed_codes page
+
+body.page-template-single-embed_code-php {
+  .legal__wrapper {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @media screen and (min-width: $min-xs) {
+    .legal__wrapper {
+      max-width: 100%;
+    }
+  }
+
+  @media screen and (min-width: $min-m) {
+    .legal__wrapper {
+      .section__title {
+        margin: 0;
+      }
+    }
+  }
+}

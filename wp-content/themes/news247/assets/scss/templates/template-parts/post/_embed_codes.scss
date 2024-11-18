@@ -1,0 +1,47 @@
+/* MODULE - EMBEDS
+----------------------------------------------------------------------*/
+
+.paragraph {
+	.embed_code__container {
+		.twitter-tweet {
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		// &.provider_facebook {
+		// 	iframe {
+		// 		width: auto;
+		// 	}
+		// }
+
+		&.provider_instagram {
+			.instagram-media {
+				max-width: 100% !important;
+			}
+		}
+
+		&.provider_youtube {
+			.embed_code_item__content {
+				position: relative;
+				padding-top: 56.25%;
+			}
+
+			iframe {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+		}
+
+		&.provider_giphy {
+			.embed_code_item__content {
+				> div  {
+					margin-left: auto;
+					margin-right: auto;
+				}
+			}
+		}
+	}
+}

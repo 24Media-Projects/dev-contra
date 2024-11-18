@@ -1,0 +1,354 @@
+.home_magazine_section {
+    .group_header {
+        padding-bottom: 0 !important;
+
+        .section__title {
+            border-bottom: none;
+            padding-bottom: 0 !important;
+        }
+    }
+
+    &.with_sponsor_logo {
+        .group_header {
+            margin-bottom: 20px;
+        }
+    }
+
+    .article_captions {
+        a {
+            // text-decoration: underline 1px transparent;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-decoration-color: transparent;
+            text-underline-offset: 2px;
+            -webkit-text-decoration: underline;
+            -webkit-text-decoration-thickness: 1px;
+            -webkit-text-decoration-color: transparent;
+            -webkit-text-underline-offset: 2px;
+            // @include transition(text-decoration-color 0.3s ease-in-out);
+
+            &:hover {
+                text-decoration-color: $black;
+                -webkit-text-decoration-color: $black;
+            }
+        }
+    }
+
+    article {
+        &.active {
+            .post__image {
+                display: block;
+            }
+        }
+    }
+
+    &.section_darkmode {
+        .article_captions {
+            a {
+                &:hover {
+                    text-decoration-color: $white;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: em(1023)) {
+    .the_magazine__wrapper {
+        .home_wrapper {
+            padding-left: 0;
+            padding-right: 0;
+            max-width: 100%;
+            width: 100%;
+        }
+    }
+}
+
+.home_magazine_section {
+    padding-top: 44px;
+    padding-bottom: 40px;
+    margin-bottom: 36px;
+
+    .group_header {
+        border: none !important;
+        .section__title {
+            font-family: $jetBrains;
+            font-weight: $extra_bold;
+        }
+    }
+
+    .article {
+        margin-bottom: 0;
+        figure {
+            margin-bottom: 20px;
+            .bg {
+                position: relative;
+                background-repeat: no-repeat;
+                background-size: cover;
+                padding-top: 100%;
+                background-color: grey;
+            }
+        }
+
+        .post__content {
+            padding: 0 20px;
+            flex-direction: column-reverse;
+            position: relative;
+
+            .post__title {
+                margin-top: 0;
+                margin-bottom: 30px;
+            }
+
+            .article_captions {
+                > * {
+                    display: block;
+                }
+
+                .post__author {
+                    margin-top: 7px;
+                }
+            }
+
+            .magazine_sponsor_logo {
+                position: absolute;
+                right: 20px;
+                bottom: 0;
+                width: 40%;
+                height: 40px;
+
+                a,
+                img {
+                    width: inherit;
+                    height: inherit;
+                    width: auto;
+                    display: block;
+                    margin: 0 auto;
+                    margin-right: 0;
+                }
+
+                a {
+                
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $max-xs) {
+    .home_magazine_section {
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-bottom: 55px;
+
+        &.section_darkmode {
+            padding-top: 44px;
+            padding-bottom: 40px;
+        }
+    }
+
+    #magazine .keen-slider__slide {
+        padding-right: 15px;
+        // width: calc(100% - 15px);
+        min-width: calc(100% - 15px) ;
+        max-width: calc(100% - 15px) ;
+    }
+
+}
+
+@media screen and (min-width: $min-xs) {
+    .home_magazine_section {
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-bottom: 90px;
+        border: none !important;
+
+        &.section_darkmode {
+            padding-top: 57px;
+            padding-bottom: 70px;
+        }
+
+        .article {
+            figure {
+                margin-bottom: 22px;
+                .bg {
+                    padding-top: 66.7%;
+                }
+            }
+
+            .post__content {
+                padding: 0 64px;
+
+                .post__title {
+                    margin-bottom: 36px;
+                    min-height: em(53, 22);
+                }
+
+                .article_captions {
+                    .post__author {
+                        margin-top: 6px;
+                    }
+                }
+
+                .magazine_sponsor_logo {
+                    // width: 50px;
+                    height: 50px;
+                    right: 64px;
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width: $min-xs) and (max-width: $max-x) {
+    #magazine .keen-slider__slide {
+        padding-right: 25px;
+        // width: calc(100% - 25px);
+        min-width: calc(100% - 25px) ;
+        max-width: calc(100% - 25px) ;
+    }
+}
+
+@media screen and (min-width: $min-x) {
+    .home_magazine_section {
+        &.with_sponsor_logo {
+            .section__title a {
+                margin-bottom: -3px;
+            }
+        }
+
+        .article_container {
+            position: relative;
+            padding-top: 438px;
+        }
+
+        .article {
+            position: static;
+            &:first-of-type {
+                padding-right: 19px;
+                figure {
+                    display: block;
+
+                    .bg {
+                        background-color: lightblue;
+                    }
+                }
+            }
+
+            &:nth-of-type(2) {
+                border-left: 1px solid $border_grey;
+                border-right: 1px solid $border_grey;
+                padding-left: 20px;
+                padding-right: 18px;
+
+                figure {
+                    .bg {
+                        background-color: purple;
+                    }
+                }
+            }
+
+            &:nth-of-type(3) {
+                padding-left: 20px;
+            }
+
+            &.active {
+                .post__content {
+                    position: relative;
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 320px;
+                        height: 8px;
+                        background-color: $red;
+                    }
+                }
+
+                &:nth-of-type(2),
+                &:nth-of-type(3) {
+                    .post__content {
+                        &::before {
+                            width: 334px;
+                            left: -20px;
+                        }
+                    }
+                }
+            }
+
+            figure {
+                display: none;
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                margin-bottom: 0;
+                .bg {
+                    padding-top: 44.7%;
+                }
+            }
+
+            .post__content {
+                padding: 0;
+                padding-left: 0;
+                padding-top: 24px;
+
+                .post__title {
+                    margin-bottom: 31px;
+                    min-height: em(70, 20);
+                }
+
+                .magazine_sponsor_logo {
+                    width: 45%;
+                    height: 48px;
+                    right: 0;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $min-m) {
+    .home_magazine_section {
+        .article_container {
+            padding-top: 590px;
+        }
+
+        .article {
+            &:first-of-type {
+                padding-right: 19px;
+            }
+
+            &.active {
+                .post__content {
+                    &::before {
+                        width: 440px;
+                    }
+                }
+
+                &:nth-of-type(2),
+                &:nth-of-type(3) {
+                    .post__content {
+                        &::before {
+                            width: 447px;
+                        }
+                    }
+                }
+            }
+
+            .post__content {
+                .post__title {
+                    margin-bottom: 31px;
+                    min-height: em(77, 22);
+                }
+
+                .magazine_sponsor_logo {
+                    width: 55%;
+                    height: 60px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,134 @@
+
+/* MODULE - READ ALSO - ΓΝΩΜΗ
+----------------------------------------------------------------------*/
+.paragraph,
+.single_article__main .paragraph {
+	.read_also__container {
+
+		&.opinion {
+			.read_also__title {
+				margin-bottom: 0;
+			}
+
+			.read_also_item {
+				display: flex;
+				justify-content: space-between;
+				flex-direction: column;
+				min-height: 300px;
+				background-color: $beige;
+				padding: 13px 15px 0;
+				&__caption{
+					margin-bottom: 9px;
+				}
+			}
+
+			.read_also_item__thumbnail {
+				order: 2;
+				margin-bottom: 0;
+				width: 210px;
+ 				align-self: flex-end;
+				margin-right: -32px;
+
+				.bg {
+					padding-top: 66.67%;
+					background-repeat: no-repeat;
+					background-size: cover;
+				}
+			}
+
+			.read_also_item__title {
+				font-size: 26px;
+				line-height: em(28,26);
+			}
+		}
+	}
+}
+
+
+.single_darkmode {
+	.read_also__container.opinion {
+	    .read_also_item__content {
+	    	color: $black;
+	    	
+	        a {
+	            &:hover {
+	               text-decoration-color: $black;
+	                -webkit-text-decoration-color: $black;
+	            }
+	        }
+	    }
+	}
+}
+
+
+
+@media screen and (min-width: $min-xs) {
+    .paragraph,
+    .single_article__main .paragraph {
+        .read_also__container {
+        	&.opinion {
+        		padding-bottom: 0;
+        		border-bottom: none;
+
+            	.read_also_item {
+            		min-height: 214px;
+					flex-direction: row;
+					position: relative;
+				}
+
+				.read_also_item__thumbnail {
+					position: absolute;
+					right: 0;
+					bottom: 0;
+					margin-right: 0px;
+				}
+				.read_also_item__content{
+					padding-top: 0;
+					width: 420px;
+				}
+			}
+        }
+    }    
+}
+
+@media screen and (min-width: $min-x) { 
+	.paragraph, 
+    .single_article__main .paragraph {
+        .read_also__container {
+			&.opinion {
+				.read_also_item {
+            		min-height: 194px;
+            	}
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $min-n) {
+    .paragraph, 
+    .single_article__main .paragraph {
+        .read_also__container {
+			&.opinion {
+
+				.read_also_item__content{
+					@media screen and (max-width: em(1349)){
+						width: 380px;
+					}
+				}
+			}  
+        }
+    }
+}
+
+@media screen and (min-width: $min-l) {
+    .paragraph,
+    .single_article__main .paragraph {
+        .read_also__container {
+            
+        }
+    }
+}
+
+
+
+

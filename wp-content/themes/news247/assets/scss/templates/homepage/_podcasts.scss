@@ -1,0 +1,223 @@
+.podcast_section, 
+.videos_section {
+    .article {
+        padding: 0 10px;
+        min-width: 320px;
+        max-width: 320px;
+    }
+
+    .keen-slider {
+        margin: 0 -10px;
+    }
+}
+
+
+.podcast_section {
+    .article {
+        width: 300px;
+        // height: 300px;
+        margin: 0 20px;
+    }
+    @media screen and (min-width: $min-x) {
+        .carusel_container {
+            overflow: hidden;
+        }
+        .article:after {
+            content: "";
+            position: absolute;
+            right: 0;
+            width: 1px;
+            height: 100%;
+            background-color: $light_grey;
+        }
+    }
+}
+
+
+@media screen and (max-width: $max-xs) {
+    .videos_section {
+        .article.landscape_img.overlay_article {
+            .post_img {
+                padding-top: 100%;
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width: $min-xs) {
+    .podcast_section, 
+    .videos_section {
+        .carusel_container {
+            width: calc((100vw - 640px)/2 + 640px);
+        }
+
+        .article {
+            padding: 0 10px;
+        }
+    }
+
+    .podcast_section {
+        .article {
+            padding: 0 10px;
+            min-width: 320px;
+            max-width: 320px;
+        }
+    }
+
+    .videos_section { 
+        .article.landscape_img {
+
+            &.play_article {
+                .post__title {
+                    a:before {
+                        width: 16px;
+                        height: 18px;
+                    }
+                }
+            }
+
+            
+            .post__content {
+                .post__title {
+                    font-size: em(26);
+                    line-height: em(28,26);
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width: $min-xs) and (max-width: $max-x) {
+    .podcast_section, 
+    .videos_section {
+        .carusel_container {
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+            // width: 100vw !important;
+            // margin-left: calc(0px - ((100vw - 640px)/2));
+
+            .carusel_container__slider {
+                // padding-left: calc((100vw - 640px)/2);
+                margin: 0 -10px;
+            }
+        }
+    }
+
+    // .videos__wrapper {
+    //     max-width: 100%;
+
+    //     .group_header {
+    //         max-width: 640px;
+    //         margin-left: auto;
+    //         margin-right: auto;
+    //     }
+    // }
+
+    .videos_section {
+        .article {
+            &:first-of-type {
+                min-width: 640px !important;
+                max-width: 640px !important;
+            }
+
+
+            &.landscape_img {
+                .post_img {
+                    padding-top: 48.4%;
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width: $min-x) {
+    .podcast_section,
+    .videos_section { 
+        .keen-slider {
+            margin: 0 -20px;
+        }
+
+        .article {
+            position: relative;
+            padding: 0 20px;
+            min-width: 340px;
+            max-width: 340px;
+        }
+    }
+
+
+    .podcast_section {
+        .carusel_container {
+            width: 100%;
+        }
+
+        // .article {
+        //     position: relative;
+        //     padding: 0 20px;
+        //     min-width: 340px;
+        //     max-width: 340px;
+        // }
+    }
+
+    .videos_section {
+        .carusel_container {
+            overflow: hidden;
+             width: 100%;
+        }
+
+        .article {
+            position: relative;
+            padding: 0 20px;
+
+            &::after {
+                content: "";
+                position: absolute;
+                background-color: $light_grey;
+                width: 1px;
+                height: 100%;
+                top: 0;
+                right: 0;
+            }
+
+             &.landscape_img {
+                .post_img {
+                    max-height: 300px;
+                }
+            }
+            .post__content {
+                padding-right: 35px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: $max-xs) {
+    .section_carousel {
+        .article-s-main-title {
+            font-size: em(20);
+            line-height: em(22, 20);
+        }
+    }
+}
+
+
+@media screen and (min-width:$min-m) {
+    .podcast_section, 
+    .videos_section {
+        .carusel_container {
+            .article {
+                figure {
+                    height: 300px;
+                    a {
+                        height: inherit;
+                    }
+                }   
+                
+            }
+        }
+    }
+}

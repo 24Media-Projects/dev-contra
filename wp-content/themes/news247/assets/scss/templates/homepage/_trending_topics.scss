@@ -1,0 +1,127 @@
+/* -------------------------------------------------------------------------------------------------
+    GROUP: TRENDING
+---------------------------------------------------------------------------------------------------- */
+.trending_topics__wrapper {
+    display: none;
+}
+
+.trending_topics {
+    display: block;
+    border-top: 4px solid $black;
+    border-bottom: 1px solid $black;
+    scrollbar-width: none;
+    margin-bottom: 40px !important;
+
+    .keen-slider__slide{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // flex: 1 1 auto;
+        // flex-shrink: 0;
+        width: auto;
+        white-space: nowrap;
+
+        // > a,
+        // > span{
+        //     display: block;
+        // }
+    }
+
+    .carusel_container {
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .trending_topics_title,
+    .trending_hashtag {
+        font-family: $asty_bold;
+        font-size: em(14);
+        line-height: em(16, 14);
+    }
+
+
+    .trending_topics_title {
+        color: $red;
+        padding-left: 27px;
+        position: relative;
+        white-space: nowrap;
+
+        &::before {
+            content: "";
+            position: absolute;
+            background-image: url("../img/icons/icon-trending-arrow.svg");
+            left: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto 0;
+            width: 17px;
+            height: 10px;
+        }
+    }
+
+    ul {
+        padding: 18px 0;
+
+        li {
+            width: auto !important;
+            overflow: unset;
+
+            a {
+                text-decoration: 1px underline transparent;
+                transition: text-decoration-color 300ms;
+                text-underline-offset: 3px;
+                &:hover {
+                  text-decoration-color: $black;
+                  text-decoration-line: underline;
+                }
+            }
+        }
+    }
+
+    ::-webkit-scrollbar {
+      height: 0;
+    }
+
+    ::-webkit-scrollbar-track-piece {
+      background-color: $white;
+    }
+
+    ::-webkit-scrollbar-thumb:vertical {
+      height: 0;
+      background-color: $white;
+    }
+}
+
+
+
+
+
+
+// .trending_topics {
+//     display: flex;
+//     margin-bottom: 40px !important;
+//     scrollbar-width: none;
+
+
+//     ul {
+//         list-style: none;
+//         padding-left: 0;
+//         padding: 18px 0;
+//         margin: 0;
+//         word-wrap: initial;
+//         white-space: nowrap;
+//         width: 100%;
+
+//         li {
+//             display: inline-block;
+//             margin-right: 20px;
+//             width: fit-content;
+//         }
+//     }
+// }
+
+@media screen and (min-width: $min-xs) {
+    .trending_topics__wrapper {
+        display: block;
+    }
+}

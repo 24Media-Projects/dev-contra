@@ -1,0 +1,54 @@
+.pdfemb-mob-close-modal {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999999999;
+  cursor: pointer;
+  svg {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+@media screen and (max-width: $max-xs) {
+  .pdfemb-inner-div-wantmobile-fswrap.pdfemb-wantmobile {
+    padding: 0 39px;
+    z-index: 99;
+    .pdfemb-wantmobile-fsarea {
+      font-size: em(14, 18);
+      font-family: $asty_bold;
+      line-height: em(18, 14);
+      letter-spacing: em(0.7, 14);
+      color: $black;
+      background-color: transparent;
+      border: none;
+      padding: 16px 40px;
+      height: auto;
+      display: block;
+      max-height: unset;
+      border-radius: unset;
+      width: 100%;
+      box-shadow: unset;
+      margin-top: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      &:hover {
+        &:before {
+          color: $red;
+        }
+      }
+      &:before {
+        content: "ΔΕΙΤΕ ΤΟ ΑΡΧΕΙΟ";
+        position: absolute;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: $white;
+        border: 1px solid $black;
+      }
+    }
+  }
+}

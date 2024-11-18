@@ -1,0 +1,116 @@
+/*--------------------------------------------------------------------------------------------------
+  MODULE: YOP POLLS
+----------------------------------------------------------------------------------------------------*/
+.basic-yop-poll-container {
+    margin-bottom: 30px!important;
+    .basic-form {
+      .basic-vote {
+        text-align: center;
+        margin-right: 0;
+        .basic-vote-button,
+        .basic-back-to-vote-button {
+          margin: 0 auto;
+        }
+      }
+  
+      .basic-question-title,
+      .basic-question-title h5 {
+        font-family: $asty_bold;
+        font-size: 22px;
+      }
+  
+      .basic-question-title h5 {
+        padding-top: 22px;
+      }
+  
+      ul.basic-answers {
+        margin: 40px auto 30px;
+        width: 90%;
+  
+        li.basic-answer {
+          margin: 0 0 22px;
+  
+          &:before {
+            display: none;
+          }
+        }
+      }
+  
+      .basic-answer-content,
+      .progress {
+        padding-left: 30px;
+      }
+  
+      .basic-answer-label {
+        position: relative;
+        padding-left: 30px;
+        // font-family: $asty_bold;
+        font-family: $asty_medium;
+  
+        .iradio_square,
+        input[type="radio"] {
+          background-position: -144px 0;
+          margin-left: -30px;
+  
+          &.checked {
+            background-position: -168px 0;
+          }
+        }
+  
+        .basic-text,
+        .basic-media-text {
+          letter-spacing: 0;
+          position: relative;
+          cursor: pointer;
+          line-height: 1.2em;
+        }
+      }
+  
+      .basic-vote {
+        margin-bottom: 19px !important;
+  
+        .basic-vote-button,
+        .basic-back-to-vote-button {
+          @include transition(none !important);
+          padding-top: 6px !important;
+          padding-bottom: 6px !important;
+          font-family: $asty_bold !important;
+  
+          &:hover {
+            background-color: $white !important;
+            color: $black !important;
+          }
+        }
+      }
+    }
+  
+    .basic-inner {
+      .basic-message {
+        border-left: none !important;
+        background-color: transparent;
+  
+        p {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
+  }
+  
+  .basic-yop-poll-container .basic-overlay {
+    z-index: 10 !important;
+  }
+  
+  @media screen and (max-width: em(767)) {
+    .basic-yop-poll-container {
+      margin-bottom: 27px!important;
+      .basic-form .basic-answer-label {
+        padding-left: 0;
+      }
+    }
+  
+    .basic-answer-content.basic-columns-video amp-iframe {
+      min-height: 150px;
+    }
+  }
+  

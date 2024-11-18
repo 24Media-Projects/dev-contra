@@ -1,0 +1,14 @@
+@media screen and (min-width: $min-x) {
+    .three_articles_grid {
+        display: flex;
+        flex-wrap: wrap;
+
+        .article {
+            width: 33.33%;
+        }
+
+        .ads_element {
+            flex: 1 0 100%;
+        }
+    }
+}

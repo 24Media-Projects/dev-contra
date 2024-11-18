@@ -1,0 +1,269 @@
+//---------------------------------------------------------------------
+/* HAPPENS NOW
+----------------------------------------------------------------------*/
+.home_wrapper > section.happening_now_section {
+    margin-bottom: 0;
+}
+
+.happening_now_section {
+    padding-top: 13px;
+    padding-bottom: 10px;
+
+
+
+    .article {
+        margin-bottom: 2px;
+    }
+
+    .happening_now_title {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+
+    .happening_now_article {
+        .post__title {
+            text-align: center;
+        }
+    }
+
+    .carusel_container {
+        .dots {
+            width: fit-content;
+            margin: 0 auto;
+        }
+        li {
+            margin: 0 5px;
+
+            &:first-child {
+                margin-left: 0;
+            }
+
+            > button {
+                padding: 4px;
+                background-color: #e7e2e1;
+
+                &.dot__active {
+                    background-color: $red;
+                }
+            }
+        }
+
+        .arrows_container,
+        .pagination_tracking {
+            display: none;
+        }
+    }
+}
+
+@media screen and (min-width: $min-xs) {
+    .happening_now_section {
+        padding-top: 23px;
+        padding-bottom: 19px;
+
+        .article {
+            margin-bottom: 1px;
+        }
+    }
+}
+
+@media screen and (min-width: $min-xs) and (max-width: $max-x) {
+    .happening_now_section .carusel_container .dots {
+        padding-top: 8px;
+    }
+}
+
+@media screen and (min-width: $min-x) {
+    .happening_now_section {
+        padding-top: 16px;
+        padding-bottom: 14px;
+        position: relative;
+        padding-left: 287px;
+        border-bottom: 1px solid $off_black;
+        margin-bottom: 35px !important;
+
+        .happening_now_title {
+            text-align: left;
+        }
+
+        .article {
+            margin-bottom: 0;
+
+            .post__title {
+                text-align: left;
+                margin-left: 0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-right: 20px;
+            }
+        }
+
+        .happening_now_title {
+            text-align: left;
+            margin-bottom: 0;
+            width: fit-content;
+            position: absolute;
+            left: 147px;
+            top: 18px;
+
+            &::after {
+                content: "";
+                position: absolute;
+                right: -16px;
+                top: -2px;
+                width: 1px;
+                height: 20px;
+                border-left: 1px solid $black;
+            }
+        }
+
+        .carusel_container {
+            width: 542px;
+            .dots {
+                width: fit-content;
+                margin: 0 auto;
+                position: absolute;
+                right: 100px;
+                top: 12px;
+
+
+
+                top: 0;
+                height: 13px;
+                bottom: 0;
+                margin: auto;
+                line-height: 10px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            li {
+                margin: 0 5px;
+                margin-right: 5px !important;
+                > button {
+                    padding: 2.5px;
+                }
+            }
+
+            .arrows_container {
+                display: block;
+
+                .arrow {
+                    position: absolute;
+                    // right: 26px;
+                    // top: 13px;
+                    top: -3px;
+                    
+                    &.arrow__disabled{
+                        svg{
+                            color: #cccccc;
+                        }
+                    }
+
+                    &:before, 
+                    .icon_arrow {
+                        content: "";
+                        position: absolute;
+                        // background-image: url("../img/icons/icon-slide-arrow.svg");
+                        left: -4px;
+                        top: 0;
+                        bottom: 0;
+                        margin: auto 0;
+                        width: 15px;
+                        height: 17px;
+                        border: none;
+                        background-size: auto;
+                        background-repeat: no-repeat;
+                        background-position: center;
+                    }
+
+                    .icon_arrow { 
+                        position: relative !important;
+                        color: $red;
+                        fill: $red;
+                        top: 5px;
+                    }
+
+                    &.arrow__right {
+                        right: 12px;
+                    }
+
+                    &.arrow__left {
+                        // right: 69px;
+                        // top: 12px;
+                        right: 61px;
+                        // top: 0;
+
+                        &::before,
+                        .icon_arrow  {
+                            transform: rotate(180deg);
+                        }
+
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            // right: -31px;
+                            // top: -25px;
+                            right: -14px;
+                            top: -12px;
+                            width: 1px;
+                            height: 50px;
+                            border-left: 1px solid $off_black;
+                        }
+                    }
+                    &:not(.arrow__disabled):hover {
+                        svg {
+                            color: $black;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media screen and (min-width: $min-x) and (max-width: 1349px) {
+    .happening_now_section .carusel_container {
+        padding-left: 10px;
+    }
+}
+
+
+@media screen and (min-width: $min-m) {
+    .happening_now_section {
+        padding-bottom: 13px;
+        padding-left: 400px;
+        border-bottom: 1px solid $black;
+        margin-bottom: 32px !important;
+
+        .post__title {
+            text-align: left;
+        }
+
+        .happening_now_title {
+            left: 254px;
+            top: 18px;
+        }
+
+        .carusel_container {
+            width: 750px;
+
+            .dots {
+                top: 2px;
+            }
+
+            // .arrows_container {
+            //     .arrow {
+            //         &.arrow__left {
+            //             &::after {
+            //                 top: -26px;
+            //             }
+            //         }
+            //     }
+            // }
+        }
+    }
+}

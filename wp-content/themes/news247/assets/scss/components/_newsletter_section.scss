@@ -1,0 +1,216 @@
+/* MODULE - NEWSLETTER FORM SECTION
+----------------------------------------------------------------------*/
+
+.newsletter_section {
+    margin-top: 97px;
+    border: 15px solid $beige;
+    padding: 19px 24px 32px;
+
+    .section_supertitle {
+        display: none;
+    }
+
+    .section_title {
+        font-family: $din_black;
+        font-size: em(32);
+        line-height: em(36, 32);
+        text-align: center;
+        margin-bottom: 5px;
+        margin-top: 0;
+    }
+
+    .newsletter_content {
+        font-family: $asty_book;
+        font-size: em(14);
+        line-height: em(18, 14);
+        text-align: center;
+        margin: auto;
+        margin-bottom: 4px;
+        margin-top: 0;
+        max-width: 91%;
+    }
+
+    .subscription_form__area {
+        #mc_embed_signup #mce-EMAIL {
+            border: 1px solid $border_grey;
+        }
+
+        #mc_embed_signup #mc-embedded-subscribe {
+            margin-bottom: 19px;
+        }
+
+        .content__gdpr .mc_fieldset .checkbox.subfield {
+            span {
+                font-size: em(10);
+                line-height: em(12, 10);
+            }
+            label {
+                border: 1px solid $border_grey;
+            }
+        }
+    }
+}
+
+.post-template-single-magazine {
+    .newsletter_section {
+        margin-top: 60px;
+        padding-top: 30px;
+        padding-bottom: 28px;
+
+        .section_supertitle {
+            display: block;
+            font-family: $jetBrains;
+            font-weight: $extra_bold;
+            font-size: em(36);
+            line-height: em(26, 36);
+            text-align: center;
+            padding-bottom: 22px;
+            margin-bottom: 11px;
+            position: relative;
+            margin-left: -10px;
+            margin-right: -10px;
+
+            &::after {
+                content: "";
+                position: absolute;
+                width: 80px;
+                height: 1px;
+                background-color: $black;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+            }
+        }
+
+        .section_title {
+            font-family: $asty_bold;
+            margin-bottom: 11px;
+        }
+    }
+}
+
+.post-template-single-magazine {
+    .newsletter_section {
+        margin-top: 60px;
+        padding-top: 30px;
+        padding-bottom: 28px;
+
+        .section_supertitle {
+            display: block;
+            font-family: $jetBrains;
+            font-weight: $extra_bold;
+            font-size: em(36);
+            line-height: em(26, 36);
+            text-align: center;
+            padding-bottom: 22px;
+            margin-bottom: 11px;
+            position: relative;
+            margin-left: -10px;
+            margin-right: -10px;
+
+            &::after {
+                content: "";
+                position: absolute;
+                width: 80px;
+                height: 1px;
+                background-color: $black;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+            }
+        }
+
+        .section_title {
+            font-family: $asty_bold;
+            margin-bottom: 11px;
+        }
+    }
+}
+
+@media screen and (min-width: $min-xs) {
+    .newsletter_section {
+        margin-top: 99px;
+
+        padding: 20px 36px 25px;
+
+        .section_title {
+            margin-bottom: 5px;
+        }
+
+        .newsletter_content {
+            font-size: em(16);
+            line-height: em(20, 16);
+            margin-bottom: 16px;
+            max-width: 100%;
+        }
+
+        .subscription_form__area {
+            padding-top: 0;
+
+            #mc_embed_signup #mce-EMAIL {
+                width: 340px;
+            }
+
+            #mc_embed_signup #mc-embedded-subscribe {
+                width: 200px;
+                margin-bottom: 0;
+            }
+
+            .checkbox.subfield {
+                margin-top: 19px;
+            }
+        }
+    }
+
+    .post-template-single-magazine {
+        .newsletter_section {
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 26px;
+
+            .section_supertitle {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .section_title {
+                margin-bottom: 6px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $min-n) {
+    .newsletter_section {
+        .subscription_form__area {
+            #mc_embed_signup #mce-EMAIL {
+                width: 300px;
+            }
+        }
+    }
+
+    .post-template-single-magazine {
+        .newsletter_section {
+            margin-top: 70px;
+        }
+    }
+}
+
+@media screen and (min-width: $min-m) {
+    .newsletter_section {
+        .subscription_form__area {
+            #mc_embed_signup #mce-EMAIL {
+                width: 340px;
+            }
+        }
+    }
+
+    .post-template-single-magazine {
+        .newsletter_section {
+            margin-top: 100px;
+        }
+    }
+}

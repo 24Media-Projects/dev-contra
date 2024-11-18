@@ -1,0 +1,101 @@
+.post-template-default.single-post {
+  .newsletter_section {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  .taboola_posts_container {
+    padding-bottom: 150px;
+  }
+  @media screen and (max-width: $max-xs) {
+    .newsletter_section__container {
+      background-color: unset !important;
+      margin-left: 20px;
+      margin-right: 20px;
+      padding-bottom: 100px;
+    }
+    .ads_element.article_end {
+      margin-bottom: 100px;
+    }
+    .taboola_posts_container {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+
+  @media screen and (min-width: $min-xs) {
+    .single_wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+    .single_article {
+      padding-bottom: 0;
+    }
+    .single_article_container {
+      order: 1;
+    }
+    .newsletter_section__container {
+      order: 2;
+      padding-top: 100px;
+      padding-bottom: 150px;
+    }
+    .newsletter_section {
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .article_end {
+      order: 3;
+    }
+    .popular_articles__wrapper {
+      order: 4;
+    }
+    .taboola_posts_container {
+      max-width: 640px;
+      margin: 0 auto;
+      order: 5;
+    }
+  }
+  @media screen and (min-width: $min-x) {
+    .taboola_posts_container {
+      max-width: 980px;
+    }
+  }
+  @media screen and (min-width: $min-n) {
+    .newsletter_section {
+      max-width: 600px;
+    }
+  }
+
+  @media screen and (min-width: em(1250)) {
+    .single_article__aside {
+      max-width: 600px;
+      height: calc(100% + 322px);
+    }
+  }
+
+  @media screen and (min-width: $min-m) {
+    .newsletter_section__container {
+      padding-bottom: 100px;
+    }
+    .newsletter_section {
+      max-width: 640px;
+    }
+    .taboola_posts_container {
+      max-width: 1320px;
+    }
+  }
+  &.single_darkmode {
+    @media screen and (min-width: $min-xs) {
+      .newsletter_section {
+        color: $white;
+      }
+    }
+  }
+  &.episyndeseis_post {
+    @media screen and (min-width: $min-xs) {
+      .newsletter_section__container {
+        background-color: $article_bg;
+      }
+    }
+  }
+}

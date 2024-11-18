@@ -1,0 +1,71 @@
+/* MODULE - INLINE IMAGES
+----------------------------------------------------------------------*/
+
+
+.paragraph {
+	ol, ul {
+		li {
+			list-style-position: outside;
+		}
+	}
+
+	ul {
+		padding-left: 15px !important;
+
+		li {
+			padding-left: 12px;
+			list-style-type: disc;
+		}
+	}
+
+	p + .attachment-container {
+		padding-top: 5px;
+	}
+
+	> .attachment-container, 
+	> .inline_image .attachment-container, 
+	> div > .inline_image .attachment-container,
+	a > .attachment-container {
+		margin-bottom: 27px;
+
+		.image__credits {
+			font-family: $asty_book;
+			font-size: 13px;
+			line-height: em(18,13);
+			color: $credits_grey;
+			padding-top: 7px;
+
+			.credit_item  {
+				&.credits {
+					font-size: 11px;
+					text-transform: uppercase;
+				}
+			}
+		}
+
+		svg {
+		 	width: 10px;
+			height: 10px;
+			margin-right: 4px;
+			margin-bottom: 3px;
+		}
+
+		> svg {
+			display: none;
+		}
+
+		+ h2 {
+			padding-top: 24px;
+		}
+	}
+}
+
+
+
+.post_image_lightbox,
+.paragraph > .attachment-container:before {
+	cursor: pointer;
+}
+
+
+

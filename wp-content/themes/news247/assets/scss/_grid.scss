@@ -1,0 +1,225 @@
+/* -------------------------------------------------------------------------------------------------
+    SECTION: GRID SYSTEM
+---------------------------------------------------------------------------------------------------- */
+.row {
+  display: block;
+  margin-left: -$gutter/2;
+  margin-right: -$gutter/2;
+  clear: both;
+}
+
+.row:before, 
+.row:after,
+.row .row:before, 
+.row .row:after {
+  content: "";
+  display: table; 
+}
+
+.row:after {
+  clear: both;
+}
+
+
+/* Grid >> Children (Alpha ~ First, Omega ~ Last)
+----------------------------------------------------------------------*/
+@mixin grid_column {
+  position: relative;
+  padding-left: $gutter/2;
+  padding-right: $gutter/2;
+}
+
+@mixin apply_gutter {
+  padding-left: $gutter/2;
+  padding-right: $gutter/2;
+}
+
+.alpha {
+  padding-left: 0 !important;
+}
+
+.omega {
+  padding-right: 0 !important;
+}
+
+.noPaddings {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.gutter {
+  @include apply_gutter();
+}
+
+
+/* Clearing Styles
+-----------------------------------------------------------------------*/
+.clear {
+  clear: both;
+  display: block;
+}
+
+.clear:before,
+.clear:after {
+  content: "\0020";
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
+
+.clear:after {
+  clear: both;
+}
+
+
+/* Containers
+-----------------------------------------------------------------------*/
+*, *:before, *:after {
+  box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  -webkit-box-sizing: inherit;
+}
+
+main {
+  background-color: white;
+}
+
+// aside {
+  // background-color: chartreuse;
+// }
+
+// .hp_aside {
+//   background-color: chartreuse;
+// }
+
+
+
+.column {
+  @include grid_column;
+  float: left;
+}
+
+
+.inline_column {
+  @extend .inline-block;
+  @include grid_column;
+  margin-left: -2px;
+  margin-right: -2px;  
+  float: none;
+}
+
+[class*="inline_column"] + [class*="inline_column"]:last-child {
+ float: none;
+}
+
+[class*="push-"],
+[class*="pull-"] {
+  position: relative;
+}
+
+[class*="push-"] {
+  right: auto;
+}
+
+[class*="pull-"] {
+  left: auto;
+}
+
+@media only screen {
+  .xs-1 { width: 8.33333%; }
+  .xs-2 { width: 16.66667%; }
+  .xs-3 { width: 25%; }
+  .xs-4 { width: 33.33333%; }
+  .xs-5 { width: 41.66667%; }
+  .xs-6 { width: 50%; }
+  .xs-7 { width: 58.33333%; }
+  .xs-8 { width: 66.66667%; }
+  .xs-9 { width: 75%; }
+  .xs-10 { width: 83.33333%; }
+  .xs-11 { width: 91.66667%; }
+  .xs-12 { width: 100%; }
+}
+
+@media screen and (min-width: em(768)) {
+  .small-1 { width: 8.33333%; }
+  .small-2 { width: 16.66667%; }
+  .small-3 { width: 25%; }
+  .small-4 { width: 33.33333%; }
+  .small-5 { width: 41.66667%; }
+  .small-6 { width: 50%; }
+  .small-7 { width: 58.33333%; }
+  .small-8 { width: 66.66667%; }
+  .small-9 { width: 75%; }
+  .small-10 { width: 83.33333%; }
+  .small-11 { width: 91.66667%; }
+  .small-12 { width: 100%; }
+}
+
+@media screen and (min-width: em(1023)) {
+  .medium-1 { width: 8.33333%; }
+  .medium-2 { width: 16.66667%; }
+  .medium-3 { width: 25%; }
+  .medium-4 { width: 33.33333%; }
+  .medium-5 { width: 41.66667%; }
+  .medium-6 { width: 50%; }
+  .medium-7 { width: 58.33333%; }
+  .medium-8 { width: 66.66667%; }
+  .medium-9 { width: 75%; }
+  .medium-10 { width: 83.33333%; }
+  .medium-11 { width: 91.66667%; }
+  .medium-12 { width: 100%; }
+}
+
+@media screen and (min-width: em(1201)) {
+  .large-1 { width: 8.33333%; }
+  .large-2 { width: 16.66667%; }
+  .large-3 { width: 25%; }
+  .large-4 { width: 33.33333%; }
+  .large-5 { width: 41.66667%; }
+  .large-6 { width: 50%; }
+  .large-7 { width: 58.33333%; }
+  .large-8 { width: 66.66667%; }
+  .large-9 { width: 75%; }
+  .large-10 { width: 83.33333%; }
+  .large-11 { width: 91.66667%; }
+  .large-12 { width: 100%; }
+
+  // .wrapper {
+  //   max-width: em(1020);
+  //   padding-right: 10px;
+  //   padding-left: 10px;
+  // }
+}
+
+// @media screen and (min-width: em(1280)) {
+//   .global_wrapper {
+//     max-width: em(1280);
+//   }
+// }
+
+
+
+@media screen and (max-width: em(767)) {
+  .column {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
+
+
+/* TARGET All mobile Devices
+---------------------------------------------------------------------*/
+
+
+/* -------------------------------------------------------------------------------------------------
+    SECTION: Hacks & oldie styles
+---------------------------------------------------------------------------------------------------- */
+body.oldie {
+  overflow: auto;
+}
+
+.oldie .wrapper {
+  width: em(1020);
+}
