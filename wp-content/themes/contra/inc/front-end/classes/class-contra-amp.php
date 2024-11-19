@@ -49,6 +49,9 @@ class Contra_AMP{
 
   public function __construct(){
 
+    // If AMP is disabled
+    if( !function_exists('amp_is_request') ) return;
+
     add_theme_support( 'amp', array( 'template_dir' => $this->amp_template_dir ) );
     add_action( 'wp',[ $this,'init' ] );
     add_action( 'save_post', [ $this,'btw_update_post_has_amp_version' ], 60, 2 );
