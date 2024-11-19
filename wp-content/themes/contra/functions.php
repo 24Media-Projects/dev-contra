@@ -28,8 +28,6 @@ require_once('inc/front-end/template-actions.php'); //
 
 // require_once( 'inc/front-end/classes/class-atf-post.php' );
 require_once( 'inc/front-end/classes/class-atf-post-model.php' );
-require_once( 'inc/front-end/classes/class-atf-post-magazine-model.php' );
-require_once( 'inc/front-end/classes/class-atf-post-newsletter-model.php' );
 
 require_once( 'inc/front-end/frontend-assets.php' );
 
@@ -40,7 +38,6 @@ require_once( 'inc/front-end/register_shortcodes.php' );
 
 // Infinite Posts
 require_once('inc/rest-api/class-contra-infinite-posts-rest-api.php');
-require_once( 'inc/rest-api/class-contra-infinite-magazine-posts-rest-api.php' );
 require_once( 'inc/front-end/classes/class-infinite-posts.php' );
 
 
@@ -67,14 +64,12 @@ require_once('inc/admin/og_image/class-og-image.php');
 // Rest api // google news feed
 add_action('after_setup_theme', function () {
 	require_once( 'inc/rest-api/class-contra-videos-rest-api.php') ;
-	require_once( 'inc/rest-api/class-contra-skitsa-rest-api.php' );
 	require_once( 'inc/rest-api/class-contra-feeds-rest-api.php' );
 
 	// google news feed video
 	// require_once( 'inc/front-end/classes/class-google-news-feed-videos.php' );
 
 	require_once( 'inc/xml-api/class-contra-xml-api-videos.php' );
-	require_once( 'inc/xml-api/class-contra-xml-api-skitsa.php' );
 	require_once( 'inc/xml-api/class-contra-xml-api-feeds.php' );
 	require_once( 'inc/xml-api/class-contra-xml-api-showcase.php' );
 
@@ -98,11 +93,8 @@ require_once( 'inc/admin/editor/class-contra-editor.php' );
 
 require_once( 'inc/admin/classes/posts_from_third_party_api/class-posts-from-api.php' );
 require_once( 'inc/admin/classes/posts_from_third_party_api/class-parsely-posts.php' );
-require_once( 'inc/admin/classes/posts_from_third_party_api/class-newspaper-posts.php' );
 
 require_once( 'inc/admin/classes/posts_from_third_party_api/class-parsely-hp-controller.php' );
-require_once( 'inc/admin/classes/posts_from_third_party_api/class-parsely-magazine-controller.php' );
-require_once( 'inc/admin/classes/posts_from_third_party_api/class-newspapers-hp-controller.php' );
 
 
 require_once( 'inc/front-end/classes/class-contra-parsely-post-primary-category.php' );
@@ -113,11 +105,6 @@ require_once( 'inc/admin/classes/posts_from_third_party_api/bon/class-bon-hp-one
 require_once( 'inc/admin/classes/posts_from_third_party_api/bon/class-bon-hp-two.php' );
 require_once( 'inc/admin/classes/posts_from_third_party_api/bon/class-bon-hp-three.php' );
 require_once( 'inc/admin/classes/posts_from_third_party_api/bon/class-bon-hp-four.php' );
-
-// Accuweather
-require_once( 'inc/admin/classes/posts_from_third_party_api/class-accuweather-controller.php' );
-require_once( 'inc/admin/classes/posts_from_third_party_api/class-accuweather-posts.php' );
-
 
 require_once('inc/admin/classes/posts_from_third_party_api/class-cli-controller.php');
 
