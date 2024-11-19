@@ -90,6 +90,7 @@ require_once( 'inc/admin/admin-actions.php' );
 require_once( 'inc/admin/acf/acf.php' );
 require_once( 'inc/admin/editor/class-contra-editor.php' );
 
+require_once( 'inc/admin/classes/class-contra-user-roles-capabilities.php' );
 
 require_once( 'inc/admin/classes/posts_from_third_party_api/class-posts-from-api.php' );
 require_once( 'inc/admin/classes/posts_from_third_party_api/class-parsely-posts.php' );
