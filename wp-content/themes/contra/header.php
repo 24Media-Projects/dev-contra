@@ -47,36 +47,15 @@
             j.src =
                 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
             f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-KMFBL5VB');
+        })(window, document, 'script', 'dataLayer', 'TODO'); // TODO
     </script>
     <!-- End Google Tag Manager -->
 
     <?php get_template_part('templates/dfp/dfp_header'); ?>
 
-    <?php /*
-    <script type="text/javascript">
-        __tcfapi('addEventListener', 2, function(tcData, success) {
-            if (success && tcData.gdprApplies) {
-                if (tcData.eventStatus === 'tcloaded' || tcData.eventStatus === 'useractioncomplete') {
-
-                    googletag.cmd.push(function() {
-                        googletag.pubads().refresh();
-                    });
-
-                }
-
-            }
-        });
-    </script>
-    <?php */ ?>
 
     <?php wp_head(); ?>
 
-    <!-- Defaults needed for liveblog -->
-    <script>
-        const liveBlogVersion = '1.47';
-        window.targettingValues = {};
-    </script>
 
     <!-- Truncate -->
     <script>
@@ -94,10 +73,6 @@
         var PostsFromApi = window.PostsFromApi;
     </script>
 
-    <!-- ParselyPosts -->
-    <script>
-        var ParselyPosts = window.ParselyPosts;
-    </script>
 
     <?php endif; ?>
 
@@ -110,7 +85,7 @@
 
 
     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KMFBL5VB" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=TODO" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
     <div class="global_wrapper">
@@ -122,17 +97,7 @@
         ]);
 
         if( empty($args['hide_header'] ) ){
-            if (is_front_page()) {
-                get_template_part('templates/global_elements/header-hp');
-            } elseif (btw_is_magazine()) {
-                get_template_part('templates/global_elements/header-magazine');
-            } else {
-                get_template_part('templates/global_elements/header');
-            }
+            get_template_part('templates/global_elements/header');
         }
 
 
-
-        if( empty($args['hide_header'] ) ){
-            get_template_part('templates/global_elements/side_navigation');
-        }
