@@ -20,13 +20,6 @@
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
 
-    <?php if( is_front_page() ): ?>
-        <meta http-equiv="refresh" content="300" />
-    <?php endif; ?>
-
-    <?php if( is_tag() || is_category() ) : ?>
-        <meta http-equiv="refresh" content="500" />
-    <?php endif; ?>
 
     <!--[if lt IE 9]>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.js"></script>
