@@ -51,100 +51,114 @@ function btw_clean_title($string)
   If btw__article_fields__hide_author: return false
   if btw__article_fields__byline: return byline
 */
-function btw_get_post_author($post = null, $suppress_filters = false)
-{
+function btw_get_post_author( $post = null, $suppress_filters = false ){
 
-  if (!$post) {
-    global $post;
-  }
+	if (!$post) {
+		global $post;
+	}
 
-  $post_display_options = get_field( 'btw__global_fields__display_options', $post->ID ) ?: [];
+	$post_display_options = get_field( 'btw__global_fields__display_options', $post->ID ) ?: [];
 
-  if( in_array( 'hide_author', $post_display_options )
-    || apply_filters( 'btw/post_author/hide_author', false, $post )
-  ){
-    return false;
-  }
+	if( in_array( 'hide_author', $post_display_options )
+		|| apply_filters( 'btw/post_author/hide_author', false, $post )
+	){
+		return false;
+	}
 
-  $author_id = $post->post_author;
-  $author = new WP_User($author_id);
+	$author_id = $post->post_author;
+	$author = new WP_User($author_id);
 
-  $post_byline = get_field('btw__article_fields__byline', $post->ID);
+	$post_byline = get_field('btw__article_fields__byline', $post->ID);
 
-  $author_display_name = $post_byline ?: $author->display_name;
+	$archive_url = $post_byline
+		? get_field('btw__article_fields__byline_url', $post->ID)
+		: ( get_user_meta($author_id, 'user_has_archive', true) ? get_author_posts_url($author_id) : null );
 
-  if( !$suppress_filters ){
-	  $author_display_name = apply_filters('btw/post_author/display_name', $author_display_name, $post);
-  }
+	$author_display_name = $post_byline ?: $author->display_name;
 
-  if( $avatar = get_field('btw__global_fields__featured_image', 'user_' . $author_id) ){
-	  $avatar = wp_get_attachment_image_src( $avatar['ID'], 'original' );
-	  $avatar_url = $avatar[0];
-  }else{
-      $avatar_url = get_field('btw__brand_fields__default_author_logo', 'option');
-  }
+	if( !$suppress_filters ){
+		$author_display_name = apply_filters('btw/post_author/display_name', $author_display_name, $post);
+	}
 
-  return (object) array(
-    'author_id' => $author_id,
-    'display_name' => $author_display_name,
-    'byline' => $post_byline,
-    'archive_link' => array(
-      'url' => get_user_meta($author_id, 'user_has_archive', true) && !$post_byline ? get_author_posts_url($author_id) : null,
-      'title' => "Δείτε όλα τα άρθρα από το χρήστη {$author_display_name}",
-      'target_blank' => false,
-    ),
-    'meta' => array(
-      'avatar' => $avatar_url,
-      'job_description' => get_user_meta($author_id, 'btw__user_fields__job_description', true),
-      'bio' => get_user_meta($author_id, 'description', true),
-    )
-  );
+	return (object) array(
+		'author_id' => $author_id,
+		'display_name' => $author_display_name,
+		'byline' => $post_byline,
+		'archive_link' => array(
+			'url' => $archive_url,
+			'title' => esc_attr( "Δείτε όλα τα άρθρα από το χρήστη {$author_display_name}" ),
+			'target_blank' => (bool)maybe_return_target_blank($archive_url),
+		),
+		'meta' => array(
+			'avatar_id' => btw_get_author_avatar_id( $author_id, !empty( $post_byline ) ),
+			'job_description' => get_user_meta($author_id, 'btw__user_fields__job_description', true),
+			'bio' => get_user_meta($author_id, 'description', true),
+		)
+	);
 }
 
 
+function btw_get_author_avatar_id( $author_id, $force_default_avatar = false ){
+
+	$default_author_avatar = get_field('btw__brand_fields__default_author_logo', 'option');
+	$author_avatar = get_field('btw__global_fields__featured_image', 'user_' . $author_id);
+
+	$avatar_id = $force_default_avatar || !$author_avatar
+		? apply_filters( 'btw/default_author_avatar_id', $default_author_avatar['id'] )
+		: apply_filters( 'btw/author/avatar_id', $author_avatar['id'] );
+
+	return $avatar_id;
+
+}
 
 /*
   Post author html, based on btw_get_post_author
   display_avatar: include avatar on html, default false
 */
-function btw_get_post_author_html( $post = null, $display_avatar = false, $suppress_filters = false ){
+function btw_get_post_author_html( $post = null, $display_avatar = false, $suppress_filters = false, $image_srcsets = [], $lazyload = true ){
 
-  if( !$post ){
-    global $post;
-  }
+	if( !$post ){
+		global $post;
+	}
 
-  $post_author_data = btw_get_post_author($post, $suppress_filters);
+	$post_author_data = btw_get_post_author($post, $suppress_filters);
 
-  if( !$post_author_data ) return false;
+	if( !$post_author_data ) return false;
 
-  ob_start();
+	ob_start();
 
-  $anchor_tag_target = !empty($post_author_data->archive_link['target']) ? 'target="_blank"' : '';
-  $open_anchor_tag = $post_author_data->archive_link['url'] ? "<a {$anchor_tag_target} href=\"{$post_author_data->archive_link['url']}\" title=\"{$post_author_data->archive_link['title']}\">" : '';
-  $close_anchor_tag = $post_author_data->archive_link['url'] ? '</a>' : '';
+	$anchor_tag_target = !empty($post_author_data->archive_link['target']) ? 'target="_blank"' : '';
+	$open_anchor_tag = $post_author_data->archive_link['url'] ? "<a {$anchor_tag_target} href=\"{$post_author_data->archive_link['url']}\" title=\"{$post_author_data->archive_link['title']}\">" : '';
+	$close_anchor_tag = $post_author_data->archive_link['url'] ? '</a>' : '';
 
-?>
 
-  <?php echo $open_anchor_tag; ?>
+	?>
 
-  <?php if ($display_avatar && !empty($post_author_data->meta['avatar'])) : ?>
+	<?php echo $open_anchor_tag; ?>
 
-    <figure class="post__author_avatar">
-      <img src="<?php echo $post_author_data->meta['avatar']; ?>" alt="<?php echo esc_attr($post_author_data->display_name); ?>" width="90">
-    </figure>
+	<?php if ($display_avatar && !empty($post_author_data->meta['avatar_id'])) : ?>
 
-  <?php endif; ?>
+        <div class="post__author_avatar">
+			<?php echo btw_get_attachment_html(
+				attachment_id: $post_author_data->meta['avatar_id'],
+				image_srcsets: $image_srcsets,
+				forced_alt_text: $post_author_data->archive_link['title'],
+				lazyload: $lazyload
+			); ?>
+        </div>
 
-  <span class="post__author">
+	<?php endif; ?>
+
+    <span class="post__author">
     <?php echo $post_author_data->display_name; ?>
   </span>
 
-  <?php echo $close_anchor_tag; ?>
+	<?php echo $close_anchor_tag; ?>
 
-  <?php
-    $author_html = ob_get_clean();
+	<?php
+	$author_html = ob_get_clean();
 
-    echo apply_filters( 'btw/post_author/author_html', $author_html, $post );
+	echo apply_filters( 'btw/post_author/author_html', $author_html, $post );
 }
 
 
@@ -564,6 +578,92 @@ function btw_get_post_featured_image($size = 'full', $post = null, $attachment_i
   );
 }
 
+
+/**
+ * Get post featured image html.
+ * @param int, $attachment_id
+ * @param array, $image_srcsets
+ * @param string, $forced_alt_text
+ * @param bool, $lazyload
+ */
+function btw_get_attachment_html( $attachment_id, $image_srcsets = [], $forced_alt_text = '', $lazyload = true ){
+
+	$attachment_alt = $forced_alt_text ?: get_post_meta( $attachment_id, '_wp_attachment_image_alt', true );
+	$esc_attachment_alt = esc_attr($attachment_alt );
+
+	// set default image srcsets, if not set
+	if( !$image_srcsets ){
+		$image_srcsets = array(
+			array(
+				'image_size' => 'full',
+				'default'    => true,
+			)
+		);
+	}
+
+	/**
+	 * Default image srcset is the one that has a default key set
+	 * or the first array defined on the $image_srcsets
+	 **/
+	$default_srcset = array_filter( $image_srcsets, function( $image_srcset ){
+		return !empty( $image_srcset['default'] );
+	});
+
+	$default_srcset = $default_srcset ? array_shift($default_srcset) : array_shift($image_srcsets);
+
+	/**
+	 * @note Attachment html is different for amp
+	 */
+	if (!btw_is_amp_endpoint()) {
+
+		$default_attachment_image_src = wp_get_attachment_image_src( $attachment_id, $default_srcset['image_size'] );
+
+		$img_class = $lazyload ? 'class="lazyload"' : '';
+		$img_src = "src=\"{$default_attachment_image_src['0']}\"";
+		$img_src = $lazyload ? 'data-' . $img_src : $img_src;
+
+		//first img is the default image
+		$attachment_html[] = "<img decoding=\"async\" loading=\"lazy\" {$img_class} {$img_src} alt=\"{$esc_attachment_alt}\" />";
+
+		/**
+		 * Get attachment picture sources
+		 */
+		foreach( $image_srcsets as $image_srcset ){
+
+			// media_query key is required
+			if( empty( $image_srcset['media_query'] ) ){
+				continue;
+			}
+
+			$attachment_image_src = wp_get_attachment_image_src( $attachment_id, $image_srcset['image_size'] );
+			$attachment_image_src = $attachment_image_src[0];
+
+			$attachment_html[] = "<source media=\"{$image_srcset['media_query']}\" srcset=\"{$attachment_image_src}\" />";
+		}
+
+		$picture_html = '<picture>' . implode("\n", array_reverse($attachment_html)) . '</picture>';
+
+	} else {
+
+		$filtered_srcsets = array_filter( $image_srcsets, function( $image_srcset ){
+			return isset( $image_srcset['mobile'] ) && $image_srcset['mobile'] === true;
+		});
+
+		$mobile_size = array_shift( $filtered_srcsets );
+
+
+		$mobile_size = $mobile_size['image_size'] ?? $default_srcset['image_size'];
+
+		$amp_attachment_image_src = wp_get_attachment_image_src( $attachment_id, $mobile_size );
+		$amp_attachment_image_src = $amp_attachment_image_src['0'];
+
+		$picture_html = "<img src=\"{$amp_attachment_image_src}\" alt=\"{$esc_attachment_alt}\" />";
+	}
+
+	return $picture_html;
+}
+
+
 /*
   Attachment credits html
 */
@@ -839,4 +939,34 @@ function btw_get_groups_by_group_type( $group_type ){
 
     return $groups;
 
+}
+
+
+
+function maybe_print_target_blank($url)
+{
+	if( !$url ) return ' ';
+
+	$is_external = !str_starts_with( $url, site_url() ) && !str_starts_with($url, '#');
+	echo $is_external ? ' target="_blank" ' : ' ';
+}
+
+function maybe_return_target_blank($url)
+{
+	ob_start();
+	maybe_print_target_blank($url);
+	return ob_get_clean();
+}
+
+function maybe_print_anchor_opening_tag($url, $attrs = []){
+	$str = ' ';
+	foreach($attrs as $k => $v){
+		$str .= $k . '="' . $v . '" ';
+	}
+	$str .= maybe_return_target_blank($url);
+	echo !empty($url) ? '<a href="' . $url . '"' . $str . '>' : '';
+}
+
+function maybe_print_anchor_closing_tag($url){
+	echo !empty($url) ? '</a>' : '';
 }

@@ -4,184 +4,91 @@ function btw_get_intermediate_image_sizes(){
 	return array_keys( btw_image_sizes() );
 }
 
-function btw_get_related_links_from_flexible_content( $key, $id = false ){
+function btw_get_related_links_from_flexible_content( $key = false, $id = false, $flexible_content_layouts = [] ){
 
 	$arr = [];
 
-	if( have_rows($key, $id) ):
+	if( !$flexible_content_layouts ){
+		$flexible_content_layouts = get_field($key, $id) ?: [];
+	}
 
-		while( have_rows($key, $id) ):
+	foreach ($flexible_content_layouts as $layout){
 
-			the_row();
+		$row_layout = $layout['acf_fc_layout'];
 
-			$row_layout = get_row_layout();
+		if( in_array($row_layout, ['category', 'post_tag']) ) {
+			$term = $layout['term'];
 
-			if( in_array($row_layout, ['category', 'post_tag']) ) {
-				$term = get_sub_field('term');
-				
-				if( !$term ){
-					continue;
-				}
+			if( !$term ) continue;
 
-				$arr[] = [
-					'link_text' => $term->name,
-					'link_url' => get_term_link( $term )
-				];
-			}elseif ($row_layout == 'link') { // custom link
-				$arr[] = [
-					'link_text' => get_sub_field('link_text'),
-					'link_url' => get_sub_field('link_url')
-				];
-			}
+			$arr[] = [
+				'link_text' => $layout['link_text'] ?: $term->name,
+				'link_url' => get_term_link( $term ),
+				'link_cat' => $row_layout,
+			];
+		}elseif ($row_layout == 'link') { // custom link
+			$arr[] = [
+				'link_text' => $layout['link_text'],
+				'link_url' => $layout['link_url'],
+				'link_cat' => $row_layout,
+			];
+		}
 
-		endwhile;
-
-	endif;
+	}
 
 	return $arr;
 
 }
 
-function btw_get_term_from_flexible_content( $key, $id = false ){
 
-	if (have_rows($key, $id)):
-
-		while (have_rows($key, $id)) :
-
-			the_row();
-
-			$row_layout = get_row_layout();
-
-			if( in_array($row_layout, ['category', 'post_tag']) ) {
-				return get_sub_field('term');
-			}elseif ($row_layout == 'link') { // custom link
-				return [
-					'link_text' => get_sub_field('link_text'),
-					'link_url' => get_sub_field('link_url')
-				];
-			}
-
-		endwhile;
-
-	endif;
-
-	return false;
-
+function btw_get_term_from_flexible_content( $key = false, $id = false, $flexible_content_layouts = [] ){
+	$flexible_contents = btw_get_terms_from_flexible_content($key, $id, $flexible_content_layouts);
+	return $flexible_contents[0] ?? false;
 }
 
 
-function btw_get_primary_term_anchor_html( $term, $remove_punctuation = false ){
-	return '<a title="' . esc_attr( $term->name ) . '" href="' . $term->term_link . '">' . ( $remove_punctuation ? remove_punctuation($term->name) : $term->name) . '</a>';
-}
+function btw_get_terms_from_flexible_content( $key = false, $id = false, $flexible_content_layouts = [] ){
 
 
-function btw_is_post_podcast( $post = null ){
+	$arr = [];
 
-	if( !$post ){
-		global $post;
+	if( $key && !$flexible_content_layouts ){
+		$flexible_content_layouts = get_field($key, $id);
 	}
 
-	return (bool) get_field('btw__article_fields__audio_player_code', $post);
+	$flexible_content_layouts = $flexible_content_layouts ?: [];
 
-}
+	foreach ($flexible_content_layouts as $layout){
 
+		$row_layout = $layout['acf_fc_layout'];
 
-function btw_is_magazine_post( $post = null ){
-	if( !$post ){
-		global $post;
-	}
-
-	if ( $post->post_type !== 'post' ) return false;
-
-	$term = btw_get_post_primary_category();
-
-	return btw_is_magazine_subcategory($term) || btw_is_magazine_homepage($term);
-}
-
-
-function btw_get_magazine_category_id(){
-	return 9; // TODO Change if need it, when goes live
-}
-
-
-
-function btw_is_magazine_subcategory( $term = null ){
-
-	if( !$term ){
-		$term = get_queried_object();
-	}
-
-	if( !isset($term->term_id) || $term->taxonomy != 'category' ) return false;
-
-	$magazine_id = btw_get_magazine_category_id();
-
-	$term_ancestors = get_ancestors( $term->term_id, 'category', 'taxonomy' );
-
-	return in_array( $magazine_id, $term_ancestors );
-
-}
-
-
-
-function btw_is_magazine_homepage( $term = null ){
-
-	if( !$term ){
-		$term = get_queried_object();
-	}
-
-	if( !isset($term->term_id) || $term->taxonomy != 'category' ) return false;
-
-	return $term->term_id == btw_get_magazine_category_id();
-
-}
-
-/**
- * Checks if is magazine homepage or magazine subcategory.
- *
- * @param WP_Term $term
- * @return bool
- */
-function btw_is_magazine_category( $term = null ){
-
-	if( !$term ){
-		$term = get_queried_object();
-	}
-
-	if( !isset($term->term_id) || $term->taxonomy != 'category' ) return false;
-
-	return btw_is_magazine_homepage($term) ||  btw_is_magazine_subcategory($term);
-}
-
-
-function btw_is_magazine(){
-	if( is_single() ){
-		return btw_is_magazine_post();
-	}elseif( is_category() ){
-		return btw_is_magazine_category();
-	}else{
-		return false;
-	}
-}
-
-
-function btw_is_podcast_subcategory( $term = null ){
-
-	if( !$term ){
-		if( is_category() ){
-			$term = get_queried_object();
-		}else{
-			return false;
+		if( $row_layout == 'feed' ){
+			return 'feed';
+		}elseif( in_array($row_layout, ['category', 'post_tag']) && $term = $layout['term'] ) {
+			$arr[] = $term;
 		}
+
 	}
 
-	$parent_term_id = $term->parent;
-
-	$podcasts_category = get_term_by( 'slug', 'podcasts', 'category' ); // TODO MAYBE CHANGE IT WITH ID
-
-	return $podcasts_category->term_id == $parent_term_id;
+	return $arr;
 
 }
 
+
+function btw_get_primary_term_anchor_html( $term, $remove_punctuation = true ){
+	$term_link = $term->term_link ?? get_term_link($term, $term->taxonomy);
+	return '<a title="' . esc_attr( $term->name ) . '" href="' . $term_link. '">' . ( $remove_punctuation ? remove_punctuation($term->name) : $term->name) . '</a>';
+}
+
+
+function btw_get_maybe_anchor_tag( $url, $label, $remove_punctuation = false ){
+
+	ob_start();
+	maybe_print_anchor_opening_tag($url, ['title' => esc_attr( $label )]);
+	echo $remove_punctuation ? remove_punctuation($label) : $label;
+	maybe_print_anchor_closing_tag($url);
+	return ob_get_clean();
+}
 
 function btw_is_video_subcategory( $term = null ){
 
@@ -245,139 +152,125 @@ function btw_is_post_opinion( $post ){
 
 }
 
-/**
- * @return array $arr {
- * 		@type string $section_title
- * 		@type string $section_title_url
- * 		@type string $section_lead
- * 		@type array $bg_image
- * 		@type array $sponsor_logo
- * 		@type array $sponsor_logo_alt
- * 		@type bool $is_dark_mode
- * 		@type bool $is_sponsored
- *  	@type array $related_links {
- * 			@type string $link_text
- * 			@type string $link_url
- * 		}
- * }
- */
-function btw_get_hp_group_fields($post = null){
+
+function btw_is_post_video( $post = null ){
 
 	if( !$post ){
 		global $post;
 	}
 
-	$arr['section_title'] = get_field( 'btw__group_fields__hp__general__section_title', $post );
-	$arr['section_id'] = get_field( 'btw__group_fields__hp__general__section_id', $post ) ?: 'group-' . ($post->ID ?? $post); // $post maybe is post id
-	$arr['section_title_url'] = get_field( 'btw__group_fields__hp__general__section_title_url', $post );
-	$arr['section_lead'] = get_field( 'btw__group_fields__hp__general__section_lead', $post );
+	return $post->post_type == 'video';
 
-	$arr['impression_url'] = get_field( 'btw__group_fields__hp__general__impression_url', $post );
+}
 
-	$arr['bg_color'] = get_field( 'btw__group_fields__hp__general__bg_color', $post );
+function btw_get_group_settings($group_type = 'hp', $name = 'general', $post = null){
 
-	$arr['is_dark_mode'] = (bool)get_field( 'btw__group_fields__hp__general__is_dark_mode', $post );
+	$main_key = "btw__group_fields__{$group_type}__{$name}_settings";
 
-	$arr['related_links'] = [];
-	$arr['is_section_title_full_width'] = (bool)get_field( 'btw__group_fields__hp__general__is_section_title_full_width', $post );
-	$arr['section_supertitle'] = get_field( 'btw__group_fields__hp__general__section_supertitle', $post );
-
-	$arr['sponsor_logo'] = get_field( 'btw__group_fields__hp__general__is_sponsored', $post ) ?
-		get_field( 'btw__group_fields__hp__general__sponsor_logo', $post ) ?: []
-		: [];
-
-	$arr['section_extra_classes'] = get_field( 'btw__group_fields__hp__general__section_extra_classes', $post );
-
-	$term = get_field( 'btw__group_fields__hp__general__term_selection', $post )[0]['term'] ?? 0;
-
-	if( $term ){
-
-		$arr['section_title'] = $arr['section_title'] ?: $term->name;
-		$arr['section_title_url'] = $arr['section_title_url'] ?: get_term_link( $term );
-		if( ! get_field( 'btw__group_fields__hp__general__hide_related_links', $post ) ){
-			$arr['related_links'] = btw_get_related_links_from_flexible_content( 'btw__taxonomy_fields__related_terms', "{$term->taxonomy}_{$term->term_id}" );
-		}
-
-	}else{
-
-		if( $arr['sponsor_logo'] ){
-
-			$arr['sponsor_logo_alt'] = get_field( 'btw__group_fields__hp__general__sponsor_logo_alt', $post ) ?: [];
-
-			$arr['related_links'][0]['link_text'] = '<img src="' . $arr['sponsor_logo']['url'] . '" alt="' . $arr['sponsor_logo']['alt'] . '">';
-			if( $arr['sponsor_logo_alt'] ){
-				$arr['related_links'][1]['link_text'] = '<img src="' . $arr['sponsor_logo_alt']['url'] . '" alt="' . $arr['sponsor_logo_alt']['alt'] . '">';
-			}else{ // fallback
-				$arr['related_links'][1]['link_text'] = '<img src="' . $arr['sponsor_logo']['url'] . '" alt="' . $arr['sponsor_logo']['alt'] . '">';
-			}
-			if( $sponsor_logo_url = get_field( 'btw__group_fields__hp__general__sponsor_logo_click_url', $post )){
-				foreach($arr['related_links'] as $k => $v){
-					$arr['related_links'][$k]['link_url'] = $sponsor_logo_url;
-				}
-			}
-
-		}elseif( $arr['section_supertitle'] ){ // section_url
-
-			$arr['related_links'][0]['link_text'] = $arr['section_supertitle'];
-			if( $section_supertitle_url = get_field( 'btw__group_fields__hp__general__section_supertitle_url', $post ) ) {
-				$arr['related_links'][0]['link_url'] = $section_supertitle_url;
-			}
-
-		}
-
-
+	if( !$post ){
+		global $post;
 	}
+
+	$arr = [];
+
+	while( have_rows($main_key, $post) ) : the_row();
+
+		$arr['section_acf_key'] = $main_key;
+
+		$arr['section_id'] = get_sub_field( 'section_id', $post ) ?: 'group-' . ($post->ID ?? $post); // $post maybe is post id
+
+		$arr['hide_caption'] = get_sub_field( 'hide_caption', $post );
+		$arr['hide_author'] = get_sub_field( 'hide_author', $post );
+
+		$arr['primary_term_taxonomy_selection'] = get_sub_field( 'primary_term_taxonomy_selection', $post );
+
+		$arr['section_header_template'] = get_sub_field( 'section_header_template', $post );
+		$arr['section_header_is_reversed'] = get_sub_field( 'section_header_is_reversed', $post );
+		$arr['section_header_align'] = get_sub_field( 'section_header_align', $post );
+		$arr['section_header_desktop_align'] = get_sub_field( 'section_header_desktop_align', $post );
+
+		$arr['posts_display_pattern'] = get_sub_field( 'posts_display_pattern', $post );
+
+		$arr['section_logo'] = get_sub_field( 'section_logo', $post );
+		$arr['section_desktop_logo'] = get_sub_field( 'section_desktop_logo', $post ) ?: $arr['section_logo'];
+
+		// source_selection could be 2 terms OR Feed
+		$flexible_contents = get_sub_field( 'source_selection', $post );
+		$posts_source = btw_get_terms_from_flexible_content(null, null, $flexible_contents);
+
+		$main_term = $posts_source && is_array($posts_source) ? $posts_source[0] : null;
+		$main_term_name = $main_term ? $main_term->name : '';
+		$main_term_link = $main_term ? get_term_link($main_term) : '';
+
+		$arr['posts_source'] = $posts_source;
+
+
+
+//		$arr['terms'] = $posts_source;
+
+		$arr['section_title'] = get_sub_field( 'section_title', $post ) ?: $main_term_name;
+		$arr['section_title_url'] = get_sub_field( 'section_title_url', $post ) ?: $main_term_link;
+
+
+		$arr['section_main_color'] = get_sub_field( 'section_main_color', $post );
+
+		$bg_images = get_sub_field( 'section_header_bg_images', $post )[0] ?? [];
+		if( $bg_images && !$bg_images['desktop'] ){
+			$bg_images['desktop'] = $bg_images['mobile'];
+		}
+		$arr['section_header_bg_images'] = $bg_images;
+
+
+		$arr['bg_color'] = get_sub_field( 'bg_color', $post );
+
+		$arr['is_dark_mode'] = $arr['bg_color'] && get_sub_field( 'is_dark_mode', $post );
+
+		$arr['section_header_bg_color'] = get_sub_field( 'section_header_bg_color', $post );
+
+		if( $arr['section_header_bg_color'] ){
+			$section_header_is_dark_mode = get_sub_field('section_header_is_dark_mode', $post);
+		}
+
+		$arr['section_header_is_dark_mode'] = $section_header_is_dark_mode ?? $arr['is_dark_mode'];
+
+		$arr['impressions_url'] = get_sub_field( 'impressions_url', $post );
+
+
+		$arr['buttons'] = get_sub_field( 'buttons', $post );
+
+
+		$sponsor = get_sub_field( 'sponsor', $post )[0] ?? [];
+		if( $sponsor && !$sponsor['sponsor_logo_alt'] ){
+			$sponsor['sponsor_logo_alt'] = $sponsor['sponsor_logo'];
+		}
+		$arr = array_merge($arr, $sponsor);
+		$arr['is_sponsored'] = (bool)$sponsor;
+
+
+		$disclaimer_images = get_sub_field( 'section_disclaimer_images', $post )[0] ?? [];
+		if( $disclaimer_images && !$disclaimer_images['desktop'] ){
+			$disclaimer_images['desktop'] = $disclaimer_images['mobile'];
+		}
+		$arr['section_disclaimer_images'] = $disclaimer_images;
+
+
+	endwhile;
+
 
 	return $arr;
 
 }
 
-function btw_get_magazine_group_fields(){
+function btw_get_group_setting($setting_name, $default = '', $group_type = 'hp', $group_id = null){
+	global $wpdb;
 
-	$arr['related_links'] = [];
-	$arr['section_title'] = get_field( 'btw__group_fields__magazine__general__section_title' );
-	$arr['section_title_url'] = get_field( 'btw__group_fields__magazine__general__section_title_url' );
+	$group_id = $group_id ?: get_the_ID();
 
-	$arr['impression_url'] = get_field( 'btw__group_fields__magazine__general__impression_url' );
-
-	$arr['is_dark_mode'] = (bool)get_field( 'btw__group_fields__magazine__general__is_dark_mode' );
-	$arr['bg_color'] = get_field( 'btw__group_fields__magazine__general__bg_color' );
-
-	$arr['is_section_title_full_width'] = (bool)get_field( 'btw__group_fields__magazine__general__is_section_title_full_width' );
-	$arr['section_supertitle'] = get_field( 'btw__group_fields__magazine__general__section_supertitle' );
-
-	$arr['sponsor_logo'] = get_field( 'btw__group_fields__magazine__general__sponsor_logo' ) ?: [];
-
-	if( $arr['sponsor_logo'] ){
-
-		$arr['sponsor_logo_alt'] = get_field( 'btw__group_fields__magazine__general__sponsor_logo_alt' ) ?: [];
-
-		$arr['related_links'][0]['link_text'] = '<img src="' . $arr['sponsor_logo']['url'] . '" alt="' . $arr['sponsor_logo']['alt'] . '">';
-		if( $arr['sponsor_logo_alt'] ){
-			$arr['related_links'][1]['link_text'] = '<img src="' . $arr['sponsor_logo_alt']['url'] . '" alt="' . $arr['sponsor_logo_alt']['alt'] . '">';
-		}else{ // fallback
-			$arr['related_links'][1]['link_text'] = '<img src="' . $arr['sponsor_logo']['url'] . '" alt="' . $arr['sponsor_logo']['alt'] . '">';
-		}
-		if( $sponsor_logo_url = get_field( 'btw__group_fields__magazine__general__sponsor_logo_click_url' )){
-			foreach($arr['related_links'] as $k => $v){
-				$arr['related_links'][$k]['link_url'] = $sponsor_logo_url;
-			}
-		}
-
-	}elseif( $arr['section_supertitle'] ){ // section_url
-
-		$arr['related_links'][0]['link_text'] = $arr['section_supertitle'];
-		if( $section_supertitle_url = get_field( 'btw__group_fields__magazine__general__section_supertitle_url' ) ) {
-			$arr['related_links'][0]['link_url'] = $section_supertitle_url;
-		}
-
-	}
-
-
-
-	return $arr;
+	return $wpdb->get_var("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key = 'btw__group_fields__{$group_type}__general_settings_0_$setting_name' AND post_id = $group_id") ?: $default;
 
 }
+
+
 
 
 /**
@@ -404,69 +297,9 @@ function btw_get_post_attachment( $post = null, $attachment_id = null, $image_sr
 	$attachment_id  	= $attachment_id ?: ( get_post_thumbnail_id( $post ) ?: $default_image['ID'] );
 	$attachment_obj 	= get_post( $attachment_id );
 	$attachment_alt 	= get_post_meta( $attachment_obj->ID, '_wp_attachment_image_alt', true ) ?: ( !is_null($default_alt) ? $default_alt : get_the_title( $post ) );
-	$esc_attachment_alt = esc_attr( $attachment_alt );
 	$attachment_credits = btw_attachment_credits_html( $attachment_obj );
 
-	/**
-	 * Default image srcset is the one that has a default key set
-	 * or the first array defined on the $image_srcsets
-	 **/
-	$default_srcset = array_filter( $image_srcsets, function( $image_srcset ){
-		return !empty( $image_srcset['default'] );
-	});
-
-	$default_srcset = $default_srcset ? array_shift( $default_srcset ) : array_shift( $image_srcsets );
-
-
-	/**
-	 * @note Attachment html is different for amp
-	 */
-	if( !btw_is_amp_endpoint() ){
-
-		$default_attachment_image_src = wp_get_attachment_image_src( $attachment_id, $default_srcset['image_size'] );
-
-		$img_class = $lazyload ? 'class="lazyload"' : '';
-		$img_src = "src=\"{$default_attachment_image_src['0']}\"";
-		$img_src = $lazyload ? 'data-' . $img_src : $img_src;
-
-		//first img is the default image
-		$attachment_html[] = "<img decoding=\"async\" loading=\"lazy\" {$img_class} {$img_src} alt=\"{$esc_attachment_alt}\" />";
-
-		/**
-		 * Get attachment picture sources
-		 */
-		foreach( $image_srcsets as $image_srcset ){
-
-			// media_query key is required
-			if( empty( $image_srcset['media_query'] ) ) {
-				continue;
-			}
-
-			$attachment_image_src = wp_get_attachment_image_src( $attachment_id, $image_srcset['image_size'] );
-			$attachment_image_src = $attachment_image_src[0];
-
-			$attachment_html[] = "<source media=\"{$image_srcset['media_query']}\" srcset=\"{$attachment_image_src}\" />";
-		}
-
-		$picture_html = '<picture>' . implode( "\n", array_reverse( $attachment_html ) ) . '</picture>';
-
-	}else{
-
-		$filtered_srcsets = array_filter($image_srcsets, function($image_srcset) {
-			return isset($image_srcset['mobile']) && $image_srcset['mobile'] === true;
-		});
-
-		$mobile_size = array_shift($filtered_srcsets);
-
-
-		$mobile_size = $mobile_size['image_size'] ?? $default_srcset['image_size'];
-
-		$amp_attachment_image_src = wp_get_attachment_image_src( $attachment_id, $mobile_size );
-		$amp_attachment_image_src = $amp_attachment_image_src['0'];
-
-		$picture_html = "<img src=\"{$amp_attachment_image_src}\" alt=\"{$esc_attachment_alt}\" />";
-
-	}
+	$picture_html = btw_get_attachment_html( $attachment_id, $image_srcsets, $attachment_alt, $lazyload );
 
 	return (object) array(
 		'id'		 	=> $attachment_id,
@@ -704,91 +537,21 @@ function btw_get_field($key, $id){
 }
 
 
-function get_magazine_sponsor(){
 
-  if( btw_is_magazine_homepage() ){
-
-	$hp_sponsor = btw_get_field( 'btw__magazine_fields__category_sponsor', get_queried_object() );
-	if( $hp_sponsor ) return $hp_sponsor;
-
-	$display_default_main_sponsor_on_hp = get_field( 'btw__magazine_fields__display_sponsor_on_magazine_hp', 'option' );
-	return $display_default_main_sponsor_on_hp ? btw_get_field( 'btw__magazine_fields__main_sponsor', 'option' ) : false;
-
-  }elseif( btw_is_magazine_subcategory() ){
-
-	  $category_sponsor = btw_get_field( 'btw__magazine_fields__category_sponsor', get_queried_object() );
-	  if( $category_sponsor ) return $category_sponsor;
-
-	  $display_default_main_sponsor_on_categories = get_field( 'btw__magazine_fields__display_sponsor_on_posts', 'option' ) ?: [];
-	  return in_array( get_queried_object_id(), $display_default_main_sponsor_on_categories ) ? btw_get_field( 'btw__magazine_fields__main_sponsor', 'option' ) : false;
-
-  }elseif( is_singular( 'post' ) ){
-
-	global $post;
-
-	if( get_field('btw__magazine_fields__article_sponsor__hide', $post) ) return false;
-
-	$article_sponsor = btw_get_field( 'btw__magazine_fields__article_sponsor', $post );
-	if( $article_sponsor ) return $article_sponsor;
-
-	$category_sponsor = btw_get_field( 'btw__magazine_fields__category_sponsor', btw_get_post_primary_category() );
-	if( $category_sponsor ) return $category_sponsor;
-
-	$display_default_main_sponsor_on_categories = get_field( 'btw__magazine_fields__display_sponsor_on_posts', 'option' ) ?: [];
-	return in_array( btw_get_post_primary_category()->term_id, $display_default_main_sponsor_on_categories ) ? btw_get_field( 'btw__magazine_fields__main_sponsor', 'option' ) : false;
-
-  }
-
-  return false;
-
-}
-
-
-function get_magazine_parallax(){
-
-	if( btw_is_magazine_homepage() ){
-
-		$hp_parallax = btw_get_field( 'btw__magazine_fields__category_parallax', get_queried_object() );
-		if( $hp_parallax ) return $hp_parallax;
-
-		$display_default_main_parallax_on_hp = get_field( 'btw__magazine_fields__display_parallax_on_magazine_hp', 'option' );
-		return $display_default_main_parallax_on_hp ? btw_get_field( 'btw__magazine_fields__main_parallax', 'option' ) : false;
-
-	}elseif( btw_is_magazine_subcategory() ){
-
-		$category_parallax = btw_get_field( 'btw__magazine_fields__category_parallax', get_queried_object() );
-		if( $category_parallax ) return $category_parallax;
-
-		$display_default_main_parallax_on_categories = get_field( 'btw__magazine_fields__display_parallax_on_posts', 'option' ) ?: [];
-		return in_array( get_queried_object_id(), $display_default_main_parallax_on_categories ) ? btw_get_field( 'btw__magazine_fields__main_parallax', 'option' ) : false;
-
-	}elseif( is_singular( 'post' ) && btw_is_magazine_post() ){
-
-		global $post;
-
-		if( get_field('btw__magazine_fields__article_parallax__hide', $post) ) return false;
-
-		$article_parallax = btw_get_field( 'btw__magazine_fields__article_parallax', $post );
-		if( $article_parallax ) return $article_parallax;
-
-		$category_parallax = btw_get_field( 'btw__magazine_fields__category_parallax', btw_get_post_primary_category() );
-		if( $category_parallax ) return $category_parallax;
-
-		$display_default_main_parallax_on_categories = get_field( 'btw__magazine_fields__display_parallax_on_posts', 'option' ) ?: [];
-		return in_array( btw_get_post_primary_category()->term_id, $display_default_main_parallax_on_categories ) ? btw_get_field( 'btw__magazine_fields__main_parallax', 'option' ) : false;
-
-	}
-
-	return false;
-
-}
-
-
-function btw_hide_ads(){
-	return is_404() ||
+function btw_hide_ads( $context = null ){
+	$hide_ads = is_404() ||
 		( is_page() && get_field('btw__page_fields__hide_ads') ) ||
 		( is_category() && in_array( 'hide_ads', get_field( 'btw__category_fields__display_options', get_queried_object() ) ?: [] ) ) ||
 		( is_single() && in_array( 'hide_ads', get_field( 'btw__global_fields__display_options' ) ?: [] ) );
+
+	$hide_ads =  apply_filters('btw/hide_ads', $hide_ads);
+
+	if($context){
+		$hide_ads =  apply_filters("btw/hide_ads/$context", $hide_ads);
+	}
+
+	return $hide_ads;
+
 }
 
 function hide_taboola(){

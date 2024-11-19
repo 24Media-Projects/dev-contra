@@ -63,12 +63,12 @@ add_action('admin_enqueue_scripts',function( $hook_suffix ){
 
 	if( load_select2() ) wp_enqueue_script( 'btw_select2' );
 
-  /*
-    Add strings we want to get in js
-    See wp_localize_script function for more details
-  */
+	/*
+	  Add strings we want to get in js
+	  See wp_localize_script function for more details
+	*/
 
-	
+
 	wp_localize_script( 'btw_admin_scripts_js', 'BTW',
 		apply_filters( 'btw/localize_script_data',
 			array(
@@ -81,6 +81,7 @@ add_action('admin_enqueue_scripts',function( $hook_suffix ){
 				'read_also'					=> array(
 					'maxSelected' => 1,
 				),
+				'btwGroupTypes'             => json_encode( btw_get_global_setting('group_types') ),
 			),
 			'BTW' )
 	);
@@ -158,54 +159,53 @@ add_action('admin_head',function(){
 	global $current_screen;
 	if( !$current_screen ) return;
 
-	$user = wp_get_current_user();
-	if( user_min_cap_manager( $user ) ) return;
+	if( !current_user_can('create_groups') && $current_screen->base == 'post' && $current_screen->id == 'group' ){ ?>
 
-	if( $current_screen->base == 'post' && $current_screen->id == 'group' ){ ?>
+        <style type="text/css">
+            .edit-post-status,
+            #pageparentdiv{
+                display: none !important;
+            }
+            div[data-name^="btw__group_fields__"][data-name$="__template"],
+            div[data-name="btw__group_fields__group_type"]{
+                pointer-events: none !important;
+            }
+        </style>
 
-		<style type="text/css">
-			.edit-post-status,
-			#pageparentdiv,
-			div[data-name="btw__group_fields__hp__template"],
-			div[data-name="btw__group_fields__group_type"]{
-				display: none !important;
-			}
-		</style>
+        <script type="text/javascript">
+            var groupSort = document.getElementById('pageparentdiv');
+            if(groupSort) groupSort.remove();
 
-		<script type="text/javascript">
-			var groupSort = document.getElementById('pageparentdiv');
-			if(groupSort) groupSort.remove();
-
-			var editPostStatus = document.querySelector('.edit-post-status');
-			if(editPostStatus) editPostStatus.remove();
-
-
-		</script>
-
-<?php }elseif( $current_screen->base == 'post' && $current_screen->id == 'post' ){ ?>
-
-	<style type="text/css">
-
-    #category-add-toggle,
-    #category-add,
-    .embed-code__field--provider option[value="dev_provider"]{
-			display: none !important;
-		}
+            var editPostStatus = document.querySelector('.edit-post-status');
+            if(editPostStatus) editPostStatus.remove();
 
 
+        </script>
 
-	</style>
+	<?php }elseif( !user_min_cap_manager( wp_get_current_user() ) && $current_screen->base == 'post' && $current_screen->id == 'post' ){ ?>
 
-	<script type="text/javascript">
-		var addCategoryWrap = document.getElementById('category-add-toggle');
-		var addCategoryInner = document.getElementById('category-add');
+        <style type="text/css">
 
-		if(addCategoryWrap) addCategoryWrap.remove();
-		if(addCategoryInner) addCategoryInner.remove();
-	</script>
+            #category-add-toggle,
+            #category-add,
+            .embed-code__field--provider option[value="dev_provider"]{
+                display: none !important;
+            }
 
 
-<?php }
+
+        </style>
+
+        <script type="text/javascript">
+            var addCategoryWrap = document.getElementById('category-add-toggle');
+            var addCategoryInner = document.getElementById('category-add');
+
+            if(addCategoryWrap) addCategoryWrap.remove();
+            if(addCategoryInner) addCategoryInner.remove();
+        </script>
+
+
+	<?php }
 
 });
 

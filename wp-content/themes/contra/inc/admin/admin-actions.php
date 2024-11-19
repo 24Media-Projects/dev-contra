@@ -29,7 +29,6 @@ add_action( 'admin_enqueue_scripts', function (){
 
     <script>
         var BtwPostCategories = '<?php echo json_encode($categories); ?>';
-        var MagazineCategoryId = <?php echo btw_get_magazine_category_id(); ?>;
     </script>
 
 <?php }, 5 );

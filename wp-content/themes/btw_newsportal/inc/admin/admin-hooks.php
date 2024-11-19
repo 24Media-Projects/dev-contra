@@ -154,3 +154,48 @@ add_filter( 'admin_body_class', function( $classes ){
 	return $classes . implode( ' ', $role_classes );
 
 });
+
+
+
+// Ability to add custom content before row actions
+add_filter('post_row_actions', function ($actions, $post) {
+	do_action("btw/$post->post_type/before_post_row_actions", $post);
+	return $actions;
+}, 10, 2);
+
+
+add_filter('display_post_states', function($post_states, $post){
+
+	if( is_admin() && $GLOBALS['pagenow'] == 'edit.php' ){
+		do_action("btw/$post->post_type/after_post_title", $post);
+	}
+
+	return $post_states;
+}, 10, 2);
+
+
+/**
+ * At Posts List make the primary category, the 1st link
+ */
+add_filter('post_column_taxonomy_links', function ($cat_links, $taxonomy)
+{
+	if( $taxonomy !== 'category' ) return $cat_links;
+
+	if( count($cat_links) < 2 ) return $cat_links;
+
+	$primary_category = btw_get_post_primary_category();
+
+	foreach ($cat_links as $key => $cat_link){
+		if ( preg_match('/category_name=([^"]+)/', $cat_link, $matches) && $primary_category->slug == $matches[1] ) {
+			$primary_link = str_replace('<a href', '<a style="font-weight: 700;" href', $cat_link);
+			unset( $cat_links[$key] );
+		}
+	}
+
+	if( $primary_link ?? false ){
+		array_unshift($cat_links, $primary_link);
+	}
+
+	return $cat_links;
+
+}, 10, 2);

@@ -37,7 +37,10 @@ function btw_return_template_part( $template, $args = array() ){
 	  ob_start();
 	  btw_get_template_part( $template, $args );
 	  return ob_get_clean();
-	}
+  }
+
+  return '';
+
 }
 
 function btw_return_template( $template, $args = array() ){
@@ -51,7 +54,9 @@ function btw_return_template( $template, $args = array() ){
 	  ob_start();
 	  btw_get_template( $template, $args );
 	  return ob_get_clean();
-	}
+  }
+
+  return '';
 }
 
 
@@ -204,11 +209,12 @@ function user_min_cap_manager( $user = null ){
   If plugin amp is not active, return false
 */
 function btw_is_amp_endpoint(){
-	if( is_rest_api_request() || btw_is_xml_api_request() ){
+
+  if( btw_is_xml_api_request() ){
     return false;
   }
 
-  return function_exists('is_amp_endpoint') ? is_amp_endpoint() : false;
+	return function_exists('amp_is_request') && amp_is_request();
 }
 
 

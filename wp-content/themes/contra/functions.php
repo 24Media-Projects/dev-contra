@@ -1,4 +1,20 @@
 <?php
+if( !function_exists('btw_get_global_setting') ) {
+	function btw_get_global_setting($setting_name)
+	{
+		if ($btw_global_settings = $GLOBALS['btw_global_settings']) { // to produce a warning
+			$_method = 'get_' . $setting_name;
+			if (method_exists($btw_global_settings, $_method)) {
+				return $btw_global_settings->$_method();
+			}
+			//else{ // we dont need a warning here
+			//	echo $method; // to produce a warning
+			//}
+		}
+
+		return null;
+	}
+}
 
 require_once('inc/front-end/classes/class-global-settings.php');
 
@@ -172,7 +188,6 @@ register_nav_menus(array(
 
 
 
-add_theme_support( 'post-thumbnails', [ 'post', 'page', 'video', 'skitsa' ] );
 
 
 /**
@@ -190,5 +205,5 @@ add_filter('amp_to_amp_linking_enabled', '__return_false');
 
 
 add_filter('btw/supported_single_post_types', function($post_types){
-	return ['post', 'video','skitsa'];
+	return ['post', 'video'];
 });

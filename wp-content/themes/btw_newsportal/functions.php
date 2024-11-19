@@ -1,5 +1,21 @@
 <?php
 // Main Functions File
+if( !function_exists('btw_get_global_setting') ) {
+	function btw_get_global_setting($setting_name)
+	{
+		if ($btw_global_settings = $GLOBALS['btw_global_settings']) { // to produce a warning
+			$_method = 'get_' . $setting_name;
+			if (method_exists($btw_global_settings, $_method)) {
+				return $btw_global_settings->$_method();
+			}
+			//else{ // we dont need a warning here
+			//	echo $method; // to produce a warning
+			//}
+		}
+
+		return null;
+	}
+}
 
 /**
  * Get supported single post types
@@ -96,15 +112,23 @@ require_once( 'inc/xml-api/class-btw-xml-api-settings.php' );
 // add_theme_support( 'automatic-feed-links' );
 add_theme_support( 'html5', array( 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption' ) );
 add_theme_support( 'yoast-seo-breadcrumbs' );
+add_theme_support( 'post-thumbnails', array_merge( get_supported_single_post_types(), ['page'] ) );
+
 add_post_type_support( 'page', 'excerpt' );
 
 
 // Load text domain
 add_action( 'after_setup_theme', function(){
 	load_theme_textdomain( 'btw', get_template_directory() . '/languages/btw/' );
-	update_option( 'image_default_size', 'full' );
-
 });
+
+
+add_action('after_switch_theme', function(){
+	if( get_option( 'image_default_size' ) != 'full' ) {
+		update_option('image_default_size', 'full');
+	}
+});
+
 
 
 // Remove WP version

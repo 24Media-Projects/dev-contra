@@ -1,53 +1,6 @@
 <?php
 
 
-add_action('btw/after_related_terms', 'print_podcast_subcategory_icons');
-function print_podcast_subcategory_icons(){
-	if( !is_category() ) return;
-	$term = get_queried_object();
-
-	if( !btw_is_podcast_subcategory($term) ) return;
-
-	$spotify_url = get_field('btw__podcast_subcategories_fields__spotify_url', $term);
-	$apple_podcasts_url = get_field('btw__podcast_subcategories_fields__apple_podcasts_url', $term);
-	$google_podcasts_url = get_field('btw__podcast_subcategories_fields__google_podcasts_url', $term);
-
-	if( !$spotify_url && !$apple_podcasts_url && !$google_podcasts_url ) return;
-
-	?>
-    <div class="podcasts__subscription_area">
-        <span class="label">ΚΑΝΤΕ ΕΓΓΡΑΦΗ</span>
-
-        <div class="subscription_links">
-			<?php
-			if( $spotify_url ){
-				?>
-                <a target="_blank" href="<?php echo $spotify_url; ?>">
-                    <svg> <use xlink:href="#icon-spotify"></use> </svg>
-                </a>
-				<?php
-			}
-
-			if( $apple_podcasts_url ){
-				?>
-                <a target="_blank" href="<?php echo $apple_podcasts_url; ?>">
-                    <svg> <use xlink:href="#icon-apple_podcast"></use> </svg>
-                </a>
-				<?php
-			}
-
-			if( $google_podcasts_url ){
-				?>
-                <a target="_blank" href="<?php echo $google_podcasts_url; ?>">
-                    <svg> <use xlink:href="#icon-simplecast"></use> </svg>
-                </a>
-				<?php
-			}
-			?>
-        </div>
-    </div>
-	<?php
-}
 
 add_action('wp_footer', function(){
     if( is_single() && $code = get_field('btw__article_fields__audio_player_code') ):

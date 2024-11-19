@@ -1,9 +1,77 @@
 ( function( $ ){
     'use strict';
 
+    // Not allow ACF to bypass fields' validation when a post saved as draft
+
+    if( typeof acf == 'undefined' ) return;
+
+    acf.addAction('prepare', function () {
+        acf.validation.removeEvents({
+            'click #save-post': 'onClickSave',
+        });
+    });
+
+    acf.addFilter('btw/acf_select/choices', function(choices, $select){
+
+        if( !$select.hasClass('condition-rule-field') ) return choices;
+
+        var cloned_repeaters = document.querySelectorAll('.acf-field-object-clone');
+        cloned_repeaters.forEach(cloned_repeater => {
+
+            var newChoices = [];
+
+            var elements = document.querySelectorAll('[data-key^="hide_field_"][data-key$="_of_cloned_repeater"]');
+            elements.forEach(element => {
+
+                var key = element.getAttribute('data-key');
+                key = key.replace(/^hide_/, '');
+                key = key.replace(/_of_cloned_repeater$/, '');
+
+                var value = element.querySelector('label').innerText;
+                value = value.trim();
+                value = value.replace(/^Hide\s/, '');
+                value = value.replace(/ of cloned Repeater$/, '');
+
+                var newChoice = {
+                    id: key,
+                    text: value,
+                    disabled: false
+                };
+
+                // Append the new choice to the newChoices array
+                newChoices.push(newChoice);
+
+            });
+
+
+            if( newChoices ){
+
+                var newOptgroup = {
+                    text: cloned_repeater.querySelector('.li-field-label > strong').innerText,
+                    disabled: false,
+                    children: newChoices
+                };
+
+                choices = choices.concat([newOptgroup]);
+
+            }
+
+        });
+
+        return choices;
+    });
+
+
+
     $( document ).ready( function(){
 
         if( typeof acf != 'undefined' ){
+
+            acf.addFilter( 'relationship_ajax_data', function( ajaxData, field ){
+                ajaxData.btw_post_type = !ajaxData.post_type ? ( field.$el.closest( '.acf-field-repeater' ).data( 'btw_post_type' ) || '' ) : '';
+                ajaxData.btw_taxonomy = !ajaxData.taxonomy ? ( field.$el.closest( '.acf-field-repeater' ).data( 'btw_taxonomy' ) || '' ) : '';
+                return ajaxData;
+            });
 
             acf.add_action('btw/do_reset_atf_post', function($acf_relationship_field, reset_also_relationship_input = true){
 
@@ -32,6 +100,42 @@
                     return mceInit;
                 });
             }
+
+
+            /**
+             * In atf_posts, load taxonomies via AJAX
+             */
+            function relationship_field_taxonomy_by_select2( el ){
+
+                if( el.find('optgroup').length > 0 ){ // if has already terms, do nothing
+                    return;
+                }
+
+                var $parent = el.find('.filter.-taxonomy');
+                var $select = el.find('.filter.-taxonomy select[data-filter="taxonomy"]');
+                $select.select2({
+                    placeholder: 'Select Category OR Tag',
+                    allowClear: true,
+                    ajax: {
+                        url: ajaxurl,
+                        dataType: 'json',
+                        delay: 100,
+                        data: function (params) {
+                            return {
+                                action: 'search_filter_taxonomy',
+                                search: params.term,
+                                type: 'public'
+                            };
+                        }
+                    },
+                });
+
+            }
+
+            acf.add_action('new_field/name=atf__post', relationship_field_taxonomy_by_select2); // when loaded asynchronously
+            acf.add_action('load_field/name=atf__post', relationship_field_taxonomy_by_select2); // when not loaded asynchronously
+
+
 
             /**************** ATF_POST CUSTOM FEATURES ****************/
             /** 1) place_custom_toggler_button
@@ -130,12 +234,11 @@
 
                     if ( is_advertorial ) {
 
-                        post_title = my_ed[ _uniqid + '_' + 'atf__post_title' + '_' + 'yes' ].getContent();
+                        post_title = my_ed[ _uniqid + '_' + 'atf__post_title' + '_' + 'yes' ].getContent(); // we need this for atf__post_title_mobile
 
                     }else if ( title_wrapper.length > 0 ) {
 
                         post_title = title_wrapper.text().trim();
-                        post_title = '<strong>' + post_title + '</strong>';
 
                     }else{
 
@@ -278,20 +381,24 @@
 
 
 
-            acf.screen.events[ 'change .hp_group_template_container select' ] = 'onChange';
-            acf.screen.events[ 'change .bon_group_template_container select' ] = 'onChange';
+            for (let groupType in JSON.parse( BTW.btwGroupTypes ) ) {
+                acf.screen.events[ 'change .' + groupType + '_group_template_container select' ] = 'onChange';
+
+                acf.addFilter('check_screen_args', function( ajaxData ){
+                    if( acf.screen.isPost() && acf.screen.getPostType() == 'group' ){
+                        ajaxData['group_' + groupType + '_template'] = $( '.' +  groupType + '_group_template_container select' ).val();
+                    }
+                    return ajaxData;
+                });
+            }
+
+
             acf.screen.events[ 'change .group_type_container select' ] = 'onChange';
 
-
             acf.addFilter('check_screen_args', function( ajaxData ){
-
                 if( acf.screen.isPost() && acf.screen.getPostType() == 'group' ){
-                    ajaxData.group_hp_template = $( '.hp_group_template_container select' ).val();
-                    ajaxData.group_bon_template = $( '.bon_group_template_container select' ).val();
                     ajaxData.group_type = $( '.group_type_container select' ).val();
                 }
-
-                //console.log(ajaxData);
                 return ajaxData;
             });
 
@@ -318,5 +425,50 @@
 
 
     });  //end doc ready
+
+    /**
+     * Copied with default method and btw/acf_select/choices added
+     */
+    acf.renderSelect = function ($select, choices) {
+
+        choices = acf.applyFilters('btw/acf_select/choices', choices, $select);
+
+        // vars
+        var value = $select.val();
+        var values = []; // callback
+
+        var crawl = function (items) {
+            // vars
+            var itemsHtml = ''; // loop
+
+            items.map(function (item) {
+                // vars
+                var text = item.text || item.label || '';
+                var id = item.id || item.value || ''; // append
+
+                values.push(id); //  optgroup
+
+                if (item.children) {
+                    itemsHtml += '<optgroup label="' + acf.escAttr(text) + '">' + crawl(item.children) + '</optgroup>'; // option
+                } else {
+                    itemsHtml += '<option value="' + acf.escAttr(id) + '"' + (item.disabled ? ' disabled="disabled"' : '') + '>' + acf.strEscape(text) + '</option>';
+                }
+            }); // return
+
+            return itemsHtml;
+        }; // update HTML
+
+
+        $select.html(crawl(choices)); // update value
+
+        if (values.indexOf(value) > -1) {
+            $select.val(value);
+        } // return selected value
+
+
+        return $select.val();
+    };
+
+
 
 })(jQuery)

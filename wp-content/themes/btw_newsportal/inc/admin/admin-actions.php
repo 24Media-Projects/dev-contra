@@ -25,7 +25,7 @@ add_action('admin_menu', function(){
       For more details
 */
 
-add_action(' add_meta_boxes', function( $post ){
+add_action('add_meta_boxes', function( $post ){
 	remove_meta_box( 'authordiv','post', 'normal' );
 	add_meta_box( 'btw_authordiv', __( 'Author' ), 'btw_post_author_meta_box', null, 'normal', 'core', array( '__back_compat_meta_box' => true ) );
 });

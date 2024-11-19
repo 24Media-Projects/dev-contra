@@ -57,7 +57,7 @@ add_filter( 'wpseo_schema_person_user_id', function( $user_id ){
 		return $btw_global_settings->get_default_author()->ID;
 	}
 
-	$post_author->author_id;
+	return $post_author->author_id;
 });
 
 
@@ -68,7 +68,7 @@ add_filter( 'wpseo_meta_author', function( $author_name, $presentation ){
 	global $post, $btw_global_settings;
 
 	$post_author = btw_get_post_author( $post );
-	$default_post_author = $btw_global_settings->get_default_author();
+//	$default_post_author = $btw_global_settings->get_default_author();
 
 	if( !$post_author || !$post_author->archive_link ){
 		return $btw_global_settings->get_default_author()->display_name;

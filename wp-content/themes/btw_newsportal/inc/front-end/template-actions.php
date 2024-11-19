@@ -25,25 +25,6 @@ add_action('wp_footer', function () {
 
 
 
-// Third party script setting
-add_action('wp_head', function () {
-
-	global $btw_global_settings;
-
-	if (!is_singular('post') || !in_array('parsely', $btw_global_settings->get_tracking_code_providers())) return false;
-
-	global $post;
-
-	$primary_category = btw_get_post_primary_category();
-	$post_tags = array_map('esc_html', wp_get_post_terms($post->ID, 'post_tag', array('fields' => 'name')));
-
-?>
-
-	<meta name="parsely-section" content="<?php echo esc_html($primary_category->name); ?>" />
-	<meta name="parsely-tags" content="<?php echo implode(',', $tag_names); ?>" />
-
-<?php });
-
 
 add_action('wp_head', function () { ?>
 
