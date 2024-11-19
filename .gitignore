@@ -138,13 +138,13 @@ fabric.properties
 .idea/**/*.*
 wp-content/themes/btw_newsportal/node_modules
 wp-content/themes/btw_newsportal/node_modules/.bin
-wp-content/themes/news247/node_modules
-wp-content/themes/news247/node_modules/.bin
+wp-content/themes/contra/node_modules
+wp-content/themes/contra/node_modules/.bin
 
-wp-content/themes/news247/inc/admin/classes/posts_from_third_party_api/class-post-type-group.php
-# wp-content/themes/news247/assets/css/amp/*
-# wp-content/themes/news247/assets/css/style.css
-# wp-content/themes/news247/assets/css/style.css.map
+wp-content/themes/contra/inc/admin/classes/posts_from_third_party_api/class-post-type-group.php
+# wp-content/themes/contra/assets/css/amp/*
+# wp-content/themes/contra/assets/css/style.css
+# wp-content/themes/contra/assets/css/style.css.map
 
 .vscode
 wp-content/plugins/optix-wp-plugin
