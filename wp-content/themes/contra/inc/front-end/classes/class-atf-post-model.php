@@ -114,11 +114,7 @@ class BTW_Atf_Post{
     protected function get_render_attributes( $args ){
 
         $default_args = array(
-            'template_name'        => null,
-            'article_type'         => [
-                'overlay'   => 'overlay_article',
-                'default'   => 'basic_article',
-            ],
+            'template_name'        => 'default',
             'img_type'             => '',
             'article_font'         => 'article-s-main-title',
             'show_date'            => false,
@@ -185,7 +181,7 @@ class BTW_Atf_Post{
 	 */
     public function get_atf_post(){
 
-        global $post, $btw_log_posts;
+        global $btw_log_posts;
 
         $is_advertorial = $this->item['atf__is_advertorial'];
 
@@ -202,39 +198,13 @@ class BTW_Atf_Post{
             $btw_log_posts->log_post( $wp_post->ID );
         }
 
-
-        //aft post bg color
-		preg_match('/\(?(#([A-Fa-f0-9]{6}))\)?/', $this->item['atf__bg_color'], $matches);
-		$bg_color = $matches[1] ?? '';
-
         $atf_post = [
             'is_advertorial'    => $is_advertorial,
             'wp_post'  	        => $wp_post,
             'impressions_url'  	=> $this->item['atf__post__impressions_url'],
-            'text_align' 	    => $this->item['atf__text_align'] ?? '',
-            'is_overlay' 	    => $this->item['atf__is_overlay'] ?? '',
-            'is_dark_mode' 		=> $this->item['atf__is_dark_mode'],
-            'bg_color'			=> $bg_color ?: 'transparent',
         ];
 
-        // is atf post sponsored
-        $atf_post['is_sponsored'] = $is_advertorial
-            ? $this->item['atf__advertorial__is_sponsored']
-            : btw_is_post_sponsored( $wp_post );
 
-
-        // atf post supertitle
-        $atf_post['supertitle'] = $atf_post['is_sponsored']
-            ? 'Sponsored'
-            : $this->item['atf__supertitle'];
-
-
-        /**
-         * aft post podcast
-         */
-        $atf_post['is_podcast'] = $is_advertorial
-            ? $this->item['atf__advertorial__is_podcast']
-            : btw_is_post_podcast( $wp_post );
 
 		/**
 		 * aft post video
@@ -245,12 +215,13 @@ class BTW_Atf_Post{
 
 
         // aft post caption
-        $atf_caption = $this->item['atf__caption'] ?? '';
+		if($is_advertorial){
+			$atf_post['caption'] = $this->item['atf__caption'];
 
-        $atf_post['caption'] = $is_advertorial
-            ? $this->item['atf__advertorial__caption']
-            : ( $atf_caption ?: btw_get_primary_term_anchor_html( btw_get_post_primary_term( $wp_post, $this->primary_term ) ) );
-
+		}else{
+			$atf_post['caption'] = $this->item['atf__caption']
+				?: btw_get_primary_term_anchor_html( btw_get_post_primary_term($wp_post, $this->primary_term) );
+		}
 
         /** 
          * aft post title
@@ -262,7 +233,7 @@ class BTW_Atf_Post{
 
         /** 
          * aft post title raw
-         * Raw teser title / post title used on rest / xml apis
+         * Raw teaser title / post title used on rest / xml apis
          */
         $atf_post['post_titles']['desktop_raw'] =
             trim(wp_strip_all_tags( $this->item['atf__post_title'] ) )
@@ -547,15 +518,9 @@ class BTW_Atf_Post{
     protected function get_container_classes( $atf_post ){
 
         $classes = [
-            'article',
-            "align_{$atf_post['text_align']}",
+            'article_card',
+			"article_{$this->render_attrs['template_name']}"
         ];
-
-
-        // wp_post is live_now
-		if( !$atf_post['is_advertorial'] && $atf_post['wp_post'] && btw_is_post_live_now( $atf_post['wp_post'] ) ){
-			$classes[] = 'live_now';
-		}
 
 
         // aft post has teaser mobile title
@@ -564,54 +529,14 @@ class BTW_Atf_Post{
         }
 
 
-        // img type class
-        $classes[] = $this->render_attrs['img_type']
-            ?  $this->render_attrs['img_type']
-            : ( $atf_post['is_overlay'] ? 'square' : 'landscape_img' );
-
-
-        // article type class
-        $article_type = $atf_post['is_overlay']
-            ? ( $this->render_attrs['article_type']['overlay'] ?? '' )
-            : ( $this->render_attrs['article_type']['default'] ?? '' );
-
-        $classes[] = $article_type;
-
-        // bg class
-		if( $atf_post['bg_color'] != 'transparent' ){
-			$classes[] = 'has_bg_color';
-		}
-
-        if( in_array( 'basic_article', explode(' ', $article_type ) ) 
-            && !$atf_post['is_overlay']
-            && $atf_post['bg_color'] != 'transparent'
-        ){
-            $classes[] = 'basic_article--bg';
-        }
-
-
-        // small article mobile class
-        if( $this->render_attrs['small_article_mobile'] ){
-            $classes[] = 'basic_article_small';
-        }
-
-        // dark mode class
-        if( $atf_post['is_dark_mode'] ){
-            $classes[] = 'article_darkmode';
-        }
-
 		// atf_post is video or is_podcast
-		if( $atf_post['is_video'] || $atf_post['is_podcast'] ){
+		if( $atf_post['is_video'] ){
 			$classes[] = 'play_article';
 		}
 
 		// extra class
-		if( $this->render_attrs['extra_class'] ?? 0 ){
-			if( is_array( $this->render_attrs['extra_class'] ) ){
-				$classes = array_merge($classes, $this->render_attrs['extra_class']);
-			}else{
-				$classes[] = $this->render_attrs['extra_class'];
-			}
+		if( $this->render_attrs['extra_class'] ?? null ){
+			$classes = array_merge( $classes, (array)$this->render_attrs['extra_class'] );
 		}
 
 
@@ -630,27 +555,17 @@ class BTW_Atf_Post{
     public function render(){
 
         /**
-         *  If no template name argument pass, get default template name, based on atf primary category
-         *  If post has primary category: gnomes, template part name is: opinion (.php )
          *  Default template part name is: atf_post ( .php )
          */
-        if( empty( $this->render_attrs['template_name'] ) ){
-            $this->render_attrs['template_name'] = btw_is_post_opinion( $this->atf_post['wp_post'] )
-                ? 'opinion'
-                : 'atf_post';
-        }
+        $template_part = "template-parts/modules/article_{$this->render_attrs['template_name']}";
 
-        $template_part = "template-parts/post_content/{$this->render_attrs['template_name']}";
-
-        btw_get_template_part( $template_part, [
-            'atf_post'                 => $this->atf_post,
+		$template_part_args = array_merge($this->atf_post, [
 			'index'					   => $this->index,
 			'section_id'			   => $this->section_id,
-            'article_font'             => $this->render_attrs['article_font'],
-            'small_article_mobile'     => $this->render_attrs['small_article_mobile'],  // only used in term_basic
-            'show_date'                => $this->render_attrs['show_date'],
-            'truncate'                 => $this->render_attrs['truncate'] ?? null,
-        ]);
+			'truncate'                 => $this->render_attrs['truncate'] ?? null,
+		]);
+
+        btw_get_template_part( $template_part, $template_part_args );
     }
 
     /**
