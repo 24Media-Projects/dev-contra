@@ -114,13 +114,11 @@ class BTW_Atf_Post{
     protected function get_render_attributes( $args ){
 
         $default_args = array(
-            'template_name'        => 'default',
-            'img_type'             => '',
-            'article_font'         => 'article-s-main-title',
-            'show_date'            => false,
-            'small_article_mobile' => false,
-            'lazyload'             => true,
-        );
+            'template_name'	=> 'default',
+            'lazyload'		=> true,
+			'extra_class'	=> [],
+			'extra_variables'		=> [],
+		);
 
 
         // article_type can be type of string
@@ -535,9 +533,7 @@ class BTW_Atf_Post{
 		}
 
 		// extra class
-		if( $this->render_attrs['extra_class'] ?? null ){
-			$classes = array_merge( $classes, (array)$this->render_attrs['extra_class'] );
-		}
+		$classes = array_merge( $classes, (array)$this->render_attrs['extra_class'] );
 
 
         return $classes;
@@ -554,12 +550,9 @@ class BTW_Atf_Post{
      */
     public function render(){
 
-        /**
-         *  Default template part name is: atf_post ( .php )
-         */
         $template_part = "template-parts/modules/article_{$this->render_attrs['template_name']}";
 
-		$template_part_args = array_merge($this->atf_post, [
+		$template_part_args = array_merge($this->atf_post, $this->render_attrs['extra_variables'], [
 			'index'					   => $this->index,
 			'section_id'			   => $this->section_id,
 			'truncate'                 => $this->render_attrs['truncate'] ?? null,
