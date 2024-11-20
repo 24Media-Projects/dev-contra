@@ -29,20 +29,14 @@
 	  ];
 
 	  const GROUP_HP_TEMPLATES_CHOICES = [
-		  'above_the_fold'              => 'above_the_fold',
-		  'trending_topics'             => 'trending_topics',
-		  'latest_stories'              => 'latest_stories (Επικαιρότητα)',
-		  'popular_articles'            => 'popular_articles (Δημοφιλή Άρθρα)',
-		  'tribute_basic'               => 'tribute_basic (Αφιερωματικό Widget)',
-		  'term_basic'                  => 'term_basic (αρθρογραφία κατηγορίας/tag)',
+		  'hero'              			=> 'Hero Section (hero)',
+		  '2cols__with_banner'			=> 'Δίστηλη Αρθρογραφία με Ad banner (2cols__with_banner)',
+		  '2cols'						=> 'Δίστηλη Αρθρογραφία (2cols)',
+		  '3cols__with_banner'			=> 'Τρίστηλη Αρθρογραφία με Ad banner (3cols__with_banner)',
+		  '3cols'						=> 'Τρίστηλη Αρθρογραφία (3cols)',
+		  '4cols'						=> 'Τετράστηλη Αρθρογραφία (4cols)',
+		  'tribute'						=> 'Αφιερωματικό Widget (tribute)',
 		  'best_of_network'             => 'best_of_network',
-		  'best_of_network_2'           => 'best_of_network_2',
-		  'best_of_network_3'           => 'BON 3 (Multiple Feeds)',
-		  'best_of_network_4'           => 'BON 4 (Single Feed)',
-		  'articles_grid'               => 'articles_grid (Grid από Άρθρα, χωρίς διαφημίσεις)',
-		  'newsletter'					=> 'newsletter',
-		  'embed_code'					=> 'embed_code (Embed Code)',
-		  'embed_code__full_width'		=> 'embed_code__full_width (Embed Code Full Width)',
 	  ];
 
 
