@@ -23,7 +23,7 @@ class Contra_User_Roles_Capabilities{
 
 	  // PLACE HERE YOUR ACTIONS
 
-	  add_option( 'sport24_user_caps_completed', true );
+	  add_option( 'contra_user_caps_completed', true );
 
   }
 
