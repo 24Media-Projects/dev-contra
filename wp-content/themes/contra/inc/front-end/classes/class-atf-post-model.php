@@ -126,7 +126,7 @@ class BTW_Atf_Post{
 
 
     /**
-     * Get render attributes
+     * Set render attributes
      */
     protected function set_render_attributes( $args ){
 
@@ -308,7 +308,7 @@ class BTW_Atf_Post{
          * Get attachment background urls. 
         * It can be used instead of attachment <picture> html
         */
-        $atf_post['attachment_background'] = $this->get_attachment_background_urls( $attachment_data );
+        //$atf_post['attachment_background'] = $this->get_attachment_background_urls( $attachment_data );
 
 
         /**

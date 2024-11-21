@@ -100,6 +100,8 @@ require_once( 'inc/admin/classes/posts_from_third_party_api/class-parsely-hp-con
 
 require_once( 'inc/front-end/classes/class-contra-parsely-post-primary-category.php' );
 
+require_once( 'inc/front-end/classes/class-btw-wp-post.php' );
+
 // bon
 require_once( 'inc/admin/classes/posts_from_third_party_api/bon/class-abstract-bon.php' );
 require_once( 'inc/admin/classes/posts_from_third_party_api/bon/class-bon-hp-one.php' );
