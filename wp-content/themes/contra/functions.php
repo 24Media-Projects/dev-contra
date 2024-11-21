@@ -167,13 +167,6 @@ add_action('init', function(){
 // This theme uses wp_nav_menu() in these locations
 register_nav_menus(array(
 	'primary_nav'   	 	 => 'Primary Navigation',
-	'home_primary_nav'   	 => 'Primary Navigation for Homepage',
-	'side_nav_main'     	 => 'Side Main Navigation',
-	'side_nav_sec'     		 => 'Side Secondary Navigation',
-	'footer_col_1'    		 => 'Footer Column 1 Navigation',
-	'footer_col_2'    		 => 'Footer Column 2 Navigation',
-	'footer_info'    		 => 'Footer Info Navigation',
-	'footer_24media_network' => 'Footer 24media Network',
 ));
 
 
