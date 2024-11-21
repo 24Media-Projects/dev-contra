@@ -1,0 +1,249 @@
+// ------------------------------------------------------------------------------
+// SECTION: VARIABLES
+// -----------------------------------------------------------------------------*/
+
+/* FONTS */
+
+$font-name: "Zona Pro";
+$font-dir: "../fonts/zonapro";
+$weights: (
+  regular: 400,
+  semibold: 600,
+  bold: 700,
+);
+
+@each $weight-name, $weight-value in $weights {
+  $filename: $font-dir + "-" + $weight-name + "-webfont";
+
+  @font-face {
+    font-display: swap;
+    font-family: $font-name;
+    font-weight: $weight-value;
+    src: url($filename + ".woff2") format("woff2");
+  }
+}
+
+$base-font-size: 10px;
+$font-zonapro: "Zona Pro", Arial, Helvetica, sans-serif;
+$regular: 400;
+$semi-bold: 600;
+$bold: 700;
+
+/* MEDIA
+---------------------------------------------------------------------------------------------------*/
+
+$min-xxl: em(1516);
+$min-xl2: em(1366);
+$min-xl: em(1200);
+$min-lg: em(1024);
+$min-md: em(768);
+$min-sm: em(360);
+
+$max-xxl: em(1515);
+$max-xl2: em(1365);
+$max-xl: em(1199);
+$max-lg: em(1023);
+$max-md: em(767);
+$max-sm: em(359);
+
+$breakpoints: (
+  // Extra small screen / phone
+  xs: 0,
+  // Small screen / phone
+  sm: 360px,
+  // Medium screen / tablet
+  md: 768px,
+  // Large screen / tablet
+  lg: 1024px,
+  // Extra large screen / wide desktop
+  xl: 1200px,
+  // Extra large screen / wide desktop 2
+  xl2: 1366px,
+  // Extra extra large screen / wide desktop
+  xxl: 1516px
+) !default;
+
+@mixin media-xxl {
+  @media (min-width: map-get($breakpoints, xxl)) {
+    @content;
+  }
+}
+
+@mixin media-xl2 {
+  @media (min-width: map-get($breakpoints, xl2)) {
+    @content;
+  }
+}
+
+@mixin media-xl {
+  @media (min-width: map-get($breakpoints, xl)) {
+    @content;
+  }
+}
+
+@mixin media-lg {
+  @media (min-width: map-get($breakpoints, lg)) {
+    @content;
+  }
+}
+
+@mixin media-md {
+  @media (min-width: map-get($breakpoints, md)) {
+    @content;
+  }
+}
+
+@mixin media-sm {
+  @media (min-width: map-get($breakpoints, sm)) {
+    @content;
+  }
+}
+
+/* GRID
+---------------------------------------------------------------------------------------------------*/
+
+$container: 1420px;
+$gutter-lg: 54px;
+$gutter-md: 48px;
+$gutter: 20px;
+$gutter-small: 10px;
+
+$left-sidebar-width: 364px;
+$right-sidebar-width: 300px;
+
+/* GENERIC
+---------------------------------------------------------------------------------------------------*/
+
+$open-matchcenter: ".has-open-matchcenter";
+
+/* COLORING
+---------------------------------------------------------------------------------------------------*/
+
+/* GREY SCALE */
+$color-black: #000000;
+$color-grey-eurobasket: #8d8d8d;
+$color-grey-darker: #5c5d5f;
+$color-grey-semidarker: #9c9d9f;
+$color-grey-dark: #b2b4b6;
+$color-grey-medium: #e2e4e6;
+$color-grey-light: #f6f7f8;
+$color-white: #ffffff;
+$color-white-transp: rgba(255, 255, 255, 0.5);
+$color-grey-darker-transp: rgba(92, 93, 95, 0.5);
+
+/* RED SCALE */
+$color-red: #ff0040;
+$color-red-dark: #cc0033;
+$color-red-dark_2: #69183d;
+$color-red-tokyo-light: #831735;
+$color-red-tokyo-dark: #690520;
+$color-orange: #ff5800;
+
+/* GREEN SCALE */
+$color-green-light: #03fc96;
+$color-green-dark: #00be70;
+
+/* BLUE SCALE */
+$color-blue: #0f253a;
+$color-blue-light: #163654;
+$color-blue-menu: #0c1d2e;
+$color-blue-euro-dark: #1f8599;
+$color-blue-euro: #25b9cb;
+$color-blue-tokyo-light: #1365d4;
+$color-blue-tokyo-links: #00a6eb;
+$color-blue-olympics: #00b4ff;
+$color-blue-eurobasket: #57a4fc;
+$color-blue-apestalmenoi: #004fac;
+
+/* GRADIENTS */
+$basic-gradient: linear-gradient(
+  0deg,
+  var(--gradient-bg-color-1, $color-red-dark_2) 0%,
+  var(--gradient-bg-color-2, $color-blue) 100%
+);
+
+/* COLORS BY USE */
+$color-bg-blue: $color-blue;
+$color-border: $color-grey-medium;
+$color-heading: $color-blue;
+$color-text-blue: $color-blue;
+$color-text-grey: $color-grey-dark;
+$base-font-color: $color-black;
+
+// ------------------------------------------------------------------------------
+// SECTION: MIXINS
+// -----------------------------------------------------------------------------*/
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin border-top-right-radius($radius) {
+  -webkit-border-top-right-radius: $radius;
+  -moz-border-top-right-radius: $radius;
+  -ms-border-top-right-radius: $radius;
+  border-top-right-radius: $radius;
+}
+
+@mixin border-bottom-right-radius($radius) {
+  -webkit-border-bottom-right-radius: $radius;
+  -moz-border-bottom-right-radius: $radius;
+  -ms-border-bottom-right-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
+
+@mixin border-top-left-radius($radius) {
+  -webkit-border-top-left-radius: $radius;
+  -moz-border-top-left-radius: $radius;
+  -ms-border-top-left-radius: $radius;
+  border-top-left-radius: $radius;
+}
+
+@mixin border-bottom-left-radius($radius) {
+  -webkit-border-bottom-left-radius: $radius;
+  -moz-border-bottom-left-radius: $radius;
+  -ms-border-bottom-left-radius: $radius;
+  border-bottom-left-radius: $radius;
+}
+
+@mixin appearance($appearance) {
+  -webkit-appearance: $appearance;
+  -moz-appearance: $appearance;
+}
+
+@mixin transition($transition) {
+  -webkit-transition: $transition;
+  -moz-transition: $transition;
+  transition: $transition;
+}
+
+@mixin animation($animation) {
+  -webkit-animation: $animation;
+  -moz-animation: $animation;
+  -o-animation: $animation;
+  -ms-animation: $animation;
+  animation: $animation;
+}
+
+@mixin box-shadow($box-shadow) {
+  -webkit-box-shadow: $box-shadow;
+  -moz-box-shadow: $box-shadow;
+  -o-box-shadow: $box-shadow;
+  -ms-box-shadow: $box-shadow;
+  box-shadow: $box-shadow;
+}
+
+@mixin blur($blur) {
+  -webkit-filter: blur($blur);
+  -moz-filter: blur($blur);
+  -o-filter: blur($blur);
+  -ms-filter: blur($blur);
+  filter: blur($blur);
+}
+
+@mixin backdrop-filter($filter) {
+  -webkit-backdrop-filter: $filter;
+  backdrop-filter: $filter;
+}
