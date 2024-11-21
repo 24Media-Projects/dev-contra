@@ -578,3 +578,124 @@ function elasticpress_sort_by( $sort, $order ){
 
 	return $sort;
 }
+
+function btw_get_term_wp_query(int $limit, $term = null){
+
+	global $btw_log_posts;
+
+	// posts from current term
+	if( $term === null ){
+		$term = get_queried_object();
+	}
+
+	$query_args = [
+		'post_type'         => get_supported_single_post_types(),
+		'posts_per_page'    => $limit,
+		'orderby'           => 'date',
+		'order'             => 'DESC',
+		'post_status'       => 'publish',
+		'post__not_in'      => $btw_log_posts->get_displayed_posts(),
+	];
+
+	// posts from given term, if false => posts from whole site
+	if( $term !== false ){
+		$query_args['tax_query'] = [
+			[
+				'taxonomy'	=> $term->taxonomy,
+				'field'		=> 'term_id',
+				'terms'		=> $term->term_id
+			]
+		];
+	}
+
+	$term_wp_query = new WP_Query( $query_args );
+
+	$btw_log_posts->log_posts( $term_wp_query->posts );
+
+	return $term_wp_query;
+
+}
+
+
+/**
+ * @param int $post_count
+ * @param BTW_Atf_Post[] $atf_posts
+ * @param object|WP_Term|array|null $term
+ * @param bool $log_displayed_posts
+ *
+ * @return BTW_WP_Post[]
+ */
+function btw_get_group_posts( $post_count, $atf_posts = [], $term = null, $log_displayed_posts = true, $general_feed_as_fallback = true ){
+
+	if( $post_count <= 0 ){
+		return [];
+	}
+
+	if( $log_displayed_posts ){
+		global $btw_log_posts;
+	}
+
+	$returned_posts = [];
+
+	if( count( $atf_posts ) >= $post_count ){
+		$atf_posts = array_slice( $atf_posts, 0, $post_count );
+	}
+
+	foreach( $atf_posts as $atf_post ){
+		$returned_posts[] = new BTW_Atf_Post( $atf_post, (bool) $log_displayed_posts );
+	}
+
+	// check if we have enough atf posts
+	if( count( $returned_posts ) == $post_count ){
+		return $returned_posts;
+	}
+
+	$post_args = [
+		'post_type'			=> get_supported_single_post_types(),
+		'posts_per_page'	=> $post_count - count( $returned_posts ),
+		'orderby'			=> 'date',
+		'order'				=> 'DESC',
+		'post_status'		=> 'publish',
+		'no_found_rows'		=> true,
+	];
+
+	if( $term instanceof WP_Term ){
+		$post_args['tax_query'] = [
+			[
+				'field'		=> 'term_id',
+				'terms'		=> $term->term_id,
+				'taxonomy'	=> $term->taxonomy,
+			]
+		];
+	}
+
+	if( $log_displayed_posts ){
+		$post_args['post__not_in'] = $btw_log_posts->get_displayed_posts();
+	}
+
+	// if (is_array($term_or_query_args)) {
+	// 	$post_args = array_merge($post_args, $term_or_query_args);
+	// }
+
+	$posts = get_posts( $post_args );
+
+	foreach( $posts as $post ){
+		$returned_posts[] = new BTW_WP_Post( $post, (bool) $log_displayed_posts );
+	}
+
+	if( count( $returned_posts ) == $post_count ){
+		return $returned_posts;
+	}
+
+	if( !$general_feed_as_fallback ) return $returned_posts;
+
+
+	$fallback_posts = btw_get_group_posts(
+		post_count: $post_count - count( $returned_posts ),
+		log_displayed_posts: $log_displayed_posts,
+	);
+
+	return array_merge( $returned_posts, $fallback_posts );
+
+}
+

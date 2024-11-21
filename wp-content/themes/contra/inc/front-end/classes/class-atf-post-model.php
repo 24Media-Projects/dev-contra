@@ -26,7 +26,6 @@ class BTW_Atf_Post{
 	 */
 	protected mixed $primary_term;
 
-    protected $default_image;
 
     protected $image_srcsets;
 
@@ -38,28 +37,46 @@ class BTW_Atf_Post{
     protected $group_template;
 
 
-	public function __construct( $args = [] ){
+	public function __construct( $item, $btw_log_posts = true ){
 
-		$this->primary_term =  $args['primary_term'] ?? 'post_tag';
-		$this->item = $args['item'] ?? [];
+		$this->item = $item;
+
+		if( $wp_post = $this->get_wp_post() ){
+			/**
+			 * Log wp post to btw_log_posts
+			 */
+			$GLOBALS['btw_log_posts']->log_post( $wp_post->ID );
+		}
+
+		/**
+		 * Log wp post to btw_log_posts
+		 */
+		if( $btw_log_posts && $wp_post = $this->get_wp_post() ){
+			global $btw_log_posts;
+			$btw_log_posts && $btw_log_posts->log_post( $wp_post->ID );
+		}
+
+	}
+
+	private function get_wp_post()
+	{
+		return !$this->item['atf__is_advertorial'] && isset($this->item['atf__post'][0]) ? $this->item['atf__post'][0] : false;
+	}
+
+	public function set_args( $args = [] )
+	{
+		$this->primary_term =  $args['primary_term'] ?? 'category';
 		$this->index = $args['index'] ?? false;
-		$this->section_id = !empty( $args['section_id'] ) ? $args['section_id'] : 'group-' . ( $args['group_id'] ?? get_the_ID() );
-        $this->image_srcsets = $this->get_image_srcsets( $args['image_srcsets'] ?? [] );
+		$this->image_srcsets = $this->get_image_srcsets( $args['image_srcsets'] ?? [] );
 
-        global $group_template;
-        $this->group_template = $group_template;
+		global $group_template;
+		$this->group_template = $group_template;
 
-        $this->default_image = get_field( 'btw__brand_fields__default_image', 'option' );
+		$this->set_render_attributes( $args['render_attrs'] ?? [] );
 
-        $this->render_attrs = $this->get_render_attributes( $args['render_attrs'] ?? [] );
+		$this->atf_post = $this->get_atf_post();
 
-        // foreach( $this->get_atf_post() as $key => $value ){
-        //     $this->$key = $value;
-        // }
-
-        $this->atf_post = $this->get_atf_post();
-
-    }
+	}
 
 
     protected function get_image_srcsets( $image_srcsets = [] ){
@@ -111,25 +128,18 @@ class BTW_Atf_Post{
     /**
      * Get render attributes
      */
-    protected function get_render_attributes( $args ){
+    protected function set_render_attributes( $args ){
 
         $default_args = array(
-            'template_name'	=> 'default',
-            'lazyload'		=> true,
-			'extra_class'	=> [],
-			'extra_variables'		=> [],
+            'article_type'		=> 'default',
+            'lazyload'			=> true,
+			'extra_class'		=> [],
+			'extra_variables'	=> [],
 		);
 
 
-        // article_type can be type of string
-        if( !empty( $args['article_type'] ) && gettype( $args['article_type'] ) == 'string' ){
-            $args['article_type'] = [
-                'overlay' => $args['article_type'],
-                'default' => $args['article_type'],
-            ];
-        }
 
-        return array_merge( $default_args, $args );
+		$this->render_attrs = array_merge( $default_args, $args );
     }
 
 
@@ -506,7 +516,8 @@ class BTW_Atf_Post{
      */
     protected function get_wp_post_featured_image_id( $wp_post ){
 
-        $wp_post_featured_image_id = get_post_thumbnail_id( $wp_post ) ?: $this->default_image['ID'];
+        $wp_post_featured_image_id = get_post_thumbnail_id( $wp_post )
+				?: get_field( 'btw__brand_fields__default_image', 'option' )['ID'];
 
         return apply_filters( 'btw/atf_post/wp_post_featured_image_id', $wp_post_featured_image_id, $wp_post, $this->group_template );
     }
@@ -517,7 +528,7 @@ class BTW_Atf_Post{
 
         $classes = [
             'article_card',
-			"article_{$this->render_attrs['template_name']}"
+			"article_{$this->render_attrs['article_type']}"
         ];
 
 
@@ -550,7 +561,7 @@ class BTW_Atf_Post{
      */
     public function render(){
 
-        $template_part = "template-parts/modules/article_{$this->render_attrs['template_name']}";
+        $template_part = "template-parts/modules/article_{$this->render_attrs['article_type']}";
 
 		$template_part_args = array_merge($this->atf_post, $this->render_attrs['extra_variables'], [
 			'index'					   => $this->index,
