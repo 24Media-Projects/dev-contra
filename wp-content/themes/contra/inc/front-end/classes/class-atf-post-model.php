@@ -133,6 +133,16 @@ class BTW_Atf_Post{
         $default_args = array(
             'article_type'		=> 'default',
             'lazyload'			=> true,
+
+
+			'columns'			=> 0,
+			'tab_columns'		=> 0,
+
+			'font'				=> '',
+			'tab_font'			=> '',
+			'lap_font'			=> '',
+
+
 			'extra_class'		=> [],
 			'extra_variables'	=> [],
 		);

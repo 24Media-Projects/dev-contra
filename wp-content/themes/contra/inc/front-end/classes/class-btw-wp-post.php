@@ -84,10 +84,10 @@ class BTW_WP_Post{
 			'article_type'		=> 'default',
 			'lazyload'			=> true,
 
-			'columns'			=> 1,
+			'columns'			=> 0,
 			'tab_columns'		=> 0,
 
-			'font'				=> 'xs',
+			'font'				=> '',
 			'tab_font'			=> '',
 			'lap_font'			=> '',
 
