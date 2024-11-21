@@ -148,8 +148,9 @@ class BTW_WP_Post{
 
 
 		// columns
-		$columns = $columns_mapping[ $this->render_attrs['columns'] ];
-		$classes[] = "mob_col__{$columns}";
+		if( $columns = $columns_mapping[ $this->render_attrs['columns'] ] ){
+			$classes[] = "mob_col__{$columns}";
+		}
 
 		if( $tablet_columns = $this->render_attrs['tab_columns'] ){
 			$classes[] = "tab_col__{$tablet_columns}";
@@ -157,8 +158,9 @@ class BTW_WP_Post{
 
 
 		// fonts
-		$classes[] = "mob_text__{$this->render_attrs['font']}";
-
+		if( $font = $this->render_attrs['font'] ){
+			$classes[] = "mob_text__{$font}";
+		}
 		if( $tab_font = $this->render_attrs['tab_font'] ){
 			$classes[] = "tab_text__{$tab_font}";
 		}
@@ -179,11 +181,14 @@ class BTW_WP_Post{
 	 */
 	public function render(){
 
-		$file_args = array_merge($this->post_data, [
+		$extra_data = [
 			'index'				=> $this->index,
 			'container_classes'	=> $this->get_container_classes($this->post_data),
 			'group_template'	=> $this->group_template,
-		]);
+			'truncate'          => $this->render_attrs['truncate'] ?? null,
+		];
+
+		$file_args = array_merge($this->post_data, $extra_data, $this->render_attrs['extra_variables']);
 
 		btw_get_template_part( $this->get_module_path(), $file_args);
 

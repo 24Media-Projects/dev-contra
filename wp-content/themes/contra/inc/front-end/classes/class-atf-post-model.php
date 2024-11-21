@@ -541,8 +541,9 @@ class BTW_Atf_Post{
 
 
 		// columns
-		$columns = $columns_mapping[ $this->render_attrs['columns'] ];
-		$classes[] = "mob_col__{$columns}";
+		if( $columns = $columns_mapping[ $this->render_attrs['columns'] ] ){
+			$classes[] = "mob_col__{$columns}";
+		}
 
 		if( $tablet_columns = $this->render_attrs['tab_columns'] ){
 			$classes[] = "tab_col__{$tablet_columns}";
@@ -550,8 +551,9 @@ class BTW_Atf_Post{
 
 
 		// fonts
-		$classes[] = "mob_text__{$this->render_attrs['font']}";
-
+		if( $font = $this->render_attrs['font'] ){
+			$classes[] = "mob_text__{$font}";
+		}
 		if( $tab_font = $this->render_attrs['tab_font'] ){
 			$classes[] = "tab_text__{$tab_font}";
 		}
@@ -579,13 +581,15 @@ class BTW_Atf_Post{
 
         $template_part = "template-parts/modules/article_{$this->render_attrs['article_type']}";
 
-		$template_part_args = array_merge($this->atf_post, $this->render_attrs['extra_variables'], [
-			'index'					   => $this->index,
-			'section_id'			   => $this->section_id,
-			'truncate'                 => $this->render_attrs['truncate'] ?? null,
-		]);
+		$extra_data = [
+			'index'			=> $this->index,
+			'section_id'	=> $this->section_id,
+			'truncate'		=> $this->render_attrs['truncate'] ?? null,
+		];
 
-        btw_get_template_part( $template_part, $template_part_args );
+		$file_args = array_merge($this->atf_post, $extra_data, $this->render_attrs['extra_variables']);
+
+        btw_get_template_part( $template_part, $file_args );
     }
 
     /**
