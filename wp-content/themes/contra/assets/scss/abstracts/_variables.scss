@@ -20,36 +20,34 @@ $roboto-condensed-bold: "Roboto-Condensed-Bold", sans-serif;
 /* MEDIA
 ---------------------------------------------------------------------------------------------------*/
 
-$min-xxl: em(1921);
-$min-xl: em(1701);
-$min-l: em(1401);
-$min-m: em(1350);
-$min-n: em(1101);
+$min-n: em(1280);
 $min-x: em(1024);
 $min-xs: em(768);
 
-$max-xxl: em(1920);
-$max-xl: em(1700);
-$max-l: em(1400);
-$max-m: em(1349);
-$max-n: em(1100);
+$max-n: em(1279);
 $max-x: em(1023);
 $max-xs: em(767);
 
 /* GRID
 ---------------------------------------------------------------------------------------------------*/
 
+$gutter: 20px;
+$gutter-md: 40px;
+$container: 1260px;
+
 /* GENERIC
 ---------------------------------------------------------------------------------------------------*/
+$openMenu-class-body: ".has-open-menu";
 
 /* COLORING
 ---------------------------------------------------------------------------------------------------*/
 
 $color-black: #000000;
 $color-white: #ffffff;
-$color-dark-blue: #002040;
 $color-blue: #003358;
+$color-light-blue: #1f558a;
+$color-dark-blue: #002040;
 $color-yellow: #ffd200;
-$color-dark-grey: #6b6b6b;
 $color-grey: #9c9c9c;
 $color-light-grey: #f5f5f5;
+$color-dark-grey: #6b6b6b;

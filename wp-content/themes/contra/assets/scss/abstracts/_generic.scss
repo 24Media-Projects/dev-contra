@@ -15,6 +15,11 @@ body {
   position: relative;
   cursor: auto;
   height: auto;
+  &.has-open-menu {
+    @media screen and (max-width: $max-xs) {
+      overflow: hidden;
+    }
+  }
 }
 
 .global_wrapper {
@@ -96,6 +101,9 @@ a.anchor {
 
   text-align: center;
   font-style: normal;
+  border: none;
+  background-color: unset;
+  padding: 0;
 }
 
 button,
