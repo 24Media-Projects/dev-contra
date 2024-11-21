@@ -1,32 +1,58 @@
 .global__header__main_menu {
+  &:before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 32, 64, 0.5);
+    transition: all 0.2s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+  }
+  .wrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+    justify-content: flex-start;
+    overflow-y: auto;
+    position: absolute;
+    background-color: $color-dark-blue;
+    color: $color-white;
+    fill: $color-white;
+    height: calc(100vh - 60px);
+    top: 60px;
+    right: 0;
+    width: 100vw;
+    opacity: 0;
+    visibility: hidden;
+    max-height: 0;
+    transition: all 0.2s ease-in-out;
+    scrollbar-width: none;
+  }
   .primary_nav {
+    background-color: $color-blue;
+    padding: 40px;
+    font-family: $heading-pro-bold;
+    @include font-18;
+    letter-spacing: em(2.88, 18);
     .menu {
       display: flex;
-      flex-flow: column nowrap;
-      align-items: stretch;
-      justify-content: flex-start;
-      overflow-y: auto;
-      position: absolute;
-      background-color: $color-dark-blue;
-      height: calc(100vh - 60px);
-      top: 60px;
-      right: 0;
-      width: 100vw;
-      opacity: 0;
-      visibility: hidden;
-      max-height: 0;
-      transition: all 0.2s ease-in-out;
-      scrollbar-width: none;
+      flex-direction: column;
+      gap: 30px;
     }
   }
 
   @at-root body#{$openMenu-class-body} & {
-    .primary_nav {
-      .menu {
-        visibility: visible;
-        opacity: 1;
-        max-height: 100vh;
-      }
+    &:before {
+      opacity: 1;
+      visibility: visible;
+    }
+    .wrapper {
+      visibility: visible;
+      opacity: 1;
+      max-height: 100vh;
     }
   }
 }
