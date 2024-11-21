@@ -188,7 +188,7 @@ class BTW_WP_Post{
 			'truncate'          => $this->render_attrs['truncate'] ?? null,
 		];
 
-		$file_args = array_merge($this->post_data, $extra_data, $this->render_attrs['extra_variables']);
+		$file_args = array_merge( $this->post_data, $extra_data, $this->render_attrs['extra_variables'] );
 
 		btw_get_template_part( $this->get_module_path(), $file_args);
 

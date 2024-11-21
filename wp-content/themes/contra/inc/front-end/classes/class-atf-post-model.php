@@ -587,7 +587,7 @@ class BTW_Atf_Post{
 			'truncate'		=> $this->render_attrs['truncate'] ?? null,
 		];
 
-		$file_args = array_merge($this->atf_post, $extra_data, $this->render_attrs['extra_variables']);
+		$file_args = array_merge( $this->atf_post, $extra_data, $this->render_attrs['extra_variables'] );
 
         btw_get_template_part( $template_part, $file_args );
     }
