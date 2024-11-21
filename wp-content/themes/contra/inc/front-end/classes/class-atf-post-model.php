@@ -572,10 +572,6 @@ class BTW_Atf_Post{
 
     /**
      * Render atf post
-     * template dir is: template/template-parts/post_content
-     * 
-     * 
-     * @param array args
      */
     public function render(){
 
