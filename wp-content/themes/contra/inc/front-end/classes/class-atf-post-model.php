@@ -524,32 +524,48 @@ class BTW_Atf_Post{
 
 
 
-    protected function get_container_classes( $atf_post ){
+	protected function get_container_classes()
+	{
+		$columns_mapping = [
+			0 => '',
+			1 => 'one',
+			2 => 'two',
+		];
 
-        $classes = [
-            'article_card',
-			"article_{$this->render_attrs['article_type']}"
-        ];
-
-
-        // aft post has teaser mobile title
-        if( $atf_post['post_titles']['mobile'] ){
-            $classes[] = 'with_mobile_title';
-        }
-
-
-		// atf_post is video or is_podcast
-		if( $atf_post['is_video'] ){
-			$classes[] = 'play_article';
+		if( $this->render_attrs['article_type'] == 'default' ){
+			$classes[] = 'article_card';
+		}else{
+			$classes[] = "article_card__{$this->render_attrs['article_type']}";
 		}
 
-		// extra class
-		$classes = array_merge( $classes, (array)$this->render_attrs['extra_class'] );
 
 
-        return $classes;
+		// columns
+		$columns = $columns_mapping[ $this->render_attrs['columns'] ];
+		$classes[] = "mob_col__{$columns}";
 
-    }
+		if( $tablet_columns = $this->render_attrs['tab_columns'] ){
+			$classes[] = "tab_col__{$tablet_columns}";
+		}
+
+
+		// fonts
+		$classes[] = "mob_text__{$this->render_attrs['font']}";
+
+		if( $tab_font = $this->render_attrs['tab_font'] ){
+			$classes[] = "tab_text__{$tab_font}";
+		}
+
+		if( $lap_font = $this->render_attrs['lap_font'] ){
+			$classes[] = "lap_text__{$lap_font}";
+		}
+
+
+
+		$classes = array_merge($classes, (array)$this->render_attrs['extra_class']);
+
+		return $classes;
+	}
 
 
     /**

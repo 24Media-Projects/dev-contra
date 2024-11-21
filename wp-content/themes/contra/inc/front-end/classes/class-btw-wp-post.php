@@ -83,6 +83,15 @@ class BTW_WP_Post{
 		$default_args = array(
 			'article_type'		=> 'default',
 			'lazyload'			=> true,
+
+			'columns'			=> 1,
+			'tab_columns'		=> 0,
+
+			'font'				=> 'xs',
+			'tab_font'			=> '',
+			'lap_font'			=> '',
+
+
 			'extra_class'		=> [],
 			'extra_variables'	=> [],
 		);
@@ -122,7 +131,7 @@ class BTW_WP_Post{
 	}
 
 
-	protected function get_container_classes($post_data)
+	protected function get_container_classes()
 	{
 		$columns_mapping = [
 			0 => '',
@@ -130,75 +139,37 @@ class BTW_WP_Post{
 			2 => 'two',
 		];
 
+		if( $this->render_attrs['article_type'] == 'default' ){
+			$classes[] = 'article_card';
+		}else{
+			$classes[] = "article_card__{$this->render_attrs['article_type']}";
+		}
 
-		$classes = [
-			'article_card',
-			"article_card__{$this->render_attrs['article_type']}",
-			"mob_text__{$this->render_attrs['font']}",
-		];
+
 
 		// columns
-		if( $columns = $columns_mapping[ $this->render_attrs['columns'] ] ){
-			$classes[] = "mob_col__{$columns}";
-		}
+		$columns = $columns_mapping[ $this->render_attrs['columns'] ];
+		$classes[] = "mob_col__{$columns}";
 
-		if( $lap_columns = $columns_mapping[ $this->render_attrs['lap_columns'] ] ){
-			$classes[] = "lap_col__{$lap_columns}";
-		}
-
-		if( !empty( $this->render_attrs['tablet_columns'] )
-			&& $tablet_columns = $columns_mapping[ $this->render_attrs['tablet_columns'] ]
-		){
-			$classes[] = "tablet_col__{$tablet_columns}";
-		}
-		
-		if( !empty( $this->render_attrs['desk_columns'] )
-			&& $desk_columns = $columns_mapping[ $this->render_attrs['desk_columns'] ]
-		){
-			$classes[] = "desk_col__{$desk_columns}";
+		if( $tablet_columns = $this->render_attrs['tab_columns'] ){
+			$classes[] = "tab_col__{$tablet_columns}";
 		}
 
 
 		// fonts
-		if( $this->render_attrs['lap_font'] ){
-			$classes[] = "lap_text__{$this->render_attrs['lap_font']}";
+		$classes[] = "mob_text__{$this->render_attrs['font']}";
+
+		if( $tab_font = $this->render_attrs['tab_font'] ){
+			$classes[] = "tab_text__{$tab_font}";
 		}
 
-		if( !empty( $this->render_attrs['tablet_font'] ) ){
-			$classes[] = "tablet_text__{$this->render_attrs['tablet_font']}";
-		}
-
-		if( !empty( $this->render_attrs['desk_font'] ) ){
-			$classes[] = "desk_text__{$this->render_attrs['desk_font']}";
-		}
-
-		// aft post has bg color
-		if( $this->render_attrs['allow_bg_color'] && !empty( $this->post_data['sponsor'] ) ){
-			$classes[] = 'article_card__bg';
-		}
-
-		// img type classes
-		if( $this->is_opinion() ){
-			$classes[] = 'img__circle';
-		}
-
-		if( $this->render_attrs['img_type'] !== false ){
-			$classes[] = "mob_img__{$this->render_attrs['img_type']}";
-			$classes[] = "lap_img__{$this->render_attrs['lap_img_type']}";
-			if( !empty( $this->render_attrs['tablet_img_type'] ) ){
-				$classes[] = "tablet_img__{$this->render_attrs['tablet_img_type']}";
-			}
-			if( !empty( $this->render_attrs['desk_img_type'] ) ){
-				$classes[] = "desk_img__{$this->render_attrs['desk_img_type']}";
-			}
+		if( $lap_font = $this->render_attrs['lap_font'] ){
+			$classes[] = "lap_text__{$lap_font}";
 		}
 
 
 
-		$extra_class = $this->render_attrs['extra_class'] ?? '';
-		if( $extra_class ){
-			$classes = array_merge($classes, (array)$extra_class);
-		}
+		$classes = array_merge($classes, (array)$this->render_attrs['extra_class']);
 
 		return $classes;
 	}
