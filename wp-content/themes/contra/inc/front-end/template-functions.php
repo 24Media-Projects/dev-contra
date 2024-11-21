@@ -179,24 +179,11 @@ function btw_get_group_settings($group_type = 'hp', $name = 'general', $post = n
 
 		$arr['section_id'] = get_sub_field( 'section_id', $post ) ?: 'group-' . ($post->ID ?? $post); // $post maybe is post id
 
-		$arr['hide_caption'] = get_sub_field( 'hide_caption', $post );
-		$arr['hide_author'] = get_sub_field( 'hide_author', $post );
-
 		$arr['primary_term_taxonomy_selection'] = get_sub_field( 'primary_term_taxonomy_selection', $post );
-
-		$arr['section_header_template'] = get_sub_field( 'section_header_template', $post );
-		$arr['section_header_is_reversed'] = get_sub_field( 'section_header_is_reversed', $post );
-		$arr['section_header_align'] = get_sub_field( 'section_header_align', $post );
-		$arr['section_header_desktop_align'] = get_sub_field( 'section_header_desktop_align', $post );
-
-		$arr['posts_display_pattern'] = get_sub_field( 'posts_display_pattern', $post );
-
-		$arr['section_logo'] = get_sub_field( 'section_logo', $post );
-		$arr['section_desktop_logo'] = get_sub_field( 'section_desktop_logo', $post ) ?: $arr['section_logo'];
 
 		// source_selection could be 2 terms OR Feed
 		$flexible_contents = get_sub_field( 'source_selection', $post );
-		$posts_source = btw_get_terms_from_flexible_content(null, null, $flexible_contents);
+		$posts_source = btw_get_terms_from_flexible_content(null, null, $flexible_contents) ?: null;
 
 		$main_term = $posts_source && is_array($posts_source) ? $posts_source[0] : null;
 		$main_term_name = $main_term ? $main_term->name : '';
@@ -206,37 +193,15 @@ function btw_get_group_settings($group_type = 'hp', $name = 'general', $post = n
 
 
 
-//		$arr['terms'] = $posts_source;
-
 		$arr['section_title'] = get_sub_field( 'section_title', $post ) ?: $main_term_name;
 		$arr['section_title_url'] = get_sub_field( 'section_title_url', $post ) ?: $main_term_link;
-
-
-		$arr['section_main_color'] = get_sub_field( 'section_main_color', $post );
-
-		$bg_images = get_sub_field( 'section_header_bg_images', $post )[0] ?? [];
-		if( $bg_images && !$bg_images['desktop'] ){
-			$bg_images['desktop'] = $bg_images['mobile'];
-		}
-		$arr['section_header_bg_images'] = $bg_images;
 
 
 		$arr['bg_color'] = get_sub_field( 'bg_color', $post );
 
 		$arr['is_dark_mode'] = $arr['bg_color'] && get_sub_field( 'is_dark_mode', $post );
 
-		$arr['section_header_bg_color'] = get_sub_field( 'section_header_bg_color', $post );
-
-		if( $arr['section_header_bg_color'] ){
-			$section_header_is_dark_mode = get_sub_field('section_header_is_dark_mode', $post);
-		}
-
-		$arr['section_header_is_dark_mode'] = $section_header_is_dark_mode ?? $arr['is_dark_mode'];
-
 		$arr['impressions_url'] = get_sub_field( 'impressions_url', $post );
-
-
-		$arr['buttons'] = get_sub_field( 'buttons', $post );
 
 
 		$sponsor = get_sub_field( 'sponsor', $post )[0] ?? [];
@@ -245,13 +210,6 @@ function btw_get_group_settings($group_type = 'hp', $name = 'general', $post = n
 		}
 		$arr = array_merge($arr, $sponsor);
 		$arr['is_sponsored'] = (bool)$sponsor;
-
-
-		$disclaimer_images = get_sub_field( 'section_disclaimer_images', $post )[0] ?? [];
-		if( $disclaimer_images && !$disclaimer_images['desktop'] ){
-			$disclaimer_images['desktop'] = $disclaimer_images['mobile'];
-		}
-		$arr['section_disclaimer_images'] = $disclaimer_images;
 
 
 	endwhile;
@@ -620,12 +578,14 @@ function btw_get_term_wp_query(int $limit, $term = null){
 /**
  * @param int $post_count
  * @param BTW_Atf_Post[] $atf_posts
- * @param object|WP_Term|array|null $term
+ * @param string feed|WP_Term[]|null
  * @param bool $log_displayed_posts
  *
- * @return BTW_WP_Post[]
+ * @return BTW_Atf_Post|BTW_WP_Post [] An array of BTW_Atf_Post OR BTW_WP_Post items
  */
-function btw_get_group_posts( $post_count, $atf_posts = [], $term = null, $log_displayed_posts = true, $general_feed_as_fallback = true ){
+function btw_get_group_posts( $post_count, $atf_posts = [], $posts_source = null, $log_displayed_posts = true, $general_feed_as_fallback = true ){
+
+	$atf_posts = $atf_posts ?: [];
 
 	if( $post_count <= 0 ){
 		return [];
@@ -645,6 +605,7 @@ function btw_get_group_posts( $post_count, $atf_posts = [], $term = null, $log_d
 		$returned_posts[] = new BTW_Atf_Post( $atf_post, (bool) $log_displayed_posts );
 	}
 
+	// Developer is responsible to pass the right $atf_posts on function call
 	// check if we have enough atf posts
 	if( count( $returned_posts ) == $post_count ){
 		return $returned_posts;
@@ -659,23 +620,22 @@ function btw_get_group_posts( $post_count, $atf_posts = [], $term = null, $log_d
 		'no_found_rows'		=> true,
 	];
 
-	if( $term instanceof WP_Term ){
-		$post_args['tax_query'] = [
-			[
+	if( $posts_source && is_array($posts_source) ){
+
+		foreach( $posts_source as $term ){
+			$post_args['tax_query'][] = [
 				'field'		=> 'term_id',
 				'terms'		=> $term->term_id,
 				'taxonomy'	=> $term->taxonomy,
-			]
-		];
+			];
+		}
+
 	}
 
 	if( $log_displayed_posts ){
 		$post_args['post__not_in'] = $btw_log_posts->get_displayed_posts();
 	}
 
-	// if (is_array($term_or_query_args)) {
-	// 	$post_args = array_merge($post_args, $term_or_query_args);
-	// }
 
 	$posts = get_posts( $post_args );
 
