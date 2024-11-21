@@ -80,16 +80,14 @@
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=TODO" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <div class="global_wrapper">
-        <?php
-
-        btw_get_template_part('template-parts/ads/dfp', [
-            'slot_id' => is_front_page() ? 'hp_prestitial' : 'ros_prestitial',
-            'container_class' => ['prestitial'],
-        ]);
+    <?php
 
         if( empty($args['hide_header'] ) ){
             get_template_part('templates/global_elements/header');
         }
+    ?>
+
+    <div class="global_wrapper">
+
 
 

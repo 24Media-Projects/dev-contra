@@ -59,9 +59,3 @@ $logo = get_field('btw__brand_fields__logo', 'option');
         </div>
     </div>
 </header>
-
-<?php
-btw_get_template_part('template-parts/ads/dfp', [
-    'slot_id' => 'under_menu',
-]);
-?>
