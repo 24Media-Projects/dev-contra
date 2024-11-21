@@ -1,0 +1,64 @@
+// 1. Font Map
+$fonts: (
+  "Heading-Pro-Heavy": (
+    normal: "../fonts/Heading-Pro-Heavy.ttf",
+    eot: "../fonts/Heading-Pro-Heavy.eot",
+    woff: "../fonts/Heading-Pro-Heavy.woff",
+    woff2: "../fonts/Heading-Pro-Heavy.woff2",
+  ),
+  "Heading-Pro-Bold": (
+    normal: "../fonts/Heading-Pro-Bold.ttf",
+    eot: "../fonts/Heading-Pro-Bold.eot",
+    woff: "../fonts/Heading-Pro-Bold.woff",
+    woff2: "../fonts/Heading-Pro-Bold.woff2",
+  ),
+  "Heading-Pro-Regular": (
+    normal: "../fonts/Heading-Pro-Regular.ttf",
+    eot: "../fonts/Heading-Pro-Regular.eot",
+    woff: "../fonts/Heading-Pro-Regular.woff",
+    woff2: "../fonts/Heading-Pro-Regular.woff2",
+  ),
+  "Roboto-Regular": (
+    normal: "../fonts/Roboto-Regular.ttf",
+    eot: "../fonts/Roboto-Regular.eot",
+    woff: "../fonts/Roboto-Regular.woff",
+    woff2: "../fonts/Roboto-Regular.woff2",
+  ),
+  "Roboto-Light": (
+    normal: "../fonts/Roboto-Light.ttf",
+    eot: "../fonts/Roboto-Light.eot",
+    woff: "../fonts/Roboto-Light.woff",
+    woff2: "../fonts/Roboto-Light.woff2",
+  ),
+  "Roboto-Condensed-Bold": (
+    normal: "../fonts/Roboto-Condensed-Bold.ttf",
+    eot: "../fonts/Roboto-Condensed-Bold.eot",
+    woff: "../fonts/Roboto-Condensed-Bold.woff",
+    woff2: "../fonts/Roboto-Condensed-Bold.woff2",
+  ),
+  "Roboto-Condensed-Regular": (
+    normal: "../fonts/Roboto-Condensed-Regular.ttf",
+    eot: "../fonts/Roboto-Condensed-Regular.eot",
+    woff: "../fonts/Roboto-Condensed-Regular.woff",
+    woff2: "../fonts/Roboto-Condensed-Regular.woff2",
+  ),
+);
+
+// 2. Font-Face Mixin
+@mixin font-face($name, $files) {
+  @font-face {
+    font-family: $name;
+    src: url(map-get($files, eot));
+    src: url(map-get($files, eot) + "?#iefix") format("embedded-opentype"),
+      url(map-get($files, woff2)) format("woff2"),
+      url(map-get($files, woff)) format("woff"),
+      url(map-get($files, normal)) format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+// 3. Import Fonts Dynamically
+@each $font-name, $font-files in $fonts {
+  @include font-face($font-name, $font-files);
+}
