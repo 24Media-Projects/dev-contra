@@ -7,6 +7,7 @@ $tiktok = get_field('btw__brand_fields__tiktok', 'option');
 $linkedin = get_field('btw__brand_fields__linkedin', 'option');
 $rss = get_field('btw__brand_fields__rss', 'option');
 $telegram = get_field('btw__brand_fields__telegram', 'option');
+$newsletter = get_field('btw__brand_fields__newsletter_url', 'option')
 ?>
 
 
@@ -47,6 +48,16 @@ $telegram = get_field('btw__brand_fields__telegram', 'option');
                         <a class="instagram" title="Ακολουθήστε μας στο Instagram" href="<?php echo $instagram; ?>" target="_blank">
                             <svg>
                                 <use xlink:href="#icon-instagram"></use>
+                            </svg>
+                        </a>
+                    </li>
+                <?php } ?>
+                <?php if ($newsletter) { ?>
+                    <li class="menu-item newsletter__link">
+                        <a title="Εγγραφή στο Newsletter" <?php maybe_print_target_blank($newsletter); ?> href="<?php echo $newsletter; ?>">
+                            ΕΓΓΡΑΦΗ ΣΤΟ NEWSLETTER
+                            <svg>
+                                <use xlink:href="#icon-mail"></use>
                             </svg>
                         </a>
                     </li>

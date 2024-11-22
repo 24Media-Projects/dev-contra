@@ -20,6 +20,7 @@
     border-left: 1px solid $color-light-blue;
     padding: 0 $gutter;
     z-index: 1;
+    transition: unset;
     svg {
       width: 20px;
       height: 18px;
@@ -28,10 +29,13 @@
         display: none;
       }
     }
+    &:hover {
+      background-color: $color-blue;
+    }
   }
   @at-root body#{$openMenu-class-body} & {
     &__toggle_side_menu {
-      border-left: 0;
+      border: 0;
       background-color: $color-blue;
       svg {
         &:first-child {
