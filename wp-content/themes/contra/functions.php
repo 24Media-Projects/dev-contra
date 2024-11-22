@@ -122,16 +122,18 @@ add_action( 'admin_init', function(){
 
 function btw_image_sizes(){
 	return [
-		'large_landscape' => ['3:2', '1320', '880'],
+		'χlarge_landscape' => ['3:2', '1320', '880'],
+		'large_landscape' => ['3:2', '940', '625'],
 		'medium_landscape' => ['3:2', '640', '426'],
-		'small_landscape' => ['3:2', '105', '70'],
+		'small_landscape' => ['3:2', '430', '286'],
+		'χsmall_landscape' => ['3:2', '150', '100'],
 
 		'medium_horizontal' => ['2:1', '640', '320'],
 		'small_horizontal' => ['2:1', '300', '150'],
 
 		'large_square' => ['1:1', '640', '640'],
 		'medium_square' => ['1:1', '300', '300'],
-		'small_square' => ['1:1', '140', '140'],
+		'small_square' => ['1:1', '150', '150'],
 	];
 }
 
@@ -140,9 +142,11 @@ function btw_image_sizes(){
 function btw_image_sizes_by_ratio(){
 	return [
 		'3:2' => [
-			'large_landscape'	=> ['1320', '880'],
-			'medium_landscape'	=> ['640', '426'],
-			'small_landscape'	=> ['105', '70'],
+			'χlarge_landscape' => ['1320', '880'],
+			'large_landscape' => ['940', '625'],
+			'medium_landscape' => ['640', '426'],
+			'small_landscape' => ['430', '286'],
+			'χsmall_landscape' => ['150', '100'],
 		],
 		'2:1' => [
 			'medium_horizontal' => ['640', '320'],
@@ -151,7 +155,7 @@ function btw_image_sizes_by_ratio(){
 		'1:1' => [
 			'large_square'	=> ['640', '640'],
 			'medium_square'	=> ['300', '300'],
-			'small_square'	=> ['140', '140'],
+			'small_square'	=> ['150', '150'],
 		],
 	];
 }
