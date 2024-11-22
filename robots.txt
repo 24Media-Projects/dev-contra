@@ -1,2 +1,4 @@
 User-agent: *
 Disallow: /
+
+Sitemap: https://dev-wp.contra.gr/sitemap_index.xml
