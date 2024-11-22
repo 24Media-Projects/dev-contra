@@ -37,6 +37,7 @@
 		  '4cols'						=> 'Τετράστηλη Αρθρογραφία (4cols)',
 		  'tribute'						=> 'Αφιερωματικό Widget (tribute)',
 		  'best_of_network'             => 'best_of_network',
+		  'embed_code'					=> 'embed_code',
 	  ];
 
 
