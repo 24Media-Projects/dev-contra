@@ -22,7 +22,7 @@
     color: $color-white;
     fill: $color-white;
     height: calc(100vh - 60px);
-    top: 60px;
+    top: 59px;
     right: 0;
     width: 100vw;
     opacity: 0;
@@ -100,7 +100,7 @@
 @media screen and (min-width: $min-xs) {
   .global__header__main_menu {
     .wrapper {
-      top: 72px;
+      top: 71px;
       width: 300px;
       height: auto;
     }

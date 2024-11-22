@@ -1,0 +1,76 @@
+.global__footer {
+  position: relative;
+  z-index: 50;
+  &--top {
+    color: $color-white;
+    fill: $color-white;
+    padding-top: 36px;
+    background-color: $color-dark-blue;
+    .footer__primary_nav {
+      font-family: $heading-pro-regular;
+      @include font-14;
+      letter-spacing: em(2.94, 14);
+      margin-bottom: 36px;
+      .menu {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 26px;
+        padding: 0 10px;
+      }
+    }
+    .footer__social_nav {
+      border-top: 1px solid $color-blue;
+      .menu {
+        display: flex;
+        padding: 0 92px;
+      }
+      .follow_us__link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 33.33%;
+        padding: 20px 0;
+        border-left: 1px solid $color-blue;
+        border-bottom: 1px solid $color-blue;
+        &:hover {
+          background-color: $color-blue;
+        }
+        &:last-of-type {
+          border-right: 1px solid $color-blue;
+        }
+        svg {
+          width: 20px;
+          height: 23px;
+        }
+      }
+    }
+  }
+  &--bottom {
+    font-family: $roboto-condensed-regular;
+    @include font-11;
+    color: $color-grey;
+    padding: 33px 0;
+    background-color: $color-light-grey;
+    text-align: center;
+    .media24_ened_logos {
+      > div {
+        margin-bottom: 26px;
+      }
+      p {
+        letter-spacing: em(-0.11, 11);
+        margin-bottom: 6px;
+      }
+      .ened_logo {
+        fill: #a1a1a1;
+        width: 59px;
+        height: 14px;
+      }
+    }
+    .copyrights {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+}
