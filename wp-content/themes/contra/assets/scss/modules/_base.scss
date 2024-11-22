@@ -1,0 +1,106 @@
+.article_card {
+  border-bottom: 1px solid $color-medium-grey;
+  padding-bottom: 8px;
+  margin-bottom: 40px;
+  &__title {
+    font-family: $heading-pro-bold;
+    margin-bottom: 15px;
+  }
+  &__image {
+    margin-bottom: 10px;
+    picture {
+      position: relative;
+      display: block;
+      &:before {
+        content: "";
+        position: relative;
+        display: block;
+        width: 100%;
+        padding-top: 66.6666%;
+      }
+      img {
+        position: absolute;
+        inset: 0;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  &__caption {
+    font-family: $roboto-condensed-bold;
+    border: 1px solid $color-blue;
+    padding: 5px 7px;
+    width: fit-content;
+    color: $color-blue;
+    margin-bottom: 10px;
+  }
+  &__author {
+    font-family: $roboto-condensed-regular;
+    font-weight: normal;
+    @include font-10;
+    letter-spacing: em(1.2, 10);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: $color-grey;
+    svg {
+      width: 10px;
+      height: 12px;
+      fill: $color-author-blue;
+    }
+  }
+
+  &.mob_text__xxs {
+    .article_card__title {
+      @include font-18-22;
+    }
+  }
+  &.mob_text__xs {
+    .article_card__title {
+      @include font-22;
+    }
+  }
+}
+
+@media screen and (min-width: $min-xs) {
+  .article_card {
+    margin-bottom: 60px;
+    &.tab_text__xxs {
+      .article_card__title {
+        @include font-18;
+      }
+    }
+    &.tab_text__xs {
+      .article_card__title {
+        @include font-22;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $min-n) {
+  .article_card {
+    margin-bottom: 100px;
+    &.lap_text__xxs {
+      .article_card__title {
+        @include font-19;
+      }
+    }
+    &.lap_text__xs {
+      .article_card__title {
+        @include font-22;
+      }
+    }
+    &.lap_text__sm {
+      .article_card__title {
+        @include font-26;
+      }
+    }
+    &.lap_text__md {
+      .article_card__title {
+        @include font-30;
+      }
+    }
+  }
+}
