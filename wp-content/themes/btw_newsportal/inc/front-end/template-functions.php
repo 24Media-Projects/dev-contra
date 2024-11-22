@@ -104,8 +104,8 @@ function btw_get_author_avatar_id( $author_id, $force_default_avatar = false ){
 	$author_avatar = get_field('btw__global_fields__featured_image', 'user_' . $author_id);
 
 	$avatar_id = $force_default_avatar || !$author_avatar
-		? apply_filters( 'btw/default_author_avatar_id', $default_author_avatar['id'] )
-		: apply_filters( 'btw/author/avatar_id', $author_avatar['id'] );
+		? apply_filters( 'btw/default_author_avatar_id', $default_author_avatar['id'] ?? 0 )
+		: apply_filters( 'btw/author/avatar_id', $author_avatar['id'] ?? 0 );
 
 	return $avatar_id;
 
