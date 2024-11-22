@@ -421,7 +421,7 @@ class Contra_AMP{
 
       if ( !btw_is_amp_endpoint()
           || !in_the_loop() 
-          || !is_singular( ['post', 'video', 'skitsa', 'page'] )
+          || !is_singular( ['post', 'page'] )
           || !is_main_query()
           || in_array( 'get_the_excerpt', $wp_current_filter )
           || !str_contains( $post_content, '[pdf-embedder' )

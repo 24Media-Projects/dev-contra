@@ -103,13 +103,7 @@ add_filter( 'btw/sharing_tools/providers', function( $sharing_providers ){
 
 
 
-add_filter( 'btw/admin_editor/modules/read_also/settings', function( $settings ){
 
-    $settings['post_type'][] = "'video'";
-
-    return $settings;
-
-});
 
 
 // display options classes

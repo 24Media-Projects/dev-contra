@@ -12,14 +12,6 @@ add_filter( 'btw/editor_modules/embed_code/admin/providers', function( $provider
 });
 
 
-add_filter( 'btw/customer_review/supported_post_types', function( $post_types ){
-
-    return [
-        'post',
-        'video',
-        'skitsa',
-    ];
-});
 
 
 add_action('init', function(){
@@ -34,10 +26,6 @@ add_action('init', function(){
 
 });
 
-
-add_filter('btw/supported_single_post_types', function($post_types){
-	return ['post', 'video'];
-});
 
 
 

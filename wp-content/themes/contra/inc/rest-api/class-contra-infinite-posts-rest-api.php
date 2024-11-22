@@ -283,7 +283,7 @@ class Contra_Infinite_Posts_Rest_Controller extends WP_REST_Controller {
     $orderby = $_GET['orderby'] ?? 'date';
 
     $posts_query = new WP_Query([
-      'post_type'       => [ 'post', 'video' ],
+      'post_type'       => 'post',
       'post_status'     => 'publish',
       'orderby'         => $orderby,
       'order'           => 'desc',

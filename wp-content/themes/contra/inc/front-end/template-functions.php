@@ -153,15 +153,6 @@ function btw_is_post_opinion( $post ){
 }
 
 
-function btw_is_post_video( $post = null ){
-
-	if( !$post ){
-		global $post;
-	}
-
-	return $post->post_type == 'video';
-
-}
 
 function btw_get_group_settings($group_type = 'hp', $name = 'general', $post = null){
 
@@ -410,15 +401,6 @@ function btw_get_dfp_page_template(){
 		}
 		
 		return 'single_post';
-
-	}elseif( is_singular( 'video' ) ){
-		return 'single_video';
-
-	}elseif( is_singular( 'skitsa' ) ){
-		return 'single_skitsa';
-
-	} elseif( is_page_template('templates/protoselida.php') ){
-		return 'protoselida';
 
 	}elseif( is_front_page() ){
 		return 'home';

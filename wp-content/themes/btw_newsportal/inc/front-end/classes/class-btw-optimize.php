@@ -4,13 +4,13 @@ class BTW_Optimize{
 
   public function __construct(){
 
-    add_filter( 'the_content', [ $this, 'add_ladyload_on_inline_attachments' ], 100 );
+    add_filter( 'the_content', [ $this, 'add_lazyload_on_inline_attachments' ], 100 );
   }
 
 
-  public function add_ladyload_on_inline_attachments( $content ){
+  public function add_lazyload_on_inline_attachments( $content ){
 
-    if( ( is_singular( 'post' ) || is_singular( 'video' ) ) && in_the_loop() && is_main_query() && !btw_is_amp_endpoint() && !is_rest_api_request() ) {
+    if( is_singular( get_supported_single_post_types() ) && in_the_loop() && is_main_query() && !btw_is_amp_endpoint() && !is_rest_api_request() ) {
 
     	global $wpdb, $post;
 

@@ -190,8 +190,3 @@ register_nav_menus(array(
 
 
 add_filter('amp_to_amp_linking_enabled', '__return_false');
-
-
-add_filter('btw/supported_single_post_types', function($post_types){
-	return ['post', 'video'];
-});

@@ -185,14 +185,6 @@ class BTW_Atf_Post{
 
 
 
-		/**
-		 * aft post video
-		 */
-		$atf_post['is_video'] = $is_advertorial
-			? $this->item['atf__advertorial__is_video']
-			: $atf_post['wp_post'] && $atf_post['wp_post']->post_type == 'video';
-
-
         // aft post caption
 		if( $this->render_attrs['hide_caption'] ) {
 			$atf_post['caption'] = '';

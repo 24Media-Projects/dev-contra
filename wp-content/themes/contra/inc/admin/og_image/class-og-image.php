@@ -21,8 +21,6 @@ class Contra_Og_Image{
     private $supported_post_types = [
         'post',
         'page',
-        'video',
-        'skitsa'
     ];
 
     /**

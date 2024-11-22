@@ -44,9 +44,6 @@ $post_is_sponsored = btw_is_post_sponsored();
 
 $container_class = $container_class ?? [];
 
-if ( $post->post_type == 'video' || get_field('btw__article_fields__audio_player_code') ) {
-    $container_class[] = 'play_article';
-}
 ?>
 
 <article class="article align_left basic_article landscape_img <?php echo implode(' ', $container_class); ?> small_article_mobile">

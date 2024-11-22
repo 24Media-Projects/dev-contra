@@ -2,7 +2,7 @@
 get_header();
 
 $posts_query = new WP_Query([
-	'post_type'         => ['post', 'video'],
+	'post_type'         => 'post',
 	'post_status'       => 'publish',
 	'posts_per_page'    => 24,
 	'orderby' => 'date',

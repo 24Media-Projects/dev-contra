@@ -130,7 +130,6 @@ class BTW_WP_Post{
 			'caption'					=> $caption,
 			'post_date'                 => $this->render_attrs['show_date'] ? $this->wp_post->post_date : '',
 			'author_html'				=> btw_return_post_author_html($this->wp_post),
-			'is_video'					=> $this->wp_post->post_type == 'video',
 		];
 
 		return $post_data;
