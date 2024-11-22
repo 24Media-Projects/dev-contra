@@ -232,7 +232,7 @@ class BTW_Customer_Review{
     $customer = get_field( 'btw__developer_settings__customer__review', 'option' )['0'] ?? null;
 
     if( !$customer ){
-      $field['message'] = $this->notifications['error']['error_no_customer_review'];
+      $field['message'] = $this->notifications['error_no_customer_review'];
       return $field;
     }
 
