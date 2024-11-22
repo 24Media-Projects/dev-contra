@@ -35,20 +35,15 @@ $section_classes = [
 			'render_attrs'      => [
 				'article_type'  => 'tribute',
 				'lazyload'		=> false,
+                'extra_variables'   => [
+                    'footer_image'  => $footer_image,
+                    'footer_text'   => $footer_text,
+                ],
 			],
 			//'image_srcsets' => array()
 		]);
 		$btw_post->render();
         ?>
-
-        <?php if( $footer_image || $footer_text ): ?>
-            <?php if( $footer_image ): ?>
-                <img src="<?php echo $footer_image['url']; ?>" alt="<?php echo $footer_image['alt']; ?>" />
-		    <?php endif; ?>
-			<?php if( $footer_text ): ?>
-                <?php echo $footer_text; ?>
-			<?php endif; ?>
-		<?php endif; ?>
 
 
 		<?php if( !empty($is_sponsored) ): ?>
