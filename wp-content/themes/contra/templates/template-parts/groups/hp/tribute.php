@@ -3,7 +3,7 @@ $group_settings = btw_get_group_settings();
 extract($group_settings);
 
 
-$atf_posts = !$posts_source ? get_field( 'btw__group_fields__hp__template__tribute__post_selection' ) : null;
+$atf_posts = $posts_source ? null : get_field( 'btw__group_fields__hp__template__tribute__post_selection' );
 $btw_post = btw_get_group_posts(1, $atf_posts, $posts_source)[0];
 
 $footer_image = get_field('btw__group_fields__hp__template__tribute__footer_image');

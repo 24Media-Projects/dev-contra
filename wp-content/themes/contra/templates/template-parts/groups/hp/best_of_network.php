@@ -1,9 +1,7 @@
 <?php
-extract( btw_get_hp_group_fields() );
+extract( btw_get_group_settings() );
 
-global $post;
-
-$bon_hp_one_posts = get_post_meta( $post->ID, 'bon_hp_one_posts', true );
+$bon_hp_one_posts = get_post_meta( get_the_ID(), 'bon_hp_one_posts', true );
 
 if( !$bon_hp_one_posts ){
     return;
@@ -13,20 +11,19 @@ $timestamp = strtotime('now');
 
 ?>
 
-<div class="home_wrapper best_of_network__wrapper">
-    <section id="<?php echo $section_id; ?>" class="best_of_network">
-    
-        <?php if( $section_title ): ?>
+<section id="<?php echo $section_id; ?>" class="best_of_network">
+
+    <?php if( $section_title ): ?>
         <div class="group_header">
             <h2 class="section__title">
                 <?php echo $section_title; ?>
             </h2>
         </div>
-        <?php endif; ?>
+    <?php endif; ?>
 
-        <div class="article_container loading">
+    <div class="article_container loading">
 
-            <?php foreach( $bon_hp_one_posts as $index => $post ): ?>
+        <?php foreach( $bon_hp_one_posts as $index => $post ): ?>
 
             <article class="article landscape_img basic_article <?php echo  !in_array( $index, [ 0, 4, 8 ] ) ? 'small_article_mobile' : '';?>">
                 <figure>
@@ -60,7 +57,5 @@ $timestamp = strtotime('now');
             </article>
         <?php endforeach; ?>
 
-
-        </div>
-    </section>
-</div>
+    </div>
+</section>
