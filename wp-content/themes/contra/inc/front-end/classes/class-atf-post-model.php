@@ -58,6 +58,38 @@ class BTW_Atf_Post{
 
 	}
 
+
+	/**
+	 * Set render attributes
+	 */
+	protected function set_render_attributes( $args ){
+
+		$default_args = array(
+			'article_type'		=> 'default',
+			'lazyload'			=> true,
+
+
+			'hide_caption'		=> false,
+			'show_date'			=> false,
+
+			'columns'			=> 0,
+			'tab_columns'		=> 0,
+
+			'font'				=> '',
+			'tab_font'			=> '',
+			'lap_font'			=> '',
+
+
+			'extra_class'		=> [],
+			'extra_variables'	=> [],
+		);
+
+
+
+		$this->render_attrs = array_merge( $default_args, $args );
+	}
+
+
 	private function get_wp_post()
 	{
 		return !$this->item['atf__is_advertorial'] && isset($this->item['atf__post'][0]) ? $this->item['atf__post'][0] : false;
@@ -122,37 +154,6 @@ class BTW_Atf_Post{
         }
 
         return $image_srcsets;
-    }
-
-
-    /**
-     * Set render attributes
-     */
-    protected function set_render_attributes( $args ){
-
-        $default_args = array(
-            'article_type'		=> 'default',
-            'lazyload'			=> true,
-
-
-			'hide_caption'		=> false,
-
-
-			'columns'			=> 0,
-			'tab_columns'		=> 0,
-
-			'font'				=> '',
-			'tab_font'			=> '',
-			'lap_font'			=> '',
-
-
-			'extra_class'		=> [],
-			'extra_variables'	=> [],
-		);
-
-
-
-		$this->render_attrs = array_merge( $default_args, $args );
     }
 
 
@@ -287,6 +288,12 @@ class BTW_Atf_Post{
 		$atf_post['author_html'] = $is_advertorial
 			? $this->item['atf__advertorial__post_author']
 			: btw_return_post_author_html($wp_post);
+
+		/**
+		 * Not in use in HP.
+		 * We leave this for the sake of completeness.
+		 */
+		$atf_post['post_date'] = $this->render_attrs['show_date'] && $wp_post ? $wp_post->post_date : '';
 
         /**
          * Get container base classes

@@ -41,6 +41,10 @@ $truncate_data_lines = $truncate ? 'data-truncate-lines="' . $truncate . '"' : '
             <?php echo $author_html; ?>
         </div>
 
+		<?php if ($post_date): ?>
+            <span class="article_card__time"><?php echo btw_format_datetime($post_date); ?></span>
+		<?php endif; ?>
+
     </div>
 
 </article>

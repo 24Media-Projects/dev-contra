@@ -659,3 +659,35 @@ function btw_get_group_posts( $post_count, $atf_posts = [], $posts_source = null
 
 }
 
+function btw_format_datetime($date, $remove_punctuation = true, $date_format = '', $time_format = '') {
+
+	// Get the WordPress timezone
+	$wp_timezone = wp_timezone();
+
+	$given_datetime = new DateTime( $date, $wp_timezone );
+//	$current_datetime = new DateTime( 'now', $wp_timezone );
+//
+//	$diff = $current_datetime->diff( $given_datetime );
+//
+//	if( $diff->days === 0 ){
+//		$before_text = 'πριν';
+//		$return = human_time_diff( $current_datetime->format('U'), $given_datetime->format('U') ) . ' ' . $before_text;
+//		return $remove_punctuation ? remove_punctuation($return) : $return;
+//	}
+
+	$date_format = $date_format ?: get_option( 'date_format' );
+	$time_format = $time_format ?: get_option( 'time_format' );
+
+	$date = $given_datetime->format($date_format);
+	$date = $remove_punctuation ? remove_punctuation($date) : $date;
+
+	$time = $given_datetime->format($time_format);
+	$time = $remove_punctuation ? remove_punctuation($time) : $time;
+
+	$date_html =  '<span>' . $date . '</span>';
+	$time_html =  '<span>' . $time . '</span>';
+
+
+	return $date_html . ' ' . $time_html;
+
+}

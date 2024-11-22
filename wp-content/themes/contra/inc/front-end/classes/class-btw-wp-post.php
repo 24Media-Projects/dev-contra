@@ -85,6 +85,7 @@ class BTW_WP_Post{
 			'lazyload'			=> true,
 
 			'hide_caption'		=> false,
+			'show_date'			=> false,
 
 			'columns'			=> 0,
 			'tab_columns'		=> 0,
@@ -127,6 +128,7 @@ class BTW_WP_Post{
 			],
 			'esc_post_title'			=> esc_attr( wp_strip_all_tags( $this->wp_post->post_title ) ),
 			'caption'					=> $caption,
+			'post_date'                 => $this->render_attrs['show_date'] ? $this->wp_post->post_date : '',
 			'author_html'				=> btw_return_post_author_html($this->wp_post),
 			'is_video'					=> $this->wp_post->post_type == 'video',
 		];
