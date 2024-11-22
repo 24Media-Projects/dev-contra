@@ -135,6 +135,9 @@ class BTW_Atf_Post{
             'lazyload'			=> true,
 
 
+			'hide_caption'		=> false,
+
+
 			'columns'			=> 0,
 			'tab_columns'		=> 0,
 
@@ -154,49 +157,6 @@ class BTW_Atf_Post{
 
 
 
-
-	/**
-	 * @return array $atf_posts {
-	 * 		The array of posts.
-	 *
-	 * 		@type array $i {
-	 * 			The Indexed Array of $atf_post.
-	 *
-	 * 			@type bool $is_advertorial. Default is false.
-	 * 			@type WP_Post $wp_post. Default is empty array.
-	 *			@type string $impressions_url
-	 *			@type string $text_align. Default is left.
-	 *			@type bool $is_overlay
-	 *			@type string $bg_color. Default is transparent.
-	 *			@type bool $is_dark_mode
-	 *			@type bool $is_sponsored
-	 *			@type bool $is_podcast
-	 *			@type string $caption. The primary term anchor html or the advertorial caption string.
-	 * 			@type string $supertitle. The supertitle or the Sponsored keyword if is sponsored.
-	 * 			@type array $post_titles{
-	 *				@type string $desktop
-	 *				@type empty|string $mobile.
-	 * 			}
-	 *      	@type string $post_link
-	 *      	@type array $attachments{
-	 * 				@type object $desktop{
-	 *					@property int $id. Attachment ID.
-	 * 					@property string $url. Full URL.
-	 * 					@property string $alt. Alt text. Default is the post_title or advertorial_title
-	 *					@property int $class
-	 *					@property int $credits_html
-	 * 				}
-	 * 				@type empty|object $mobile{
-	 *					@property int $id. Attachment ID.
-	 * 					@property string $url. Full URL.
-	 * 					@property string $alt. Alt text. Default is the post_title or advertorial_title
-	 *					@property int $class
-	 *					@property int $credits_html
-	 * 				}
-	 * 			}
-	 * 		}
-	 * }
-	 */
     public function get_atf_post(){
 
         global $btw_log_posts;
@@ -233,7 +193,10 @@ class BTW_Atf_Post{
 
 
         // aft post caption
-		if($is_advertorial){
+		if( $this->render_attrs['hide_caption'] ) {
+			$atf_post['caption'] = '';
+
+		}elseif($is_advertorial){
 			$atf_post['caption'] = $this->item['atf__caption'];
 
 		}else{

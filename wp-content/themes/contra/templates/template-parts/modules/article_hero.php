@@ -28,11 +28,14 @@ $truncate_data_lines = $truncate ? 'data-truncate-lines="' . $truncate . '"' : '
 			</a>
 
 		</h3>
-		<div class="post__category">
-			<h4 class="caption s-font-bold">
-                <?php echo $caption; // <a> or plain text ?>
-            </h4>
-		</div>
+
+		<?php if($caption): ?>
+            <div class="post__category">
+                <h4 class="caption s-font-bold">
+					<?php echo $caption; // <a> or plain text ?>
+                </h4>
+            </div>
+		<?php endif; ?>
 
         <div class="author">
 			<?php echo $author_html; ?>

@@ -84,6 +84,8 @@ class BTW_WP_Post{
 			'article_type'		=> 'default',
 			'lazyload'			=> true,
 
+			'hide_caption'		=> false,
+
 			'columns'			=> 0,
 			'tab_columns'		=> 0,
 
@@ -104,7 +106,9 @@ class BTW_WP_Post{
 	protected function get_post_data()
 	{
 
-		$caption = btw_get_primary_term_anchor_html( btw_get_post_primary_term( $this->wp_post, $this->primary_term ) );
+		$caption = $this->render_attrs['hide_caption']
+			? ''
+			: btw_get_primary_term_anchor_html( btw_get_post_primary_term( $this->wp_post, $this->primary_term ) );
 
 
 		$post_attachment = btw_get_post_attachment( post: $this->wp_post, image_srcsets: $this->image_srcsets );
