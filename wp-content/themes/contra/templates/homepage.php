@@ -7,15 +7,11 @@ get_header();?>
 
 <?php while (have_posts()) : the_post(); ?>
 
-    <main class="main_home">
-        <h1 class="invisible">Αρχική Σελίδα contra.gr</h1>
+    <main class="main main_home">
+
+        <h1 class="invisible page__title">Αρχική Σελίδα contra.gr</h1>
 
         <?php
-
-            $available_billboards = [
-                'hp_billboard_a',
-                'hp_billboard_b'
-            ];
             /**
              * Get Hp groups
              */
@@ -30,20 +26,13 @@ get_header();?>
                     'group_template'	=> $group_template,
                 ));
 
-                if( in_array( $group->current_post, [ 4, 8 ] ) ){
-                    $billboard = array_shift( $available_billboards );
-
-                    btw_get_template_part('template-parts/ads/dfp', [
-                        'slot_id' => $billboard,
-                    ]);
-                }
-
 
             endwhile;
             wp_reset_query();
             ?>
 
     </main>
+    
 <?php endwhile; ?>
 
 <?php get_footer();
