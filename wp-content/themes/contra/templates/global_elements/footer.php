@@ -13,44 +13,46 @@ $owner_logo_link = $owner_logo['link'];
 
         <div class="global__footer--top">
 
-            <nav class="footer__primary_nav">
-                <?php wp_nav_menu([
-                    'theme_location' => 'footer_nav',
-                    'container' => false,
-                ]); ?>
-            </nav>
+            <div class="wrapper">
+                <nav class="footer__primary_nav">
+                    <?php wp_nav_menu([
+                        'theme_location' => 'footer_nav',
+                        'container' => false,
+                    ]); ?>
+                </nav>
 
-            <nav class="footer__social_nav">
-                <ul class="menu">
-                    <?php if ($facebook) { ?>
-                        <li class="menu-item follow_us__link">
-                            <a class="facebook" title="Ακολουθήστε μας στο Facebook" href="<?php echo $facebook; ?>" target="_blank">
-                                <svg>
-                                    <use xlink:href="#icon-facebook"></use>
-                                </svg>
-                            </a>
-                        </li>
-                    <?php } ?>
-                    <?php if ($twitter) { ?>
-                        <li class="menu-item follow_us__link">
-                            <a class="twitter" title="Ακολουθήστε μας στο Twitter" href="<?php echo $twitter; ?>" target="_blank">
-                                <svg>
-                                    <use xlink:href="#icon-twitter"></use>
-                                </svg>
-                            </a>
-                        </li>
-                    <?php } ?>
-                    <?php if ($instagram) { ?>
-                        <li class="menu-item follow_us__link">
-                            <a class="instagram" title="Ακολουθήστε μας στο Instagram" href="<?php echo $instagram; ?>" target="_blank">
-                                <svg>
-                                    <use xlink:href="#icon-instagram"></use>
-                                </svg>
-                            </a>
-                        </li>
-                    <?php } ?>
-                </ul>
-            </nav>
+                <nav class="footer__social_nav">
+                    <ul class="menu">
+                        <?php if ($facebook) { ?>
+                            <li class="menu-item follow_us__link">
+                                <a class="facebook" title="Ακολουθήστε μας στο Facebook" href="<?php echo $facebook; ?>" target="_blank">
+                                    <svg>
+                                        <use xlink:href="#icon-facebook"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                        <?php } ?>
+                        <?php if ($twitter) { ?>
+                            <li class="menu-item follow_us__link">
+                                <a class="twitter" title="Ακολουθήστε μας στο Twitter" href="<?php echo $twitter; ?>" target="_blank">
+                                    <svg>
+                                        <use xlink:href="#icon-twitter"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                        <?php } ?>
+                        <?php if ($instagram) { ?>
+                            <li class="menu-item follow_us__link">
+                                <a class="instagram" title="Ακολουθήστε μας στο Instagram" href="<?php echo $instagram; ?>" target="_blank">
+                                    <svg>
+                                        <use xlink:href="#icon-instagram"></use>
+                                    </svg>
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                </nav>
+            </div>
 
         </div>
 
