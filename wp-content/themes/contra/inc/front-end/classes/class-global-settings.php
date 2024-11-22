@@ -9,7 +9,7 @@
 
     const TRACKING_CODE_PROVIDERS = array();
 
-    const DEFAULT_AUTHOR_NAME = 'newsroom';
+    const DEFAULT_AUTHOR_NAME = 'contra.gr';
     const CLEAN_SITE_NAME = 'contra';
 
 	  const SITE_NAME = 'contra';
