@@ -171,6 +171,7 @@ add_action('init', function(){
 // This theme uses wp_nav_menu() in these locations
 register_nav_menus(array(
 	'primary_nav'   	 	 => 'Primary Navigation',
+	'footer_nav'			 => 'Footer Navigation',
 ));
 
 
