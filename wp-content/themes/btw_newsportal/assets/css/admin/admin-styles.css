@@ -3,13 +3,13 @@
 }
 
 .clear:before, .clear:after {
-    content: "\0020";
-    display: block;
-    overflow: hidden;
-    visibility: hidden;
-    width: 0;
-    height: 0;
-  }
+  content: "\0020";
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+}
 
 
 .acf-input img {
@@ -49,6 +49,19 @@
 
 .btw-editor-modal__inner form {
   padding-bottom: 30px;
+}
+
+.blockquote-modal__form .blockquote_fields-container .blockquote_field {
+  margin-bottom: 20px;
+}
+
+.blockquote-modal__form .blockquote_fields-container .blockquote_field input {
+  width: 100%;
+}
+
+.blockquote-modal__form .blockquote_fields-container .blockquote_field textarea {
+  width: 100%;
+  height: 100px;
 }
 
 .wp-core-ui .product__url-button.button {
@@ -217,15 +230,15 @@
 }
 
 .read_also_item__content .read_also_item__title {
-    font-family: "proxima-nova bold", sans-serif;
-    font-size: 1.0625em;
-    line-height: 1.2352941176em;
-    padding-top: 7px;
-    margin: 0;
+  font-family: "proxima-nova bold", sans-serif;
+  font-size: 1.0625em;
+  line-height: 1.2352941176em;
+  padding-top: 7px;
+  margin: 0;
 }
 
 .read_also_item__content .read_also_item__caption a {
-    padding: 8px 10px 5px;
+  padding: 8px 10px 5px;
 }
 
 
@@ -308,74 +321,74 @@
 .product_item {
   font-size: 100%;
   line-height: 1em; }
-  .product_item a, .product_item a:hover {
-    color: initial;
-    border: none; }
-  .product_item .product_item__shop_name {
-    font-family: "proxima-nova extrabold", sans-serif;
-    font-weight: normal;
-    font-size: 0.75em;
-    line-height: 1em;
-    letter-spacing: 0.25em;
-    color: #888888;
-    margin-bottom: 1px; }
-  .product_item .product_item__title {
-    font-family: "proxima-nova light", sans-serif;
-    font-weight: 300;
-    font-size: 2.375em;
-    line-height: 1.0526315789em;
-    padding: 0;
-    margin: 0; }
-  .product_item .product_item__desc {
-    font-family: "proxima-nova regular", sans-serif;
-    font-weight: normal;
-    font-size: 1.0625em;
-    line-height: 1.6470588235em;
-    margin: 12px 0 11px; }
-  .product_item .product_item__price {
-    font-family: "proxima-nova bold", sans-serif;
-    font-weight: normal;
-    font-size: 1.0625em;
-    line-height: 1.6470588235em;
-    letter-spacing: 0.1em; }
-  .product_item .sale_price,
-  .product_item .regular_price {
-    display: inline-block;
-    vertical-align: middle; }
-  .product_item .sale_price {
-    color: #888888;
-    margin-right: 18px;
-    position: relative; }
-    .product_item .sale_price:after {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: -2px;
-      right: -2px;
-      height: 2px;
-      background-color: #888888;
-      margin: auto;
-      z-index: 2; }
-  .product_item .product_item__buy_button {
-    display: inline-block;
-    background-color: #000000;
-    border: 1px solid #000000;
-    color: #ffffff;
-    font-family: "proxima-nova extrabold", sans-serif;
-    font-weight: normal;
-    font-size: 0.75em;
-    line-height: 0.95em;
-    letter-spacing: 0.25em;
-    margin-top: 22px;
-    padding: 18px 25px;
-    -webkit-transition: all 0.4s;
-    -moz-transition: all 0.4s;
-    transition: all 0.4s; }
-    .product_item .product_item__buy_button:hover {
-      background-color: #ffffff;
-      color: #000000;
-      border: 1px solid #000000; }
+.product_item a, .product_item a:hover {
+  color: initial;
+  border: none; }
+.product_item .product_item__shop_name {
+  font-family: "proxima-nova extrabold", sans-serif;
+  font-weight: normal;
+  font-size: 0.75em;
+  line-height: 1em;
+  letter-spacing: 0.25em;
+  color: #888888;
+  margin-bottom: 1px; }
+.product_item .product_item__title {
+  font-family: "proxima-nova light", sans-serif;
+  font-weight: 300;
+  font-size: 2.375em;
+  line-height: 1.0526315789em;
+  padding: 0;
+  margin: 0; }
+.product_item .product_item__desc {
+  font-family: "proxima-nova regular", sans-serif;
+  font-weight: normal;
+  font-size: 1.0625em;
+  line-height: 1.6470588235em;
+  margin: 12px 0 11px; }
+.product_item .product_item__price {
+  font-family: "proxima-nova bold", sans-serif;
+  font-weight: normal;
+  font-size: 1.0625em;
+  line-height: 1.6470588235em;
+  letter-spacing: 0.1em; }
+.product_item .sale_price,
+.product_item .regular_price {
+  display: inline-block;
+  vertical-align: middle; }
+.product_item .sale_price {
+  color: #888888;
+  margin-right: 18px;
+  position: relative; }
+.product_item .sale_price:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -2px;
+  right: -2px;
+  height: 2px;
+  background-color: #888888;
+  margin: auto;
+  z-index: 2; }
+.product_item .product_item__buy_button {
+  display: inline-block;
+  background-color: #000000;
+  border: 1px solid #000000;
+  color: #ffffff;
+  font-family: "proxima-nova extrabold", sans-serif;
+  font-weight: normal;
+  font-size: 0.75em;
+  line-height: 0.95em;
+  letter-spacing: 0.25em;
+  margin-top: 22px;
+  padding: 18px 25px;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s; }
+.product_item .product_item__buy_button:hover {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000; }
 
 
 
@@ -461,7 +474,7 @@
 
 
 
-.post-type-photo-gallery .wp-editor-tools .button.insert-media, 
+.post-type-photo-gallery .wp-editor-tools .button.insert-media,
 .post-type-photo-gallery .wp-editor-tools .button.nf-insert-form,
 .post-type-photo-gallery .wp-editor-tools .button.product-insert-button,
 .post-type-photo-gallery .wp-editor-tools .button.embed-code-insert-button {
@@ -503,6 +516,12 @@
   box-sizing: border-box;
 }
 
+.acf-field.acf_relationship_large_height .acf-relationship .selection > .choices > ul.choices-list,
+.acf-field.acf_relationship_large_height .acf-relationship .selection > .values{
+  height: 400px;
+  box-sizing: border-box;
+}
+
 
 .acf-field.one_line_message .acf-switch + span.message{
   display: block;
@@ -515,9 +534,45 @@ body:not(.role-administrator) .show_only_to_admins{
   display: none !important;
 }
 
+
+body:not(.role-administrator) .show_subfields_only_to_admins > .acf-input{
+  display: none !important;
+}
+
+body:not(.role-administrator) .allow_edit_only_to_admins > .acf-input{
+  display: none !important;
+}
+
+body:not(.role-administrator):not(.role-manager) .allow_edit_only_to_managers > .acf-input{
+  pointer-events: none !important;
+}
+
 #wp-content-media-buttons .nf-insert-form{
   display: none;
 }
+
+/* Accordion Arrow at the left */
+.acf-accordion .acf-accordion-title .acf-accordion-icon.dashicons{
+  float: left;
+}
+
+.acf-field[data-name="btw__global_fields__post_tag"] .acf-actions.-hover{
+  margin-top: -30px;
+  display: block !important;
+}
+
+#tagsdiv-post_tag{
+  display: none;
+}
+
+.filter.-taxonomy select[data-filter="taxonomy"] + .select2-container{
+  width: 100% !important;
+}
+
+.filter.-taxonomy select[data-filter="taxonomy"] + .select2-container .select2-selection{
+  height: 29px;
+}
+
 
 .acf-relationship .list .acf-rel-item:hover .acf_relationship__post_edit_link{
   text-decoration-color: #fff;
@@ -528,6 +583,8 @@ body:not(.role-administrator) .show_only_to_admins{
   display: none;
 }
 
+
+
 tr.acf-row.-collapsed > td > .acf-field[data-name="atf__is_advertorial"] > .acf-input::before{
   content: attr(post_title);
   position: relative;
@@ -537,4 +594,60 @@ tr.acf-row.-collapsed > td > .acf-field[data-name="atf__is_advertorial"] > .acf-
 
 tr.acf-row.-collapsed > td > .acf-field[data-name="atf__is_advertorial"]{
   pointer-events: none;
+}
+
+/* enlarge acf class field in presentation tab */
+.acf-field-setting-wrapper{
+  padding-right: 15px !important;
+}
+
+.acf-field-setting-wrapper .acf-input{
+  max-width: unset !important;
+}
+
+.acf-field-setting-wrapper .acf-hl[data-cols="3"] > li:nth-child(1),
+.acf-field-setting-wrapper .acf-hl[data-cols="3"] > li:nth-child(3){
+  width: 20% !important;
+}
+
+.acf-field-setting-wrapper .acf-hl[data-cols="3"] > li:nth-child(2){
+  width: 60% !important;
+}
+
+.acf-field.acf-field-message::before{
+  display: none !important;
+}
+.acf-field.acf-field-message{
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+
+.postbox .handle-order-higher, .postbox .handle-order-lower, .postbox .handlediv{
+  height: 36px !important;
+  border-radius: 0 !important;
+}
+
+body:not(.role-administrator) .update-nag.notice.notice-warning{
+  display: none;
+}
+
+.acf-tab-wrap.-top{
+  overflow-y: hidden;
+}
+
+#edittag {
+  max-width: 100%;
+}
+
+#edittag .form-table {
+  max-width: 800px;
+}
+
+#edittag .form-table.dnd-table {
+  max-width: 100%;
+}
+
+#edittag .form-table.dnd-table .dnd-container-cta {
+  margin-top: 0;
+  justify-content: start;
 }
