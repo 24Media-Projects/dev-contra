@@ -123,7 +123,7 @@ class BTW_WP_Post{
 			],
 			'esc_post_title'			=> esc_attr( wp_strip_all_tags( $this->wp_post->post_title ) ),
 			'caption'					=> $caption,
-			'author_html'				=> $this->render_attrs['show_author'] ? btw_return_post_author_html($this->wp_post) : '',
+			'author_html'				=> btw_return_post_author_html($this->wp_post),
 			'is_video'					=> $this->wp_post->post_type == 'video',
 		];
 

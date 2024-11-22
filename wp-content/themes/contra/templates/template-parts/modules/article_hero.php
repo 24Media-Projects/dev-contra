@@ -33,6 +33,11 @@ $truncate_data_lines = $truncate ? 'data-truncate-lines="' . $truncate . '"' : '
                 <?php echo $caption; // <a> or plain text ?>
             </h4>
 		</div>
+
+        <div class="author">
+			<?php echo $author_html; ?>
+        </div>
+
 	</div>
 
 </article>

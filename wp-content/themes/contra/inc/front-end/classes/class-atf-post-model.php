@@ -321,10 +321,14 @@ class BTW_Atf_Post{
         //$atf_post['attachment_background'] = $this->get_attachment_background_urls( $attachment_data );
 
 
+		$atf_post['author_html'] = $is_advertorial
+			? $this->item['atf__advertorial__post_author']
+			: btw_return_post_author_html($wp_post);
+
         /**
          * Get container base classes
          */
-        $atf_post['container_classes'] = $this->get_container_classes( $atf_post );
+        $atf_post['container_classes'] = $this->get_container_classes();
 
 
         return $atf_post;
