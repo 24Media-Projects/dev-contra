@@ -51,12 +51,12 @@
 
     <!-- Truncate -->
     <script>
-        <?php btw_get_template_js('front-end/truncate.min'); ?>
+        <?php btw_get_template_js('front-end/truncate' . wp_get_environment_type() == 'production' ? '.min' : ''); ?>
 
-        var truncate = new Truncate('.truncate', {
+        /*var truncate = new Truncate('.truncate', {
             maxLines: 4,
             logs: false,
-        });
+        });*/
     </script>
 
     <?php if( !is_front_page() ): ?>
